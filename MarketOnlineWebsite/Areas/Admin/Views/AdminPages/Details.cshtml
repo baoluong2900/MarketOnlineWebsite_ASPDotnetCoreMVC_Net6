@@ -1,0 +1,62 @@
+﻿@model MarketOnlineWebsite.Models.Page
+
+@{
+    ViewData["Title"] = "Details";
+    Layout = "~/Areas/Admin/Views/Shared/_AdminLayout.cshtml";
+}
+<div class="page-header">
+    <div class="header-sub-title">
+        <nav class="breadcrumb breadcrumb-dash">
+            <a asp-area="Admin" asp-controller="Home" asp-action="Index" class="breadcrumb-item"><i class="anticon anticon-home m-r-5"></i>Home</a>
+            <a class="breadcrumb-item"asp-area="Admin" asp-controller="AdminPages" asp-action="Index">Danh sách page</a>
+            <span class="breadcrumb-item active">Thông tin page</span>
+        </nav>
+    </div>
+</div>
+<div class="card">
+    <div class="card-body">
+        <h4 class="card-title">Thông tin chi tiết page</h4>
+        <div class="table-responsive">
+            <table class="product-info-table m-t-20">
+                <tbody>
+                    <tr>
+                        <td>ID:</td>
+                        <td class="text-dark font-weight-semibold">@Model.PageId</td>
+                    </tr>
+                    <tr>
+                        <td>Tên page:</td>
+                        <td>@Model.PageName</td>
+                    </tr>
+                    <tr>
+                        <td>Công khai:</td>
+                        <td>@Model.Published</td>
+                    </tr>
+                    <tr>
+                        <td>Tiêu đề:</td>
+                        <td>@Model.Title</td>
+                    </tr>
+                    <tr>
+                        <td>Bí danh:</td>
+                        <td>@Model.Alias</td>
+                    </tr>
+                    <tr>
+                        <td>Ngày tạo</td>
+                        <td>@Model.CreatedDate</td>
+                    </tr>
+                    <tr>
+                        <td>Vị trí:</td>
+                        <td>@Model.Ordering</td>
+                    </tr>
+                    <tr>
+                        <td>Ảnh dại diện:</td>
+                        <td>  <img height="200" width="200" src="~/images/pages/@Model.Thumb" alt="@Model.Title"/> </td>
+                    </tr>
+                    <tr>
+                        <td>Nội dung:</td>
+                        <td>@Model.Contents</td>
+                    </tr>
+                </tbody>
+            </table> 
+        </div>
+    </div>
+</div>

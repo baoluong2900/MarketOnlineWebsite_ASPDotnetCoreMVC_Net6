@@ -1,0 +1,84 @@
+﻿@using PagedList.Core.Mvc
+@model PagedList.Core.IPagedList<MarketOnlineWebsite.Models.Role>
+@{
+    int currentPage = ViewBag.CurrentPage;
+    ViewData["Title"] = "Quản lý quyền truy cập";
+    Layout = "~/Areas/Admin/Views/Shared/_AdminLayout.cshtml";
+}
+<<div class="page-header">
+    <div class="header-sub-title">
+        <nav class="breadcrumb breadcrumb-dash">
+            <a asp-area="Admin" asp-controller="Home" asp-action="Index" class="breadcrumb-item"><i class="anticon anticon-home m-r-5"></i>Home</a>
+            <span class="breadcrumb-item active">Danh sách quyền truy cập : Trang @currentPage</span>
+        </nav>
+    </div>ws
+</div>
+<div class="card">
+    <div class="card-body">
+        <div class="row m-b-30">
+            <div class="col-lg-8">
+                <div class="d-md-flex">
+                    <div class="m-b-10 m-r-15">
+                        <select class="custom-select" style="min-width: 250px;" id="idRoles" name="idRoles" asp-items="ViewBag.QuyenTruyCap">
+                            <option value="" disabled selected> 
+                                Chọn quyền truy cập
+                            </option>
+                        </select>
+                    </div>
+                    <div class="m-b-10">
+                        <select class="custom-select" style="min-width: 180px;" id="idStatus" name="idStatus" asp-items="ViewBag.Active">
+                            <option value="" disabled selected> 
+                               Trạng thái
+                            </option>
+                        </select>
+                    </div>
+                </div>
+            </div>
+            <div class="col-lg-4 text-right">
+                    <a class="anticon anticon-plus-circle btn btn-primary btn-tone m-r-5" asp-action="Create">
+                        <span class="m-l-25"> Thêm quyền truy cập</span>
+                    </a>
+            </div>
+ </div>
+<div class="table-responsive">
+    <table class="table">
+        <thead>
+            <tr>
+                <th scope="col">#</th>
+                <th scope="col">ID</th>
+                <th scope="col">Name</th>
+                <th scope="col">Mô tả</th>
+                <th scope="col">Chức năng</th>
+            </tr>
+        </thead>
+        <tbody>
+           @*Nếu model có danh sách thì hiển thị ra*@
+            @if(Model !=null)
+            {
+                var rowNumber = 1; 
+                foreach(var rolesItem in Model)
+                {    
+                    <tr>
+                        <th scope="row">@rowNumber</th>
+                        <td>@rolesItem.RoleId</td>
+                        <td>@rolesItem.RoleName</td>
+                        <td>@rolesItem.Description</td>
+                        <td>
+                            <a class="anticon anticon-bars btn btn-success btn-tone m-r-5" asp-action="Details" asp-route-id="@rolesItem.RoleId"></a> 
+                            <a class="anticon anticon-edit btn btn-warning btn-tone m-r-5"  asp-action="Edit" asp-route-id="@rolesItem.RoleId"></a>
+                            <a class="anticon anticon-delete btn btn-danger btn-tone m-r-5" asp-action="Delete" asp-route-id="@rolesItem.RoleId"></a> 
+                         </td>
+                    </tr>
+                   rowNumber ++; 
+                }
+              
+            }
+         
+        </tbody>
+    </table>
+    <div aria-label="Page navigation Example">
+            <ul class="pagination">
+                <pager class="pager-container" list="@Model" asp-area="Admin" asp-controller="AdminRoles" asp-action="Index"></pager>
+            </ul>
+    </div>
+</div>

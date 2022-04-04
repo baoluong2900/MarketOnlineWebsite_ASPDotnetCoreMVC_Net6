@@ -1,0 +1,92 @@
+﻿@model MarketOnlineWebsite.Models.Category
+
+@{
+    ViewData["Title"] = "Create";
+    Layout = "~/Areas/Admin/Views/Shared/_AdminLayout.cshtml";
+}
+
+<div class="page-header">
+    <div class="header-sub-title">
+        <nav class="breadcrumb breadcrumb-dash">
+            <a asp-area="Admin" asp-controller="AdminCategories" asp-action="Index" class="breadcrumb-item"><i class="anticon anticon-home m-r-5"></i>Home</a>
+             <a asp-area="Admin" asp-controller="AdminCategories" asp-action="Index" class="breadcrumb-item"><i class="anticon anticon-home m-r-5"></i>Danh sách danh mục</a>
+            <span class="breadcrumb-item active">Thêm mới danh mục</span>
+        </nav>
+    </div>
+</div>
+ <form asp-controller="AdminCategories" asp-action="Create"  method="post" enctype="multipart/form-data">
+    <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+    <div class="page-header no-gutters has-tab">
+        <div class="d-md-flex m-b-15 align-items-center justify-content-between">
+            <div class="media align-items-center m-b-15">
+       
+            </div>
+            <div class="m-b-15">
+                <button class="btn btn-primary">
+                    <i class="anticon anticon-save"></i>
+                    <span>Thêm mới pages</span>
+                </button>
+            </div>
+        </div>
+        <ul class="nav nav-tabs" >
+            <li class="nav-item">
+                <a class="nav-link active" data-toggle="tab" href="#product-edit-basic">Thông tin cơ bản</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" data-toggle="tab" href="#product-edit-option">Thông tin tùy chọn</a>
+            </li>
+        </ul>
+    </div>
+    <div class="tab-content m-t-15">
+        <div class="tab-pane fade show active" id="product-edit-basic" >
+            <div class="card">
+                <div class="card-body">
+                        <div class="form-group">
+                            <label class="font-weight-semibold" for="PageName">Tên danh mục</label>
+                            <input type="text" class="form-control" asp-for="CatName">
+                        </div>
+                         <div class="form-group">
+                          <label class="font-weight-semibold" for="Description">Mô tả</label>
+                          <input type="text" asp-for="Description" class="form-control" />
+                        </div>
+
+                        <div class="form-group">
+                            <label class="font-weight-semibold" for="thumb">Ảnh đại diện</label>
+                            <input name="fThumb" type="file" class="form-control-file" asp-for="Thumb">
+                            <span asp-validation-for="Thumb" class="text-danger"></span>
+                       </div>
+                    </div>
+                    
+                </div>
+            </div>
+        <div class="tab-pane fade" id="product-edit-option">
+            <div class="card">
+                <div class="card-body">
+                    <div class="form-group">
+                        <label class="font-weight-semibold" for="title">Tiêu đề</label>
+                         <input type="text" asp-for="Title" class="form-control" />
+                    </div>
+                    <div class="form-group">
+                          <label class="font-weight-semibold" for="tags">Bí danh</label>
+                          <input type="text" asp-for="Alias" class="form-control" />
+                    </div>
+                    <div class="form-group">
+                          <label class="font-weight-semibold" for="SchemaMarkup">SchemaMarkup</label>
+                          <input type="text" asp-for="SchemaMarkup" class="form-control" />
+                    </div>
+                    <div class="form-group">
+                            <label class="font-weight-semibold" for="Ordering">Vị trí sắp xếp</label>
+                            <input type="text" class="form-control" asp-for="Ordering">
+                    </div>  
+                    <div class="form-group">
+                            <div class="switch m-r-10">
+                                    <input type="checkbox" asp-for="Published">
+                                    <label for="Published"></label>
+                             </div>
+                             <label>Public</label>
+                    </div>
+                 </div>
+                </div>
+        </div>
+       </div>
+</form>

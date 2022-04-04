@@ -1,0 +1,112 @@
+﻿@model MarketOnlineWebsite.Models.Product
+
+@{
+    ViewData["Title"] = "Delete";
+    Layout = "~/Areas/Admin/Views/Shared/_AdminLayout.cshtml";
+}
+<div class="page-header">
+    <div class="header-sub-title">
+        <nav class="breadcrumb breadcrumb-dash">
+            <a asp-area="Admin" asp-controller="Home" asp-action="Index" class="breadcrumb-item"><i class="anticon anticon-home m-r-5"></i>Home</a>
+            <a class="breadcrumb-item"asp-area="Admin" asp-controller="AdminProducts" asp-action="Index">Danh sách sản phẩm</a>
+            <span class="breadcrumb-item active">Thông tin sản phẩm</span>
+        </nav>
+    </div>
+</div>
+<div class="card">
+    <div class="card-body">
+        <h4 class="card-title">Thông tin quyền truy cập</h4>
+        <div class="table-responsive">
+            <table class="product-info-table m-t-20">
+                <tbody>
+                    <tr>
+                        <td>ID:</td>
+                        <td class="text-dark font-weight-semibold">@Model.ProductId</td>
+                    </tr>
+                    <tr>
+                        <td>Tên quyền truy cập:</td>
+                        <td>@Model.Description</td>
+                    </tr>
+                    <tr>
+                        <td>Mô tả:</td>
+                        <td>@Model.Description</td>
+                    </tr>
+                    <tr>
+                        <td>Mô tả ngắn:</td>
+                        <td>@Model.ShortDesc</td>
+                    </tr>
+                    <tr>
+                        <td>Giá bán:</td>
+                        <td>@Model.Price</td>
+                    </tr>
+                    <tr>
+                        <td>Mã giảm:</td>
+                        <td>@Model.Price</td>
+                    </tr>
+
+                    <tr>
+                        <td>Danh mục:</td>
+                        <td>@Model.Cat.CatName</td>
+                    </tr>
+                    <tr>
+                        <td>Mã giảm:</td>
+                        <td>@Model.Price</td>
+                    </tr>
+                    <tr>
+                        <td>Ngày tạo:</td>
+                        <td>@Model.DateCreated</td>
+                    </tr>
+                    <tr>
+                        <td>Ngày chỉnh sửa:</td>
+                        <td>@Model.DateModified</td>
+                    </tr>
+                    <tr>
+                        <td>Tiêu đề:</td>
+                        <td>@Model.Title</td>
+                    </tr>
+                    <tr>
+                        <td>Bí danh:</td>
+                        <td>@Model.Alias</td>
+                    </tr>
+                    <tr>
+                        <td>Tags:</td>
+                        <td>@Model.Tags</td>
+                    </tr>
+                    <tr>
+                        <td>Ảnh dại diện:</td>
+                        <td> <img height="200" width="200" src="~/images/products/@Model.Thumb" alt="@Model.Title"/> </td>
+                    </tr>
+                    <tr>
+                        <td>Trạng thái:</td>
+                        <td>@Model.Active</td>
+                    </tr>
+                    <tr>
+                        <td>HomeFlag:</td>
+                        <td>@Model.HomeFlag</td>
+                    </tr>
+                    <tr>
+                        <td>BestSellers:</td>
+                        <td>@Model.BestSellers</td>
+                    </tr>
+                    <tr>
+                         <td>Hàng tồn kho:</td>
+                        <td>@Model.UnitsInStock</td>
+                    </tr>
+                    <tr>
+                        <td>Trạng thái công khai:</td>
+                        <td>@Model.PushilberId</td>
+                    </tr>
+                    <tr>
+                         <td>Xác nhận xóa:</td>
+                        <td>
+                            <form asp-controller="AdminProducts" asp-action="Delete" asp-route-id="@Model.ProductId">
+                                <input type="hidden" asp-for="ProductId" />
+                                <input type="submit" value="Delete" class="btn btn-danger" />
+                            </form>
+                        </td>
+                    </tr>
+                </tbody>
+            </table> 
+        </div>
+    </div>
+</div>

@@ -1,0 +1,45 @@
+﻿@model List<Product>
+@if (Model !=null)
+{
+    var rowNumber = 1; 
+    foreach (var productsItem in Model)
+    {
+        <tr>
+            <th scope="row">@rowNumber</th>
+            <td>
+                @productsItem.ProductId
+            </td>
+            <td>
+                <div class="d-flex align-items-center">
+                    <img class="img-fluid rounded" src="assets/images/others/thumb-15.jpg" style="max-width: 60px" alt="">
+                    <h6 class="m-b-0 m-l-10">@productsItem.ProductName</h6>
+                </div>
+            </td>
+            <td> @productsItem.Cat.CatName</td>
+            <td> @productsItem.Price.Value.ToString("#,##0") VNĐ</td>
+            <td> @productsItem.UnitsInStock</td>
+            <td>
+                @if (productsItem.UnitsInStock.Value > 0)
+                {
+                    <div class="d-flex align-items-center">
+                    <div class="badge badge-success badge-dot m-r-10"></div>
+                    <div>In stock</div>
+                    </div>
+                }
+                else
+                {
+                    <div class="d-flex align-items-center">
+                    <div class="badge badge-danger badge-dot m-r-10"></div>
+                    <div>Out stock</div>
+                    </div>
+                }
+            </td>
+            <td>
+                    <a class="anticon anticon-bars btn btn-success btn-tone m-r-5" asp-action="Details" asp-route-id="@productsItem.ProductId"></a> 
+                    <a class="anticon anticon-edit btn btn-warning btn-tone m-r-5"  asp-action="Edit" asp-route-id="@productsItem.ProductId"></a>
+                    <a class="anticon anticon-delete btn btn-danger btn-tone m-r-5" asp-action="Delete" asp-route-id="@productsItem.ProductId"></a> 
+            </td>
+        </tr>
+            rowNumber ++; 
+    }
+}

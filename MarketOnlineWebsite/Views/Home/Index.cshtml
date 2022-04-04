@@ -1,0 +1,404 @@
+﻿@model MarketOnlineWebsite.ModelViews.HomeViewVM
+
+@{
+    ViewData["Title"] = "Trang chủ";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+    List<Product> allProduct = ViewBag.AllProducts;
+}
+<!-- Begin Slider Area -->
+<div class="slider-area">
+    <!-- Main Slider -->
+    <div class="swiper-container main-slider swiper-arrow with-bg_white">
+        <div class="swiper-wrapper">
+            <div class="swiper-slide animation-style-01">
+                <div class="slide-inner bg-height" data-bg-image="Userassets/images/slider/bg/1-1.jpg">
+                    <div class="parallax-img-wrap">
+                        <div class="chilly">
+                            <div class="scene fill">
+                                <div class="expand-width" data-depth="0.2">
+                                    <img src="~/Userassets/images/slider/inner-img/1-1-1.png" alt="Inner Image">
+                                </div>
+                            </div>
+                        </div>
+                        <div class="avocado">
+                            <div class="scene fill">
+                                <div class="expand-width" data-depth="0.5">
+                                    <img src="~/Userassets/images/slider/inner-img/1-1-2.png" alt="Inner Image">
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="container">
+                        <div class="parallax-with-content">
+                            <div class="slide-content">
+                                <span class="sub-title mb-3">Natural & Organic</span>
+                                <h2 class="title mb-9">-40% Offer All <br> Products.</h2>
+                                <div class="button-wrap">
+                                    <a class="btn btn-custom-size lg-size btn-primary btn-white-hover rounded-0" href="shop.html">Shop Now</a>
+                                </div>
+                            </div>
+                            <div class="parallax-img-wrap">
+                                <div class="tomatoes">
+                                    <div class="scene fill">
+                                        <div class="expand-width" data-depth="0.5">
+                                            <img src="~/Userassets/images/slider/inner-img/1-1-3.png" alt="Inner Image">
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="swiper-slide animation-style-01">
+                <div class="slide-inner bg-height" data-bg-image="Userassets/images/slider/bg/1-1.jpg">
+                    <div class="parallax-img-wrap">
+                        <div class="chilly">
+                            <div class="scene fill">
+                                <div class="expand-width" data-depth="0.2">
+                                    <img src="~/Userassets/images/slider/inner-img/1-1-1.png" alt="Inner Image">
+                                </div>
+                            </div>
+                        </div>
+                        <div class="avocado">
+                            <div class="scene fill">
+                                <div class="expand-width" data-depth="0.5">
+                                    <img src="~/Userassets/images/slider/inner-img/1-1-2.png" alt="Inner Image">
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="container">
+                        <div class="parallax-with-content">
+                            <div class="slide-content">
+                                <span class="sub-title mb-3">Natural & Organic</span>
+                                <h2 class="title mb-9">-40% Offer All <br> Products.</h2>
+                                <div class="button-wrap">
+                                    <a class="btn btn-custom-size lg-size btn-primary btn-white-hover rounded-0" href="">Shop Now</a>
+                                </div>
+                            </div>
+                            <div class="parallax-img-wrap">
+                                <div class="tomatoes">
+                                    <div class="scene fill">
+                                        <div class="expand-width" data-depth="0.5">
+                                            <img src="~/Userassets/images/slider/inner-img/1-1-4.png" alt="Inner Image">
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- Add Pagination -->
+        <div class="swiper-pagination with-bg d-md-none"></div>
+
+        <!-- Add Arrows -->
+        <div class="swiper-button-next"></div>
+        <div class="swiper-button-prev"></div>
+    </div>
+</div>
+<!-- Begin Shipping Area -->
+<div class="shipping-area section-space-top-100">
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-4 col-md-6">
+                <div class="shipping-item">
+                    <div class="shipping-img">
+                        <img src="~/Userassets/images/shipping/icon/plane.png" alt="Shipping Icon">
+                    </div>
+                    <div class="shipping-content">
+                        <h5 class="title">Free Shipping</h5>
+                        <p class="short-desc mb-0">Free Home Delivery Offer</p>
+                    </div>
+                </div>
+            </div>
+            <div class="col-lg-4 col-md-6 pt-6 pt-md-0">
+                <div class="shipping-item">
+                    <div class="shipping-img">
+                        <img src="~/Userassets/images/shipping/icon/earphones.png" alt="Shipping Icon">
+                    </div>
+                    <div class="shipping-content">
+                        <h5 class="title">Online Support</h5>
+                        <p class="short-desc mb-0">24/7 Online Support Provide</p>
+                    </div>
+                </div>
+            </div>
+            <div class="col-lg-4 col-md-6 pt-6 pt-lg-0">
+                <div class="shipping-item">
+                    <div class="shipping-img">
+                        <img src="~/Userassets/images/shipping/icon/shield.png" alt="Shipping Icon">
+                    </div>
+                    <div class="shipping-content">
+                        <h5 class="title">Secure Payment</h5>
+                        <p class="short-desc mb-0">Fully Secure Payment System</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- Shipping Area End Here -->
+
+<!-- Begin Product Area -->
+<div class="product-area section-space-top-100">
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-12">
+                <ul class="nav product-tab-nav pb-10" id="myTab" role="tablist">
+                    <li class="nav-item" role="presentation">
+                        <a class="active" id="all-items-tab" data-bs-toggle="tab" href="#all-items" role="tab" aria-controls="all-items" aria-selected="true">
+                            <div class="product-tab-icon">
+                                <img src="~/Userassets/images/product/icon/1.png" alt="Product Icon">
+                            </div>
+                            Tất cả sản phẩm
+                        </a>
+                    </li>
+                    @foreach (var item in Model.Products)
+                    {
+                        <li class="nav-item" role="presentation">
+                            <a id="wheat-tab" data-bs-toggle="tab" href="#@item.category.Alias" role="tab" aria-controls="wheat" aria-selected="false">
+                                <div class="product-tab-icon">
+                                    <img src="~/Userassets/images/product/icon/5.png" alt="@item.category.Title">
+                                </div>
+                                @item.category.CatName
+                            </a>
+                        </li>
+                    }
+
+                </ul>
+                    <div class="tab-content" id="myTabContent">
+                        <div class="tab-pane fade show active" id="all-items" role="tabpanel" aria-labelledby="all-items-tab">
+                                 @await Html.PartialAsync("_ListProductPartialView",allProduct)
+                        </div>
+                        @foreach (var item in Model.Products)
+                        {
+                            <div class="tab-pane fade" id="@item.category.Alias" role="tabpanel" aria-labelledby="all-items-tab">
+                                 @await Html.PartialAsync("_ListProductPartialView",item.lsProducts)
+                            </div>
+                        }
+                       
+                    </div>
+                </div>
+            </div>
+    </div>
+</div>
+
+<!-- Product Area End Here -->
+
+<!-- Begin Banner Area -->
+<div class="banner-area section-space-top-100">
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-4 col-md-6">
+                <div class="banner-item">
+                    <div class="banner-img img-zoom-effect">
+                        <img class="img-full" src="~/Userassets/images/banner/1-1-370x250.jpg" alt="Banner Image">
+                        <div class="inner-content">
+                            <h5 class="offer">-10% Off</h5>
+                            <h4 class="title mb-5">Bell Pepper<br>Orange</h4>
+                            <div class="button-wrap">
+                                <a class="btn btn-primary btn-white-hover rounded-0" href="shop.html">Shop Now</a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-lg-4 col-md-6 pt-6 pt-md-0">
+                <div class="banner-item">
+                    <div class="banner-img img-zoom-effect">
+                        <img class="img-full" src="~/Userassets/images/banner/1-2-370x250.jpg" alt="Banner Image">
+                        <div class="inner-content">
+                            <h5 class="offer">-20% Off</h5>
+                            <h4 class="title mb-5">Fruit Juice<br>Package</h4>
+                            <div class="button-wrap">
+                                <a class="btn btn-custom-size btn-primary btn-white-hover rounded-0" href="shop.html">Shop Now</a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-lg-4 col-md-6 pt-6 pt-lg-0">
+                <div class="banner-item">
+                    <div class="banner-img img-zoom-effect">
+                        <img class="img-full" src="~/Userassets/images/banner/1-3-370x250.jpg" alt="Banner Image">
+                        <div class="inner-content">
+                            <h5 class="offer">-30% Off</h5>
+                            <h4 class="title mb-5">Full Fresh<br>Vegetable</h4>
+                            <div class="button-wrap">
+                                <a class="btn btn-custom-size btn-primary btn-white-hover rounded-0" href="shop.html">Shop Now</a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- Banner Area End Here -->
+
+<!-- Begin Banner Area -->
+<div class="banner-area banner-with-parallax py-10" data-bg-image="~/Userassets/images/banner/2-1-1920x523.jpg">
+    <div class="container">
+        <div class="row">
+            <div class="col-md-6">
+                <div class="parallax-img-wrap">
+                    <div class="papaya">
+                        <div class="scene fill">
+                            <div class="expand-width" data-depth="0.2">
+                                <img src="~/Userassets/images/banner/inner-img/2-1-503x430.png" alt="Banner Images">
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-6 align-self-center">
+                <div class="banner-content text-white text-center text-md-start">
+                    <div class="section-title">
+                        <span class="sub-title">New Offer Products</span>
+                        <h2 class="title font-size-60 mb-6">SAVE 20% OFF</h2>
+                    </div>
+                    <div class="countdown-wrap">
+                        <div class="countdown item-4" data-countdown="2022/01/01" data-format="short">
+                            <div class="countdown__item me-3">
+                                <span class="countdown__time daysLeft"></span>
+                                <span class="countdown__text daysText"></span>
+                            </div>
+                            <div class="countdown__item me-3">
+                                <span class="countdown__time hoursLeft"></span>
+                                <span class="countdown__text hoursText"></span>
+                            </div>
+                            <div class="countdown__item me-3">
+                                <span class="countdown__time minsLeft"></span>
+                                <span class="countdown__text minsText"></span>
+                            </div>
+                            <div class="countdown__item">
+                                <span class="countdown__time secsLeft"></span>
+                                <span class="countdown__text secsText"></span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="button-wrap pt-10">
+                        <a class="btn btn-custom-size lg-size btn-white rounded-0" href="shop.html">Shop Now</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- Banner Area End Here -->
+
+@*<!-- Begin Blog Area -->
+<div class="blog-area section-space-y-axis-100">
+    <div class="container">
+        <div class="section-title text-center pb-55">
+            <span class="sub-title text-primary">Read Our</span>
+            <h2 class="title mb-0">Latest Blog</h2>
+        </div>
+        <div class="row">
+            <div class="col-lg-12">
+                <div class="swiper-container blog-slider">
+                    <div class="swiper-wrapper">
+                        <div class="swiper-slide">
+                            <div class="blog-item">
+                                <div class="blog-img img-zoom-effect">
+                                    <a href="blog-detail-left-sidebar.html">
+                                        <img class="img-full" src="~/Userassets/images/blog/medium-size/1-1-370x315.jpg" alt="Blog Image">
+                                    </a>
+                                </div>
+                                <div class="blog-content">
+                                    <div class="blog-meta text-dim-gray pb-3">
+                                        <ul>
+                                            <li class="date"><i class="fa fa-calendar-o me-2"></i>May 21, 2021</li>
+                                            <li>
+                                                <span class="comments me-3">
+                                                <a href="javascript:void(0)">2 Comments</a>
+                                            </span>
+                                                <span class="link-share">
+                                                <a href="javascript:void(0)">Share</a>
+                                            </span>
+                                            </li>
+                                        </ul>
+                                    </div>
+                                    <h5 class="title mb-4">
+                                        <a href="blog-detail-left-sidebar.html">Lorem ipsum dolor consec adipisicing elit</a>
+                                    </h5>
+                                    <p class="short-desc mb-5">Lorem ipsum dolor sit amet, consectet adipi elit, sed do eius tempor incididunt ut labore gthydolore magna aliqua.</p>
+                                    <div class="button-wrap">
+                                        <a class="btn btn-custom-size btn-dark btn-lg rounded-0" href="blog-detail-left-sidebar.html">Read More</a>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="swiper-slide">
+                            <div class="blog-item">
+                                <div class="blog-img img-zoom-effect">
+                                    <a href="blog-detail-left-sidebar.html">
+                                        <img class="img-full" src="~/Userassets/images/blog/medium-size/1-2-370x315.jpg" alt="Blog Image">
+                                    </a>
+                                </div>
+                                <div class="blog-content">
+                                    <div class="blog-meta text-dim-gray pb-3">
+                                        <ul>
+                                            <li class="date"><i class="fa fa-calendar-o me-2"></i>May 21, 2021</li>
+                                            <li>
+                                                <span class="comments me-3">
+                                                <a href="javascript:void(0)">2 Comments</a>
+                                            </span>
+                                                <span class="link-share">
+                                                <a href="javascript:void(0)">Share</a>
+                                            </span>
+                                            </li>
+                                        </ul>
+                                    </div>
+                                    <h5 class="title mb-4">
+                                        <a href="blog-detail-left-sidebar.html">Voluptate minus temporibus nostrum adipi</a>
+                                    </h5>
+                                    <p class="short-desc mb-5">Lorem ipsum dolor sit amet, consectet adipi elit, sed do eius tempor incididunt ut labore gthydolore magna aliqua.</p>
+                                    <div class="button-wrap">
+                                        <a class="btn btn-custom-size btn-dark btn-lg rounded-0" href="blog-detail-left-sidebar.html">Read More</a>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="swiper-slide">
+                            <div class="blog-item">
+                                <div class="blog-img img-zoom-effect">
+                                    <a href="blog-detail-left-sidebar.html">
+                                        <img class="img-full" src="~/Userassets/images/blog/medium-size/1-3-370x315.jpg" alt="Blog Image">
+                                    </a>
+                                </div>
+                                <div class="blog-content">
+                                    <div class="blog-meta text-dim-gray pb-3">
+                                        <ul>
+                                            <li class="date"><i class="fa fa-calendar-o me-2"></i>May 21, 2021</li>
+                                            <li>
+                                                <span class="comments me-3">
+                                                <a href="javascript:void(0)">2 Comments</a>
+                                            </span>
+                                                <span class="link-share">
+                                                <a href="javascript:void(0)">Share</a>
+                                            </span>
+                                            </li>
+                                        </ul>
+                                    </div>
+                                    <h5 class="title mb-4">
+                                        <a href="blog-detail-left-sidebar.html">Corporis tempora molestiae nulla esse ipsam</a>
+                                    </h5>
+                                    <p class="short-desc mb-5">Lorem ipsum dolor sit amet, consectet adipi elit, sed do eius tempor incididunt ut labore gthydolore magna aliqua.</p>
+                                    <div class="button-wrap">
+                                        <a class="btn btn-custom-size btn-dark btn-lg rounded-0" href="blog-detail-left-sidebar.html">Read More</a>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <!-- Add Arrows -->
+                    <div class="swiper-button-next"></div>
+                    <div class="swiper-button-prev"></div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>*@
