@@ -97,6 +97,10 @@ img {
 	object-fit: cover;
 	object-position: center center;
 }
+.input-number {
+    text-align:center;
+    width:50px;
+}
 ::selection{
     background-color: $primary;
     color: $white;

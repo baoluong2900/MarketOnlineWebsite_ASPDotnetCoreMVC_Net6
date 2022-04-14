@@ -3,12 +3,11 @@
 @{
     ViewData["Title"] = Model.Title;
     Layout = "~/Views/Shared/_Layout.cshtml";
-
     List<Product> lsProducts = ViewBag.Product;
 }
 <!-- Begin Main Content Area  -->
 <main class="main-content">
-    <div class="breadcrumb-area breadcrumb-height" data-bg-image="~/Userassets/images/breadcrumb/bg/1-1-1920x373.jpg">
+    <div class="breadcrumb-area breadcrumb-height" data-bg-image="Userassets/images/breadcrumb/bg/1-1.jpg">
         <div class="container h-100">
             <div class="row h-100">
                 <div class="col-lg-12">
@@ -42,12 +41,12 @@
                                         <img class="img-full" src="~/images/products/@Model.Thumb" alt="Product Image">
                                     </a>
                                 </div>
-                                 <div class="swiper-slide">
+                                <div class="swiper-slide">
                                     <a href="~/images/products/@Model.Thumb" class="single-img gallery-popup">
                                         <img class="img-full" src="~/images/products/@Model.Thumb" alt="@Model.Title">
                                     </a>
                                 </div>
-                                 <div class="swiper-slide">
+                                <div class="swiper-slide">
                                     <a href="~/images/products/@Model.Thumb" class="single-img gallery-popup">
                                         <img class="img-full" src="~/images/products/@Model.Thumb" alt="@Model.Title">
                                     </a>
@@ -78,17 +77,19 @@
                                         </ul>
                                     </div>
                                 </div>
-                                <p class="short-desc mb-6">Lorem ipsum dolor sit amet, consecte adipisicin elit, sed do
-                                    @Model.ShortDesc  
+                                <p class="short-desc mb-6">
+                                    Lorem ipsum dolor sit amet, consecte adipisicin elit, sed do
+                                    @Model.ShortDesc
                                 </p>
                                 <ul class="quantity-with-btn pb-7">
                                     <li class="quantity">
                                         <div class="cart-plus-minus">
-                                            <input class="cart-plus-minus-box" value="1" type="text">
+                                            <input id="txtsoLuong" name="txtsoLuong" class="cart-plus-minus-box" value="1" type="text">
                                         </div>
                                     </li>
                                     <li class="add-to-cart">
-                                        <a class="btn btn-custom-size lg-size btn-primary btn-secondary-hover rounded-0" href="cart.html">Thêm vào giỏ hàng</a>
+                                        <a class="btn btn-custom-size lg-size btn-primary btn-secondary-hover rounded-0">Thêm vào giỏ hàng</a>
+                                        <input hidden asp-for="ProductId" />
                                     </li>
                                 </ul>
                                 <div class="product-category text-matterhorn pb-2">
@@ -100,20 +101,7 @@
 
                                     </ul>
                                 </div>
-@*                                <div class="product-category product-tags text-matterhorn pb-4">
-                                    <span class="title">Product Tags :</span>
-                                    <ul>
-                                        <li>
-                                            <a href="javascript:void(0)">Organic,</a>
-                                        </li>
-                                        <li>
-                                            <a href="javascript:void(0)">Vegetable,</a>
-                                        </li>
-                                        <li>
-                                            <a href="javascript:void(0)">Fruits</a>
-                                        </li>
-                                    </ul>
-                                </div>*@
+
                             </div>
                         </div>
                         <div class="col-12 order-lg-2 order-1 pt-10 pt-lg-0">
@@ -158,25 +146,31 @@
                     <div class="tab-content product-tab-content">
                         <div class="tab-pane fade show active" id="description" role="tabpanel" aria-labelledby="description-tab">
                             <div class="product-description-body">
-                               @Html.Raw(@Model.Description)
+                                @Html.Raw(@Model.Description)
                             </div>
                         </div>
                         <div class="tab-pane fade" id="shipping" role="tabpanel" aria-labelledby="shipping-tab">
                             <div class="product-shipping-body">
                                 <h4 class="title">Shipping</h4>
-                                <p class="short-desc mb-4">The item will be shipped from China. So it need 15-20 days to
+                                <p class="short-desc mb-4">
+                                    The item will be shipped from China. So it need 15-20 days to
                                     deliver. Our product is good with reasonable price and we believe you will worth it.
                                     So please wait for it patiently! Thanks.Any question please kindly to contact us and
-                                    we promise to work hard to help you to solve the problem</p>
+                                    we promise to work hard to help you to solve the problem
+                                </p>
                                 <h4 class="title">About return request</h4>
-                                <p class="short-desc mb-4">If you don't need the item with worry, you can contact us
+                                <p class="short-desc mb-4">
+                                    If you don't need the item with worry, you can contact us
                                     then we will help you to solve the problem, so please close the return request!
-                                    Thanks</p>
+                                    Thanks
+                                </p>
                                 <h4 class="title">Guarantee</h4>
-                                <p class="short-desc mb-0">If it is the quality question, we will resend or refund to
+                                <p class="short-desc mb-0">
+                                    If it is the quality question, we will resend or refund to
                                     you; If you receive damaged or wrong items, please contact us and attach some
                                     pictures about product, we will exchange a new correct item to you after the
-                                    confirmation.</p>
+                                    confirmation.
+                                </p>
                             </div>
                         </div>
                     </div>
@@ -195,9 +189,9 @@
                     <div class="swiper-slider-holder swiper-arrow">
                         <div class="swiper-container product-slider border-issue">
                             <div class="swiper-wrapper">
-                                @if (lsProducts !=null)
+                                @if (lsProducts != null)
                                 {
-                                    foreach(var item in lsProducts)
+                                    foreach (var item in lsProducts)
                                     {
                                         string url = "";
                                         <div class="swiper-slide">
@@ -387,3 +381,66 @@
     </div>
 </main>
 <!-- Main Content Area End Here  -->
+@section Scripts
+{
+<script>
+    $(document).ready(function () {
+        $(function () {
+            $(".add-to-cart").click(function () {
+                var productID = $('#ProductId').val();
+                var amount = $('#txtsoLuong').val();
+                $.ajax({
+                    url: "/api/cart/add",
+                    type: "POST",
+                    dataType: "JSON",
+                    data: {
+                        productID: productID,
+                        amount: amount
+                    },
+                    success: function (response) {
+                            loadHeaderCart();// Add Product success
+                            location.reload();
+                    },
+                    error: function (error) {
+                        alert("There was an error posting the data to the server: "+ error.responseText);
+                    }
+                });
+            });
+        });
+        function loadHeaderCart()
+        {
+            $("#miniCart").load("/AjaxContent/HeaderCart");
+            $("#numberCart").load("/AjaxContent/NumberCart");
+        }
+    });
+
+</script>
+ <script>
+        $(function () {
+            function loadHeaderCart() {
+                $("#miniCart").load("/AjaxContent/HeaderCart");
+                $("#numbercard").load("/AjaxContent/NumberCart");
+            }
+            $(".removecart").click(function (){
+                 var productid = $(this).attr("data-mahh");
+                   $.ajax({
+                        url: "api/cart/remove",
+                        type: "POST",
+                        dataType: "JSON",
+                        data: {
+                            productID: productid
+                        },
+                        success: function (result) {
+                            if (result.success) {
+                                loadHeaderCart();
+                               window.location='';
+                            }
+                        },
+                        error: function (rs){
+                            alert("Remove Cart Error !");
+                        }
+                   });
+            });
+       });
+ </script>
+}

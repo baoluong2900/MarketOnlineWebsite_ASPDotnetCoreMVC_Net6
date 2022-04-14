@@ -7,6 +7,7 @@ namespace MarketOnlineWebsite.ModelViews
         public List<News> lsNews { get; set; }
         public List<ProductHomeVM> Products { get; set; }
         public Advertisement lsAdvertisement { get; set; }
+        public Product Product { get; set; }
     }
 }
 

@@ -29,6 +29,10 @@
     <!-- Style CSS -->
     <link rel="stylesheet" href="~/Userassets/css/style.css">
 
+
+    @RenderSection("Styles", required: false)
+   
+
 </head>
 
 <body>
@@ -38,7 +42,7 @@
          @await Html.PartialAsync("_HeaderPartialView.cshtml")
 
          @RenderBody()
-
+        
          @await Html.PartialAsync("_FooterPartialView.cshtml")
 
         <!-- Begin Scroll To Top -->
@@ -71,9 +75,10 @@
     <script src="~/Userassets/js/plugins/jquery.magnific-popup.min.js"></script>
 
     <!--Main JS (Common Activation Codes)-->
-    <script src="~/Userassets/js/main.js"></script>
+    <script src="~/Userassets/js/main.js"></script> 
     @await Component.InvokeAsync("Notyf")
     @await RenderSectionAsync("Scripts",required: false)
+
 </body>
 
 </html>

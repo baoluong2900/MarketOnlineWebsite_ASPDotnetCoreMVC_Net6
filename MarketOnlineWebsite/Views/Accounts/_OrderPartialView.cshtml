@@ -1,4 +1,5 @@
-﻿@model List<Order>
+﻿@*@using MarketOnlineWebsite.Models
+@model List<OrderDetail>
 @if (Model !=null && Model.Count()>0)
 {
  <div class="table-responsive">
@@ -12,24 +13,69 @@
                         <th>Tổng tiền</th>
                         <th></th>
                     </tr>
+                
                 @foreach(var orderItem in Model)
                 {
                     <tr>
+                           <td><a class="account-order-id" href="javascript:void(0)">#@orderItem.OrderId</a></td>
                         <td><a class="account-order-id" href="javascript:void(0)">#@orderItem.OrderId</a></td>
-                        <td>@orderItem.OrderDate</td>
-                        <td>@orderItem.ShipDate</td>
+                        <td>@orderItem.OrderDetailId</td>
+                      @*  <td>@orderItem.ShipDate</td>
                         <td>@orderItem.TransactStatus.Status</td>
-                         <td>@orderItem.TotalMoney.ToString("#,##0") VNĐ</td>
-                        <td><a href="javascript:void(0)" class="btn btn-secondary btn-primary-hover"><span>Xem đơn hàng</span></a>
+                         <td>@orderItem.TotalMoney.ToString("#,##0") VNĐ</td>*@
+@*                        <td><a href="javascript:void(0)" class="vieworder btn btn-secondary btn-primary-hover"><span>Xem đơn hàng</span></a>
                         </td>
                     </tr>
                 }
 
         </tbody>
     </table>
+    <br/>
+    <br/>
+     <br/>
+      <br/>
+      <hr/>
+      <div id="records_table">
+
+           <h1>Helllo</h1>
+      </div>
+
 </div>
 }
 else 
 {
       <p>Chưa có đơn hàng</p>
-}
+}*@
+@*@model List<OrderDetail>
+@if (Model !=null && Model.Count()>0) 
+{
+
+        <table class="table table-bordered table-hover">
+        <tbody>
+                    <tr>
+                        <th>Mã hóa đơn</th>
+                        <th>Ngày mua hàng</th>
+                        <th>Ngày ship hàng</th>
+                        <th>Trạng thái</th>
+                        <th>Tổng tiền</th>
+                        <th></th>
+                    </tr>
+                @foreach(var orderDetail in Model)
+                {
+                    <tr>
+                      @*  <td><a class="account-order-id" href="javascript:void(0)">#@orderItem.OrderId</a></td>
+                        <td>@orderItem.OrderDate.Value.ToString("dd/MM/yyyy")</td>
+                        <td>@orderItem.ShipDate</td>
+                        <td>@orderItem.TransactStatus.Status</td>
+                         <td>@orderItem.TotalMoney.ToString("#,##0") VNĐ</td>
+                        <td><a href="javascript:void(0)" class="vieworder btn btn-secondary btn-primary-hover"><span>Xem đơn hàng</span></a>
+                        </td>*@
+@*                          <td>@orderDetail.OrderDetailId</td>
+                            <td>@orderDetail.OrderId</td>
+                            <td>@orderDetail.Product.ProductName</td>
+                    </tr>
+                }
+
+        </tbody>
+    </table>*@
+@*}*@

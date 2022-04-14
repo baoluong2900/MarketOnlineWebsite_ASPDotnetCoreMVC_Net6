@@ -15819,7 +15819,7 @@ img {
 
 /* ---Tab Content & Pane Fix--- */
 .tab-content {
-  width: 100%;
+  width: 104%;
 }
 
 .tab-content .tab-pane {
@@ -16246,13 +16246,17 @@ blockquote .inner-content .user-name:before {
   width: 76px;
   text-align: left;
 }
+.test {
+    text-align: center;
+    width: 50px;
+}
 
 .quantity .cart-plus-minus .cart-plus-minus-box {
-  border: 1px solid #f6f6f6;
-  background-color: #f6f6f6;
-  text-align: center;
-  width: 75px;
-  height: 50px;
+    border: 1px solid #f6f6f6;
+    background-color: #f6f6f6;
+    text-align: center;
+    width: 75px;
+    height: 50px;
 }
 
 .quantity .cart-plus-minus .qtybutton {
@@ -17235,7 +17239,7 @@ blockquote .inner-content .user-name:before {
           box-shadow: 0px 0 15px rgba(0, 0, 0, 0.2);
   background-color: #fff;
   padding: 55px 60px 0;
-  width: 450px;
+  width: 480px;
   left: auto;
   right: -660px;
 }
@@ -17265,7 +17269,7 @@ blockquote .inner-content .user-name:before {
 }
 
 .offcanvas-minicart_wrapper .harmic-offcanvas-body .minicart-content .minicart-list {
-  max-height: 355px;
+  max-height: 435px;
   position: relative;
   overflow: auto;
 }
@@ -19834,7 +19838,6 @@ blockquote .inner-content .user-name:before {
   background-color: #fff;
   padding: 30px;
 }
-
 .login-form label {
   display: block;
   font-size: 14px;

@@ -44,6 +44,7 @@ builder.Services.AddSingleton<HtmlEncoder>( HtmlEncoder.Create(allowedRanges: ne
 
 #endregion
 
+
 var app = builder.Build();
 
 // Configure the HTTP request pipeline.

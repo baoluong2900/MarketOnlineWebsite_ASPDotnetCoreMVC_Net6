@@ -1,0 +1,52 @@
+﻿@model MarketOnlineWebsite.Models.Customer
+<div class="myaccount-dashboard">
+    <form asp-controller="Accounts" asp-action="UpdatePersonal" method="post" id="form-validation" enctype="multipart/form-data">
+     <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            <div class="checkbox-form">
+                <div class="row sizeFont">
+                    <div class="col-md-8">
+                        <div class="checkout-form-list">
+                            <label>Họ và Tên*</label>
+                            <input asp-for="FullName" placeholder="Họ và Tên" type="text">
+                        </div>
+                         <div class="checkout-form-list">
+                                <label>Email*</label>
+                                <input asp-for="Email" placeholder="Email" type="text">
+                         </div>
+                         <div class="col-md-12">
+                                <div class="checkout-form-list">
+                                    <label>Số điện thoại*</label>
+                                    <input asp-for="Phone" placeholder="Số điện thoại" type="text">
+                                </div>
+                          </div>
+                        <div class="col-md-12">
+                             <div class="col-md-12">
+                                <div class="checkout-form-list">
+                                    <label>Ngày sinh nhật</label>
+                                    <input asp-for="Address" placeholder="Ngày sinh nhật" type="text">
+                                    <span asp-validation-for="Address" class="text-danger"></span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-4">
+                        <div class="checkout-form-list">
+                            <img  height="250" width="250" src="~/images/customers/@Model.Avatar" class="rounded-circle" alt="Cinque Terre" style="margin-left: 15px;">
+                        </div>
+                        <div class="col-md-4">
+                            <div class="checkout-form-list" style="margin-left: 52px;">
+                                <input name="fAvatar" type="file" class="form-control-file" asp-for="Avatar">
+                                <span asp-validation-for="Avatar" class="text-danger"></span>
+                            </div>
+                        </div>
+                    </div>
+                  </div>
+            </div>
+            <div class="form-layout-footer mg-t-30" style="padding-left: 646px;">*
+                <button class="btn btn-custom-size lg-size btn-secondary btn-primary-hover rounded-0" type="submit">
+                        <span>Lưu thay đôi</span>
+                </button>
+            </div><!-- form-layout-footer -->
+    </form>
+</div>
+

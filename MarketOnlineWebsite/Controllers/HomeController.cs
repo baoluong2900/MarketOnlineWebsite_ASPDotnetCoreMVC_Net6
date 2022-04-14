@@ -1,6 +1,8 @@
 ﻿using MarketOnlineWebsite.Models;
 using MarketOnlineWebsite.ModelViews;
+using Microsoft.AspNetCore.Authentication;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 using System.Collections.Generic;
 using System.Diagnostics;
@@ -59,7 +61,6 @@ namespace MarketOnlineWebsite.Controllers
             //model.lsAdvertisement = advertisement;
             //model.lsNews = news;
             ViewBag.AllProducts = lsProducts;
-
             return View(model);
         }
         public IActionResult Contact()
@@ -80,6 +81,5 @@ namespace MarketOnlineWebsite.Controllers
         {
             return View(new ErrorViewModel { RequestId = Activity.Current?.Id ?? HttpContext.TraceIdentifier });
         }
-
     }
 }

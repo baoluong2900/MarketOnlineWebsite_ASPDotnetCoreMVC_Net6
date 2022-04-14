@@ -1,0 +1,94 @@
+﻿@model MarketOnlineWebsite.ModelViews.PurchaseSuccessVM
+@{
+    ViewData["Title"] = "Đặt hàng thành công";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+<main class="main-content">
+    <div class="breadcrumb-area breadcrumb-height" data-bg-image="Userassets/images/breadcrumb/bg/1-1.jpg">
+        <div class="container h-100">
+            <div class="row h-100">
+                <div class="col-lg-12">
+                    <div class="breadcrumb-item">
+                        <h2 class="breadcrumb-heading">Đặt hàng thành công</h2>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="about-banner different-bg-position section-space-y-axis-100" data-bg-image="Userassets/images/about/banner/1-1.jpg">
+        <div class="container">
+            <div class="row">
+                <div class="col-xl-6 col-lg-5">
+                    <div class="parallax-img-wrap">
+                        <div class="papaya">
+                            <div class="scene fill">
+                                <div class="expand-width" data-depth="0.2">
+                                    <img src="~/Userassets/images/banner/inner-img/1-1.jpg"  alt="Banner Images">
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-xl-6 col-lg-7 align-self-center">
+                    <div class="about-banner-content">
+                        <div class="section-title" style="margin-bottom: 152px;margin-left: 60px;">
+                            <span class="sub-title" style="font-size: 30px;">THÔNG TIN ĐƠN HÀNG</span>
+                            <p class="short-desc mb-0" style="font-size: 20px;line-height: 51px;">
+                            Mã đơn hàng: &ensp; ID#@Model.OrderID   <br />
+                            Tên người nhận hàng: &ensp;@Model.FullName   <br />
+                            Số điện thoại: &ensp;@Model.Phone   <br />
+                            Địa chỉ: &ensp;@Model.Address   <br />
+                            Phường: &ensp;@Model.PhuongXa   <br />
+                            Quận/Huyện: &ensp;@Model.QuanHuyen   <br />
+                            Tỉnh/Thành: &ensp;@Model.TinhThanh   <br />
+                            
+                            </p>
+                            <div class="button-wrap pt-8" style=" margin-left: 270px;">
+                                <a class="btn btn-custom-size lg-size btn-primary btn-dark-hover rounded-0" href="/">Tiếp tục mua hàng</a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="intro-area section-space-y-axis-100">
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-4 col-md-6">
+                    <div class="intro-item text-white" data-bg-color="#aec581">
+                        <div class="intro-icon mb-5">
+                            <img src="~/Userassets/images/about/intro/icon/1-1-170x165.png" alt="Intro Icon">
+                        </div>
+                        <div class="intro-content">
+                            <h3 class="title mb-4">Who We Are</h3>
+                            <p class="short-desc mb-0">Lorem ipsum dolor sit amet consectet adipisicing elit, sed do eiusmo tempor incididunt ut labore</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-lg-4 col-md-6 pt-6 pt-md-0">
+                    <div class="intro-item text-white" data-bg-color="#b9cbe7">
+                        <div class="intro-icon mb-5">
+                            <img src="~/Userassets/images/about/intro/icon/1-1-170x165.png" alt="Intro Icon">
+                        </div>
+                        <div class="intro-content">
+                            <h3 class="title mb-4">Our Products</h3>
+                            <p class="short-desc mb-0">Lorem ipsum dolor sit amet consectet adipisicing elit, sed do eiusmo tempor incididunt ut labore</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-lg-4 col-md-6 pt-6 pt-lg-0">
+                    <div class="intro-item text-white" data-bg-color="#b8a780">
+                        <div class="intro-icon mb-5">
+                            <img src="~/Userassets/images/about/intro/icon/1-1-170x165.png" alt="Intro Icon">
+                        </div>
+                        <div class="intro-content">
+                            <h3 class="title mb-4">How We Work</h3>
+                            <p class="short-desc mb-0">Lorem ipsum dolor sit amet consectet adipisicing elit, sed do eiusmo tempor incididunt ut labore</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</main>

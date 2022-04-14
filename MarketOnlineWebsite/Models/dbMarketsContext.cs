@@ -428,5 +428,7 @@ namespace MarketOnlineWebsite.Models
         partial void OnModelCreatingPartial(ModelBuilder modelBuilder);
 
         public DbSet<MarketOnlineWebsite.ModelViews.RegisterVM> RegisterVM { get; set; }
+
+        public DbSet<MarketOnlineWebsite.ModelViews.ChangePasswordVM> ChangePasswordVM { get; set; }
     }
 }

@@ -5,6 +5,23 @@ namespace MarketOnlineWebsite.Helpper
 {
     public static class Utilities
     {
+        private static readonly string Payment_Id_01 = "Thanh toán khi nhận hàng (COD)";
+        private static readonly string Payment_Id_02 = "Chuyển khoản ngân hàng";
+        private static readonly string Payment_Id_03 = "Thanh toán qua MOMO";
+        public static string GetPaymentName(int paymentId)
+        {
+            if (paymentId == 1)
+            {
+                return Payment_Id_01;
+            }
+            else if (paymentId == 2)
+            {
+                return Payment_Id_02;
+            }
+            return Payment_Id_03;
+        
+        }
+
         public static string StripHTML(string input)
         {
             try

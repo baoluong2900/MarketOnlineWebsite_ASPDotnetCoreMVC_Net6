@@ -85,5 +85,29 @@ namespace MarketOnlineWebsite.Controllers
             }
 
         }
+
+        [HttpPost]
+        public IActionResult Search(string productName)
+        {
+             try
+            {
+               
+                var product = _context.Products.SingleOrDefault(x => x.ProductName.Trim().ToLower() == productName.Trim().ToLower());
+                if (product == null)
+                {
+                    _INotyfService.Error("không tìm thấy sản phẩm");
+                    return RedirectToAction("Index", "Home");
+                }
+                //string url = $"/{product.Alias}-{product.ProductId}.html";
+                return RedirectToAction("ProductDetails",product);
+            }
+            catch(Exception ex)
+            {
+                return RedirectToAction("Index", "Home");
+            }
+        }
+
+           
+        
     }
 }

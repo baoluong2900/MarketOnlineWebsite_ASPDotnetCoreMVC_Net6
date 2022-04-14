@@ -4,10 +4,7 @@
         <div class="product-item-wrap row">
             @foreach( var productItem in Model)
         {
-                     string url = $"/{productItem.Alias}-{productItem.ProductId}.html";
-
-
-
+          string url = $"/{productItem.Alias}-{productItem.ProductId}.html";
          <div class="col-xl-3 col-lg-4 col-sm-6">
             <div class="product-item">
                 <div class="product-img img-zoom-effect">
@@ -17,13 +14,8 @@
                     <div class="product-add-action">
                         <ul>
                             <li>
-                                <a href="cart.html">
+                                <a href="@url">
                                     <i class="pe-7s-cart"></i>
-                                </a>
-                            </li>
-                            <li>
-                                <a href="compare.html">
-                                    <i class="pe-7s-shuffle"></i>
                                 </a>
                             </li>
                             <li>

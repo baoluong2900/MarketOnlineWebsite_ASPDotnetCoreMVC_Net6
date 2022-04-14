@@ -1,0 +1,68 @@
+﻿@model MarketOnlineWebsite.ModelViews.ViewOrderVM
+<div>
+    <h4 class="small-title" style="font-family: sans-serif;font-size: 24px;">THÔNG TIN ĐƠN HÀNG: ID#@Model.Order.OrderId</h4>
+    <br />
+    <div class="row" style="line-height: 35px;--bs-gutter-x: 0;font-weight: 500;">
+        <div class="col-8"><p >Tên người nhận hàng: @Model.FullName</p></div>
+        <div class="col-4"><p>Số điện thoại: @Model.Phone</p></div>
+        <div class="col-8">  <p>Địa chỉ giao hàng: @Model.Order.Address</p></div>
+        <div class="col-4"> <p>Tổng tiền: @Model.Order.TotalMoney.ToString("#,##0") VNĐ</p></div>
+        <div class="col-4"> <p>Phường/Xã: @Model.PhuongXa</p></div>
+        <div class="col-4"><p>Quận/Huyện: @Model.QuanHuyen</p></div>
+        <div class="col-4">  <p>Tỉnh/Thành: @Model.TinhThanh</p></div>
+        <div class="col-7"> <p>Phương thức thanh toán: @Model.Payment</p></div>
+       <div class="col-5"> <p>Trạng thái đơn hàng: @Model.TransactStatus</p></div>
+       <div class="col-6"><p>Ngày đặt hàng: @Model.Order.OrderDate.Value.ToString("dd/MM/yyyy HH:mm:ss")</p></div>
+        @if(@Model.Order.ShipDate !=null)
+        {
+            <div class="col-6"><p>Ngày giao hàng: @Model.Order.ShipDate.Value.ToString("dd/MM/yyyy HH:mm:ss")</p></div>
+        }
+        else
+        {
+            <div class="col-6"><p>Ngày giao hàng:</p></div>
+        }
+
+    </div>   
+</div>
+
+<div class="table-responsive">
+    <table class="table table-bordered table-hover">
+        <tbody>
+        @if (Model !=null) 
+         {
+            <tr>
+                <th>#</th>
+                <th>Sản phẩm</th>
+                <th>Số lượng</th>
+                <th>Đơn giá</th>
+                <th>Thành tiền</th>
+            </tr>
+            var rowNumber = 1; 
+            foreach(var orderItem in Model.OrderDetail)
+            {
+                <tr>
+                    <td>@rowNumber</td>
+                    <td><a class="account-order-id" href="javascript:void(0)">@orderItem.Product.ProductName</a></td>
+                    <td>@orderItem.Amount</td>
+                    <td>@orderItem.Price.Value.ToString("#,##0") VNĐ</td>
+                        @{
+                            var total = orderItem.Amount * orderItem.Product.Price;
+                        }
+                    <td>@total.Value.ToString("#,##0") VNĐ</td>
+                    
+                </tr>
+                rowNumber++;
+               
+            }
+        }
+        </tbody>
+    </table>
+    @if(Model.Order.TransactStatusId > Model.CheckOrder)
+    {
+        
+    }
+    else
+    {
+        <a asp-action="Delete" asp-route-id="@Model.Order.OrderId" style="background-color: darkred;margin-top: 20px;margin-left: 697px;" class="btn btn-secondary btn-primary-hover"><span>Hủy đơn hàng</span></a>
+    }
+</div>

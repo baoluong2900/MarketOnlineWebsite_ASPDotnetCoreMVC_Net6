@@ -1,0 +1,15 @@
+﻿@model List<MarketOnlineWebsite.ModelViews.CartItem>
+@if (Model != null && Model.Count() > 0)
+{
+        <a href="#miniCart" class="minicart-btn toolbar-btn">
+            <i class="pe-7s-shopbag"></i>
+            <span class="quantity">@Model.Count()</span>
+        </a>
+}
+else
+{
+        <a href="#miniCart" class="minicart-btn toolbar-btn">
+            <i class="pe-7s-shopbag"></i>
+          @*  <span class="quantity"></span>*@
+        </a>  
+}
