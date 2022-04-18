@@ -1,5 +1,4 @@
-﻿@model MarketOnlineWebsite.Models.Product
-<header class="main-header_area position-relative">
+﻿<header class="main-header_area position-relative">
     <div class="header-middle py-5">
         <div class="container">
             <div class="row align-items-center">
@@ -10,15 +9,7 @@
                         </a>
                         <div class="header-search-area d-none d-lg-block">
                             <form  action="#" class="header-searchbox">
-                                <select class="nice-select select-search-category wide">
-                                    <option value="all">All Category</option>
-                                    <option value="product-item">Product Item</option>
-                                    <option value="product-item-2">Product Item 02</option>
-                                    <option value="product-item-3">Product Item 03</option>
-                                    <option value="product-item-4">Product Item 04</option>
-                                    <option value="product-item-5">Product Item 05</option>
-                                </select>
-                                <input asp-for="ProductName" asp-action="Delete" asp-controller="Product" class="input-field" type="text" placeholder="Tìm kiếm sản phẩm">
+                                <input id="ProductName" name="ProductName" class="findproduct input-field" type="text" placeholder="Tìm kiếm sản phẩm">
                                 <button class="btn btn-outline-whisper btn-primary-hover" type="submit"><i class="pe-7s-search"></i></button>
                             </form>
                         </div>

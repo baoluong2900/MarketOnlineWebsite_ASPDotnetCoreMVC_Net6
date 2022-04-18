@@ -8,6 +8,31 @@ namespace MarketOnlineWebsite.Controllers
 {
     public class ProductController : Controller
     {
+        /// <summary>
+        /// Sắp xếp theo Mặc định
+        /// </summary>
+        private const int SORT_VALUE_1 = 1;
+
+        /// <summary>
+        /// Sắp xếp theo độ phổ biến
+        /// </summary>
+        private const int SORT_VALUE_2 = 2;
+
+        /// <summary>
+        /// Sắp xếp theo khuyến mãi
+        /// </summary>
+        private const int SORT_VALUE_3 = 3;
+
+        /// <summary>
+        /// Sắp xếp theo giá giảm dần
+        /// </summary>
+        private const int SORT_VALUE_4 = 4;
+        /// <summary>
+        /// Sắp xếp theo giá tăng dần
+        /// </summary>
+        private const int SORT_VALUE_5 = 5;
+
+
         private readonly dbMarketsContext _context;
         public INotyfService _INotyfService { get; }
         public ProductController(dbMarketsContext context, INotyfService inotyfService )
@@ -16,27 +41,90 @@ namespace MarketOnlineWebsite.Controllers
             _INotyfService = inotyfService;
         }
 
+        // GET: Product
+        [HttpGet]
         [Route("product.html", Name = "Product")]
-        public IActionResult Index(int? page)
+        public IActionResult Index(int? page, string searchProductNamme)
         {
             try
             {
+               
+                //ViewData["CurrentFilter"] = searchProductNamme;
+                ViewBag.CurrentFilter = searchProductNamme;
+                var lsProducts = _context.Products.AsNoTracking().OrderByDescending(x=>x.DateCreated);
+                if (!string.IsNullOrEmpty(searchProductNamme))
+                {
+                    lsProducts = (IOrderedQueryable<Product>)lsProducts.Where(x => x.ProductName.Contains(searchProductNamme));
+                  
+                }
                 var pageNumber = page == null || page < 0 ? 1 : page.Value;
                 var pageSize = 12;
-                var lsProducts = _context.Products.AsNoTracking().OrderByDescending(x => x.DateCreated);
                 PagedList<Product> models = new PagedList<Product>(lsProducts, pageNumber, pageSize);
                 ViewBag.CurrentPage = pageNumber;
+                ViewBag.Count = lsProducts.Count();
                 return View(models);
             }
             catch 
             {
-
 
                 return RedirectToAction("Index", "Home");
 
             }
 
         }
+        //[HttpPost]
+        //[Route("product.html", Name = "Product")]
+        //public IActionResult Index(int? page,int? data)
+        //{
+        //   try
+        //    {
+        //        var pageNumber = page == null || page < 0 ? 1 : page.Value;
+        //        var pageSize = 12;
+        //        var lsProducts = _context.Products.AsNoTracking();
+        //        if(data == SORT_VALUE_4)
+        //        {
+        //            lsProducts = lsProducts.Where(x=>x.Price==1).OrderByDescending(x=>x.Price);
+        //        }
+        //        PagedList<Product> models = new PagedList<Product>(lsProducts, pageNumber, pageSize);
+        //        ViewBag.CurrentPage = pageNumber;
+        //        return View(models);
+
+        //if (data == SORT_VALUE_2)
+        //{
+        //    var lsProducts = _context.Products.AsNoTracking().OrderByDescending(x => x.HomeFlag == true);
+        //    models = new PagedList<Product>(lsProducts, pageNumber, pageSize);
+        //    return View(models);
+
+        //}
+        //else if (data == SORT_VALUE_3)
+        //{
+        //    var lsProducts = _context.Products.AsNoTracking().OrderByDescending(x => x.BestSellers == true);
+        //    models = new PagedList<Product>(lsProducts, pageNumber, pageSize);
+        //    return View(models);
+
+        //}
+        //else if ( data == SORT_VALUE_4)
+        //{
+        //    var lsProducts = _context.Products.AsNoTracking().OrderByDescending(x => x.Price);
+        //     models = new PagedList<Product>(lsProducts, pageNumber, pageSize);
+        //    return View(models);
+
+        //}
+        //else if (data == SORT_VALUE_5)
+        //{
+        //    var lsProducts = _context.Products.AsNoTracking().OrderBy(x => x.Price);
+        //    models = new PagedList<Product>(lsProducts, pageNumber, pageSize);
+        //    return View(models);
+
+        //
+
+        //    } 
+        //   catch
+        //   {
+        //        return RedirectToAction("Index", "Home");
+        //   }
+
+        //}
 
         [Route("/{Alias}", Name = "ListProduct")]
         public IActionResult List(string alias, int page=1)
@@ -85,29 +173,5 @@ namespace MarketOnlineWebsite.Controllers
             }
 
         }
-
-        [HttpPost]
-        public IActionResult Search(string productName)
-        {
-             try
-            {
-               
-                var product = _context.Products.SingleOrDefault(x => x.ProductName.Trim().ToLower() == productName.Trim().ToLower());
-                if (product == null)
-                {
-                    _INotyfService.Error("không tìm thấy sản phẩm");
-                    return RedirectToAction("Index", "Home");
-                }
-                //string url = $"/{product.Alias}-{product.ProductId}.html";
-                return RedirectToAction("ProductDetails",product);
-            }
-            catch(Exception ex)
-            {
-                return RedirectToAction("Index", "Home");
-            }
-        }
-
-           
-        
     }
 }

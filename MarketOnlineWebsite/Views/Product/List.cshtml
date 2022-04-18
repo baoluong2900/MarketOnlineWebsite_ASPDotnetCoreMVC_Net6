@@ -264,7 +264,7 @@
                                 <span>23</span> Product Found of <span>50</span>
                             </li>
                             <li class="short">
-                                <select class="nice-select wide rounded-0">
+                                <select list="@Model" asp-action="Index" a class="nice-select wide rounded-0"  id="txtCatID" name="txtCatID">
                                     <option value="1">Sort by Default</option>
                                     <option value="2">Sort by Popularity</option>
                                     <option value="3">Sort by Rated</option>
@@ -278,7 +278,7 @@
                     <div class="tab-content text-charcoal pt-8">
                         <div class="tab-pane fade show active" id="grid-view" role="tabpanel" aria-labelledby="grid-view-tab">
                             <div class="product-grid-view row">
-                                @if(Model!=null && Model.Count() >0) 
+                                @if(Model !=null && Model.Count() >0) 
                                 {
                                     foreach( var productItem in Model)
                                     {

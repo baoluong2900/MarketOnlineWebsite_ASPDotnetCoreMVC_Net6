@@ -1,7 +1,9 @@
 ﻿@using PagedList.Core.Mvc
 @model PagedList.Core.IPagedList<MarketOnlineWebsite.Models.Product>
 @{
-     int PageCurrent = ViewBag.CurrentPage;
+    int PageCurrent = ViewBag.CurrentPage;
+    int countList = ViewBag.Count;
+    string searchString = ViewBag.CurrentFilter;
     ViewData["Title"] = "danh sách sản phẩm";
     Layout = "~/Views/Shared/_Layout.cshtml";
      int PageNext = PageCurrent+1;
@@ -31,32 +33,32 @@
                 <div class="col-lg-3 order-lg-1 order-2 pt-10 pt-lg-0">
                     <div class="sidebar-area">
                         <div class="widgets-searchbox mb-9">
-                            <form id="widgets-searchbox" action="#">
-                                <input class="input-field" type="text" placeholder="Search">
-                                <button class="widgets-searchbox-btn" type="submit">
+                            <form  id="widgets-searchbox" action="#">
+                                <input name="searchProductNamme" value="@searchString" class="input-field" type="text" placeholder="Tìm kiếm">
+                                <button class="widgets-searchbox-btn" value="Search" type="submit">
                                     <i class="pe-7s-search"></i>
                                 </button>
                             </form>
                         </div>
                         <div class="widgets-area mb-9">
-                            <h2 class="widgets-title mb-5">Refine By</h2>
+                            <h2 class="widgets-title mb-5">Điều chỉnh</h2>
                             <div class="widgets-item">
                                 <ul class="widgets-checkbox">
                                     <li>
                                         <input class="input-checkbox" type="checkbox" id="refine-item">
-                                        <label class="label-checkbox mb-0" for="refine-item">On Sale
+                                        <label class="label-checkbox mb-0" for="refine-item">Đang giảm giá
                                             <span>4</span>
                                         </label>
                                     </li>
                                     <li>
                                         <input class="input-checkbox" type="checkbox" id="refine-item-2" checked>
-                                        <label class="label-checkbox mb-0" for="refine-item-2">New
+                                        <label class="label-checkbox mb-0" for="refine-item-2">Mới nhất
                                             <span>4</span>
                                         </label>
                                     </li>
                                     <li>
                                         <input class="input-checkbox" type="checkbox" id="refine-item-3">
-                                        <label class="label-checkbox mb-0" for="refine-item-3">In Stock
+                                        <label class="label-checkbox mb-0" for="refine-item-3">Trong kho
                                             <span>4</span>
                                         </label>
                                     </li>
@@ -64,43 +66,43 @@
                             </div>
                         </div>
                         <div class="widgets-area widgets-filter mb-9">
-                            <h2 class="widgets-title mb-5">Price Filter</h2>
+                            <h2 class="widgets-title mb-5">Sắp xếp theo giá</h2>
                             <div class="price-filter">
                                 <div id="slider-range"></div>
                                 <div class="price-slider-amount">
-                                    <button class="btn btn-primary btn-secondary-hover">Filter</button>
+                                    <button class="btn btn-primary btn-secondary-hover">Sắp xếp</button>
                                     <div class="label-input position-relative">
-                                        <label>price : </label>
+                                        <label>Giá : </label>
                                         <input type="text" id="amount" name="price" placeholder="Add Your Price" />
                                     </div>
                                 </div>
                             </div>
                         </div>
                         <div class="widgets-area mb-9">
-                            <h2 class="widgets-title mb-5">Color</h2>
+                            <h2 class="widgets-title mb-5">Loại sản phẩm</h2>
                             <div class="widgets-item">
                                 <ul class="widgets-checkbox">
                                     <li>
                                         <input class="input-checkbox" type="checkbox" id="color-selection-1">
-                                        <label class="label-checkbox mb-0" for="color-selection-1">Green
+                                        <label class="label-checkbox mb-0" for="color-selection-1">Trái cây
                                             <span>7</span>
                                         </label>
                                     </li>
                                     <li>
                                         <input class="input-checkbox" type="checkbox" id="color-selection-2" checked>
-                                        <label class="label-checkbox mb-0" for="color-selection-2">Cream
+                                        <label class="label-checkbox mb-0" for="color-selection-2">Thịt
                                             <span>3</span>
                                         </label>
                                     </li>
                                     <li>
                                         <input class="input-checkbox" type="checkbox" id="color-selection-3">
-                                        <label class="label-checkbox mb-0" for="color-selection-3">Blue
+                                        <label class="label-checkbox mb-0" for="color-selection-3">Rau củ
                                             <span>4</span>
                                         </label>
                                     </li>
                                     <li>
                                         <input class="input-checkbox" type="checkbox" id="color-selection-4">
-                                        <label class="label-checkbox mb-0" for="color-selection-4">Black
+                                        <label class="label-checkbox mb-0" for="color-selection-4">Sữa
                                             <span>6</span>
                                         </label>
                                     </li>
@@ -243,7 +245,7 @@
                 </div>
                 <div class="col-lg-9 order-lg-2 order-1">
                     <div class="product-topbar">
-                        <ul>
+                        <ul style="width: 907px;">
                             <li class="product-view-wrap">
                                 <ul class="nav" role="tablist">
                                     <li class="grid-view" role="presentation">
@@ -259,17 +261,36 @@
                                 </ul>
                             </li>
                             <li class="page-count">
-                                <span>23</span> Product Found of <span>50</span>
+                                @{
+                                    var rowNumber = 0;
+                                    if(Model.Count == 12 )
+                                    {
+                                        if(Model.PageNumber == 1)
+                                        {
+                                            rowNumber = Model.Count;
+                                        }
+                                        else
+                                        {
+                                            rowNumber = Model.Count*Model.PageNumber;
+                                        } 
+
+                                    }
+                                    else
+                                    {
+                                        rowNumber = Model.TotalItemCount;
+                                    }
+                                }
+                                <span>@Model.Count </span>Sản phẩm tìm thấy <span>@rowNumber</span>
                             </li>
-                            <li class="short">
-                                <select class="nice-select wide rounded-0">
-                                    <option value="1">Sort by Default</option>
-                                    <option value="2">Sort by Popularity</option>
-                                    <option value="3">Sort by Rated</option>
-                                    <option value="4">Sort by Latest</option>
-                                    <option value="5">Sort by High Price</option>
-                                    <option value="6">Sort by Low Price</option>
+                            <li class="short" style="width: 238px;">
+                                 <select class="nice-select wide rounded-0" name="theme" id="theme">
+                                    <option value="1">Sắp xếp theo Mặc định</option>
+                                    <option value="2">Sắp xếp theo mức độ phổ biến</option>
+                                    <option value="3">Sắp xếp theo khuyến mãi</option>
+                                    <option value="4">Sắp xếp theo giá giảm dần</option>
+                                    <option value="5">Sắp xếp theo giá tăng dần</option>
                                 </select>
+
                             </li>
                         </ul>
                     </div>
@@ -292,11 +313,6 @@
                                                             <li>
                                                                 <a href="cart.html">
                                                                     <i class="pe-7s-cart"></i>
-                                                                </a>
-                                                            </li>
-                                                            <li>
-                                                                <a href="compare.html">
-                                                                    <i class="pe-7s-shuffle"></i>
                                                                 </a>
                                                             </li>
                                                             <li>
@@ -387,7 +403,7 @@
                     </div>
                     <div class="pagination-area pt-10">
                             <ul class="pagination justify-content-center">
-                                <pager class="pager-container" options="@PagedListRenderOptions.Bootstrap4PageNumbersOnly" list="@Model" asp-area="" asp-controller="Product" asp-action="Index"></pager>
+                                <pager class="pager-container" options="@PagedListRenderOptions.Bootstrap4PageNumbersOnly" asp-route-searchProductNamme="@searchString"  list="@Model" asp-area="" asp-controller="Product" asp-action="Index"></pager>
                             </ul>
                     </div>
                 </div>
@@ -396,3 +412,36 @@
     </div>
 </main>
 <!-- Main Content Area End Here -->
+@*@section Scripts
+{*@
+@*<script>
+    $('#theme').on("change", function() {
+        var item=$("#theme option:selected").val();
+        $.post ("/Product/Index",
+        {
+            data:item
+        });
+    });
+</script>*@
+
+@*<script>
+    $('#theme').on("change", function() {
+        var item=$("#theme option:selected").val();
+        $.ajax({
+            url: "/Product/Index",
+            datatype: "JSON",
+            type: "GET",
+            data: {data:item },
+            async: true,
+            success: function (results) {
+                     	 if (results.status == "success") {
+						    window.location.href = results.redirectUrl;
+					    }
+            },
+            error: function (xhr) {
+                alert('error');
+            }
+         });
+    });
+</script>*@
+@*}*@
