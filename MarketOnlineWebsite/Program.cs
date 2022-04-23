@@ -1,6 +1,7 @@
 ﻿using AspNetCoreHero.ToastNotification;
 using MarketOnlineWebsite.Models;
 using Microsoft.AspNetCore.Authentication.Cookies;
+using Microsoft.AspNetCore.Mvc.Razor;
 using Microsoft.EntityFrameworkCore;
 using System.Text.Encodings.Web;
 using System.Text.Unicode;
@@ -10,7 +11,7 @@ var builder = WebApplication.CreateBuilder(args);
 // Add services to the container.
 builder.Services.AddControllersWithViews().AddRazorRuntimeCompilation();
 builder.Services.AddNotyf(config => { config.DurationInSeconds = 3; config.IsDismissable = true; config.Position = NotyfPosition.TopRight; });
-
+builder.Services.AddMvc(option => option.EnableEndpointRouting = false);
 #region Cấu hình session 
 builder.Services.AddDistributedMemoryCache();
 builder.Services.AddSession();
@@ -20,12 +21,6 @@ builder.Services.AddAuthentication(CookieAuthenticationDefaults.AuthenticationSc
        p.LoginPath = "/dang-nhap.html";
        p.AccessDeniedPath = "/";
     });
-//builder.Services.AddSession(options =>
-//{
-//    options.IdleTimeout = TimeSpan.FromSeconds(10);
-//    options.Cookie.HttpOnly = true;
-//    options.Cookie.IsEssential = true;
-//});
 
 #endregion
 
@@ -61,10 +56,11 @@ app.UseRouting();
 app.UseAuthentication();
 app.UseAuthorization();
 app.UseSession();
+
 #region Tạo sever riêng cho trang admin
 
 app.MapControllerRoute(
-    name: "areas",
+    name: "Admin",
     pattern: "{area:exists}/{controller=Home}/{action=Index}/{id?}"
 );
 

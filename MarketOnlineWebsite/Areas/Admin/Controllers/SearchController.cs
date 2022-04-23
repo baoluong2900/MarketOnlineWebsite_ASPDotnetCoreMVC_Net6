@@ -25,7 +25,7 @@ namespace MarketOnlineWebsite.Areas.Admin.Controllers
             ls = _context.Products
                                             .AsNoTracking()
                                             .Include(x=>x.Cat)
-                                            .Where(x=>x.ProductName.Contains(keyword))
+                                            .Where(x=>x.ProductName.Contains(keyword.Trim()))
                                             .OrderByDescending(x=>x.ProductName)
                                             .Take(10)
                                             .ToList();

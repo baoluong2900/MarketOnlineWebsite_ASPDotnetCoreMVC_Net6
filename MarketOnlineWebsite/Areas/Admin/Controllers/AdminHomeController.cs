@@ -2,8 +2,8 @@
 
 namespace MarketOnlineWebsite.Areas.Admin.Controllers
 {
-   [Area("Admin")]
-    public class HomeController : Controller
+    [Area("Admin")]
+    public class AdminHomeController : Controller
     {
         public IActionResult Index()
         {
