@@ -1,4 +1,62 @@
 ﻿@model MarketOnlineWebsite.Models.Customer
+<style>
+*{
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body{
+    height: 100vh;
+    width: 100%;
+}
+
+h1{
+    font-family: sans-serif;
+    text-align: center;
+    font-size: 30px;
+    color: #222;
+}
+
+.profile-pic-div{
+    height: 200px;
+    width: 200px;
+    position: absolute;
+/*    top: auto;
+    left: auto*/;
+    transform: translate(-50%,-50%);
+    border-radius: 50%;
+    overflow: hidden;
+    border: 1px solid grey;
+}
+
+#photo{
+    height: 100%;
+    width: 100%;
+}
+
+#file{
+    display: none;
+}
+
+#uploadBtn{
+    height: 40px;
+    width: 100%;
+    position: absolute;
+    bottom: 0;
+    left: 50%;
+    transform: translateX(-50%);
+    text-align: center;
+    background: rgba(0, 0, 0, 0.7);
+    color: wheat;
+    line-height: 30px;
+    font-family: sans-serif;
+    font-size: 15px;
+    cursor: pointer;
+    display: none;
+}
+
+</style>
 <div class="myaccount-dashboard">
     <form asp-controller="Accounts" asp-action="UpdatePersonal" method="post" id="form-validation" enctype="multipart/form-data">
      <div asp-validation-summary="ModelOnly" class="text-danger"></div>
@@ -31,22 +89,76 @@
                     </div>
                     <div class="col-md-4">
                         <div class="checkout-form-list">
-                            <img  height="250" width="250" src="~/images/customers/@Model.Avatar" class="rounded-circle" alt="Cinque Terre" style="margin-left: 15px;">
-                        </div>
-                        <div class="col-md-4">
-                            <div class="checkout-form-list" style="margin-left: 52px;">
-                                <input name="fAvatar" type="file" class="form-control-file" asp-for="Avatar">
-                                <span asp-validation-for="Avatar" class="text-danger"></span>
+                        @if(Model.Avatar != null)
+                        {
+                             <div class="profile-pic-div" style="margin-top: 98px;margin-left: 139px;">
+                              <img src="~/images/customers/@Model.Avatar" id="photo">
+                              <input  name="fAvatar" type="file" class="form-control-file" asp-for="Avatar" accept="image/*"
+                               onchange="document.getElementById('myImg').src = window.URL.createObjectURL(this.files[0])" id="file">
+                              <label for="file" id="uploadBtn">Thay đổi ảnh</label>
                             </div>
+                        }
+                        else
+                        {
+                            <div class="profile-pic-div" style="margin-top: 98px;margin-left: 139px;">
+                              <img src="~/images/customers/default.jpg" id="photo">
+                              <input  name="fAvatar" type="file" class="form-control-file" asp-for="Avatar" accept="image/*"
+                               onchange="document.getElementById('myImg').src = window.URL.createObjectURL(this.files[0])" id="file">
+                              <label for="file" id="uploadBtn">Thay đổi ảnh</label>
+                            </div>
+                        }
                         </div>
                     </div>
                   </div>
+                    <div class="form-layout-footer mg-t-30" style="padding-left: 632px;margin-top: -81px;">
+                        <button class="btn btn-custom-size lg-size btn-secondary btn-primary-hover rounded-0" type="submit">
+                                <span>Lưu thay đôi</span>
+                        </button>
+                   </div><!-- form-layout-footer -->
             </div>
-            <div class="form-layout-footer mg-t-30" style="padding-left: 646px;">*
-                <button class="btn btn-custom-size lg-size btn-secondary btn-primary-hover rounded-0" type="submit">
-                        <span>Lưu thay đôi</span>
-                </button>
-            </div><!-- form-layout-footer -->
+
     </form>
 </div>
+<script>
+//declearing html elements
+
+const imgDiv = document.querySelector('.profile-pic-div');
+const img = document.querySelector('#photo');
+const file = document.querySelector('#file');
+const uploadBtn = document.querySelector('#uploadBtn');
+
+//if user hover on img div 
+
+imgDiv.addEventListener('mouseenter', function(){
+    uploadBtn.style.display = "block";
+});
+
+//if we hover out from img div
+
+imgDiv.addEventListener('mouseleave', function(){
+    uploadBtn.style.display = "none";
+});
+
+//lets work for image showing functionality when we choose an image to upload
+
+//when we choose a foto to upload
+
+file.addEventListener('change', function(){
+    //this refers to file
+    const choosedFile = this.files[0];
+
+    if (choosedFile) {
+
+        const reader = new FileReader(); //FileReader is a predefined function of JS
+
+        reader.addEventListener('load', function(){
+            img.setAttribute('src', reader.result);
+        });
+
+        reader.readAsDataURL(choosedFile);
+
+    }
+});
+
+</script>
 

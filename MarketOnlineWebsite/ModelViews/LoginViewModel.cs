@@ -1,4 +1,5 @@
-﻿using System.ComponentModel.DataAnnotations;
+﻿using Microsoft.AspNetCore.Mvc;
+using System.ComponentModel.DataAnnotations;
 
 namespace MarketOnlineWebsite.ModelViews
 {
@@ -9,6 +10,8 @@ namespace MarketOnlineWebsite.ModelViews
         [Required(ErrorMessage = "Vui lòng nhập tài khoản đăng nhập")]
         [RegularExpression(@"^[a-zA-Z0-9_.+-]+@[a-zA-Z0-9-]+\.[a-zA-Z0-9-.]+$",  ErrorMessage = "Định dạng tên đăng nhập không hợp lệ")]
         [Display(Name = "Tài khoản đăng nhập")]
+        //[Remote(action: "ValidateEmail", controller: "AdminHome")]
+        //[Remote("ValidateEmail", "AdminHome",ErrorMessage ="Tồn tại kìa")]
         public string UserName { get; set; }
 
         [Display(Name = "Mật khẩu")]

@@ -18,6 +18,7 @@ namespace MarketOnlineWebsite.Models
         public string? Slug { get; set; }
         public string? NameWithType { get; set; }
         public string? Type { get; set; }
+        public int? UserId { get; set; }
 
         public virtual ICollection<Customer> Customers { get; set; }
         public virtual ICollection<Supplier> Suppliers { get; set; }

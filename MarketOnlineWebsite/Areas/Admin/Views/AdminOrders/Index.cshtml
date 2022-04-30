@@ -1,0 +1,214 @@
+﻿@using PagedList.Core.Mvc
+@model PagedList.Core.IPagedList<MarketOnlineWebsite.Models.Order>
+@{
+      int currentPage = ViewBag.CurrentPage;
+    ViewData["Title"] = "Index";
+    Layout = "~/Areas/Admin/Views/Shared/_AdminLayout.cshtml";
+}
+<div class="page-header">
+    <div class="header-sub-title">
+        <nav class="breadcrumb breadcrumb-dash">
+            <a asp-area="Admin" asp-controller="AdminOrders" asp-action="Index" class="breadcrumb-item"><i class="anticon anticon-home m-r-5"></i>Home</a>
+            <span class="breadcrumb-item active">Danh sách đơn hàng : Trang @currentPage</span>
+        </nav>
+    </div>
+</div>
+<div class="card">
+    <div class="card-body">
+        <div class="row m-b-30">
+            <div class="col-lg-8">
+                <div class="d-md-flex">
+                    <div class="m-b-10 m-r-15">
+                        <select class="custom-select" style="min-width: 250px;" id="idRoles" name="idRoles" asp-items="ViewBag.QuyenTruyCap">
+                            <option value="" disabled selected> 
+                                Chọn quyền truy cập
+                            </option>
+                        </select>
+                    </div>
+                    <div class="m-b-10">
+                        <select class="custom-select" style="min-width: 180px;" id="idStatus" name="idStatus" asp-items="ViewBag.Active">
+                            <option value="" disabled selected> 
+                               Trạng thái
+                            </option>
+                        </select>
+                    </div>
+                </div>
+            </div>
+            <div class="col-lg-4 text-right">
+                    <a class="anticon anticon-plus-circle btn btn-primary btn-tone m-r-5" asp-action="Create">
+                        <span class="m-l-25"> Thêm mới page</span>
+                    </a>
+            </div>
+        </div>
+        <div class="table-responsive">
+            <table class="table table-hover e-commerce-table">
+                <thead>
+                    <tr>
+                        <th>#</th>
+                        <th>Đơn hàng</th>
+                        <th>Tên khách hàng</th>
+                        <th>Ngày mua</th>
+                        <th>Tổng tiền</th>
+                        <th>Trạng thái</th>
+                        <th>#</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @if(Model !=null)
+                    {
+                        var rowNumber = 1; 
+                        foreach (var pagesItem in Model)
+                        {
+                            <tr>
+                                <th scope="row">@rowNumber</th>
+                                <td>
+                                    @pagesItem.OrderId
+                                </td>
+                                <td>
+                                    @pagesItem.Customer.FullName
+                                </td>
+                                <td>
+                                    @pagesItem.OrderDate
+                                </td>
+                                <td>
+                                    @pagesItem.TotalMoney.ToString("#,###") VNĐ
+                                   
+                                </td>
+                                <td>
+                                    @pagesItem.TransactStatus.Status
+                                </td>
+                                <td>
+                           
+                                     <a class="anticon anticon-bars btn btn-success btn-tone m-r-5" asp-action="Details" asp-route-id="@pagesItem.OrderId"></a> 
+                                     <a class="anticon anticon-plus-square btn btn-secondary btn-tone m-r-5"  asp-action="ChangeStatus" asp-route-id="@pagesItem.OrderId"></a>
+                                     <a class="anticon anticon-edit btn btn-warning btn-tone m-r-5"  asp-action="Edit" asp-route-id="@pagesItem.OrderId"></a>
+                                     <a class="anticon anticon-delete btn btn-danger btn-tone m-r-5" asp-action="Delete" asp-route-id="@pagesItem.OrderId"></a> 
+                                </td>
+                            </tr>
+                             rowNumber ++; 
+                        }
+                    }
+  
+                </tbody>
+            </table>
+              <div aria-label="Page navigation Example">
+                  <ul class="pagination">
+                      <pager class="pager-container" list="@Model" asp-area="Admin" asp-controller="AdminOrders" asp-action="Index"></pager>
+                  </ul>
+              </div>
+        </div>
+    </div>
+</div>
+
+<p>
+@*    <a asp-action="Create">Create New</a>
+</p>
+<table class="table">
+    <thead>
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.OrderDate)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.ShipDate)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Deleted)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Paid)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.PaymentDate)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.TotalMoney)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.PaymentId)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Note)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Address)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.LocationId)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.District)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Ward)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.UserId)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Customer)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.TransactStatus)
+            </th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+@foreach (var item in Model) {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.OrderDate)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.ShipDate)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Deleted)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Paid)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.PaymentDate)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.TotalMoney)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.PaymentId)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Note)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Address)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.LocationId)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.District)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Ward)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.UserId)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Customer.CustomerId)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.TransactStatus.TransactStatusId)
+            </td>
+            <td>
+                <a asp-action="Edit" asp-route-id="@item.OrderId">Edit</a> |
+                <a asp-action="Details" asp-route-id="@item.OrderId">Details</a> |
+                <a asp-action="Delete" asp-route-id="@item.OrderId">Delete</a>
+            </td>
+        </tr>
+}
+    </tbody>
+</table>
+*@

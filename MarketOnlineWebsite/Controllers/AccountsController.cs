@@ -193,28 +193,27 @@ namespace MarketOnlineWebsite.Controllers
             // Check nếu giỏ hàng đã có thì trả về giỏ hàng để khách hàng thấy
             //ViewBag.ShoppingCarts = Cart;
             return View();
-           
+
         }
 
         [HttpPost]
         [AllowAnonymous]
         [Route("dang-nhap.html", Name = "DangNhap")]
-        public async Task<IActionResult> Login(LoginViewModel customers, string? returnUrl=null)
+        public async Task<IActionResult> Login(LoginViewModel customers, string? returnUrl = null)
         {
             try
             {
                 var carts = HttpContext.Session.Get<List<CartItem>>("Cart");
-                if(ModelState.IsValid)
-
+                if (ModelState.IsValid)
                 {
                     bool isEmail = Utilities.IsValidEmail(customers.UserName);
-                    if(!isEmail)
-                    { 
+                    if (!isEmail)
+                    {
                         return View(customers);
                     }
                     var customer = _context.Customers
                             .SingleOrDefault(x => x.Email.ToLower().Trim() == customers.UserName.ToLower().Trim());
-                    if(customer == null)
+                    if (customer == null)
                     {
 
                         _INotyfService.Warning("Thông tin tài khoàn chưa tồn tài");
@@ -222,12 +221,12 @@ namespace MarketOnlineWebsite.Controllers
                     }
 
                     string pass = (customers.Password + customer.Salt.Trim()).ToMD5();
-                    if(customer.Password != pass)
+                    if (customer.Password != pass)
                     {
                         _INotyfService.Error("Thông tin đăng nhập chưa chính xác");
-                        return View(customers );
+                        return View(customers);
                     }
-                    if(customer.Active == false)
+                    if (customer.Active == false)
                     {
                         return RedirectToAction("ThongBao", "Accounts");
                     }
@@ -261,16 +260,16 @@ namespace MarketOnlineWebsite.Controllers
                         await _context.SaveChangesAsync();
                         return Redirect(returnUrl);
                     }
-                  
+
 
                 }
             }
             catch (Exception ex)
             {
-                
+
                 //return RedirectToAction("DangKyTaiKhoan", "Accounts");
             }
-            return View(customers );
+            return View(customers);
         }
 
         [HttpGet]

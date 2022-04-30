@@ -1,7 +1,8 @@
-﻿
+﻿@model MarketOnlineWebsite.Areas.Admin.ModelViews.AdminHomeAllVM
 @{
-ViewData["Title"] = "Admin Index";
-Layout = "~/Areas/Admin/Views/Shared/_AdminLayout.cshtml";
+    ViewData["Title"] = "Admin Index";
+    Layout = "~/Areas/Admin/Views/Shared/_AdminLayout.cshtml";
+    List<Product> listProduct = ViewBag.ListProduct;
 }
 <div class="row">
     <div class="col-lg-5">
@@ -223,18 +224,20 @@ Layout = "~/Areas/Admin/Views/Shared/_AdminLayout.cshtml";
                     </div>
                 </div>
                 <div class="m-t-30">
-                    <ul class="list-group list-group-flush">
-                        <li class="list-group-item p-h-0">
+                    <ul class="list-group list-group-flush
+                    @foreach (var item in listProduct)
+                    {
+                          <li class="list-group-item p-h-0">
                             <div class="d-flex align-items-center justify-content-between">
                                 <div class="d-flex">
                                     <div class="avatar avatar-image m-r-15">
-                                        <img src="Adminassets/images/others/thumb-9.jpg" alt="">
+                                        <img src="/images/products/@item.Thumb" alt="">
                                     </div>
                                     <div>
                                         <h6 class="m-b-0">
-                                            <a href="javascript:void(0);" class="text-dark"> Gray Sofa</a>
+                                            <a href="javascript:void(0);" class="text-dark">@item.ProductName</a>
                                         </h6>
-                                        <span class="text-muted font-size-13">Home Decoration</span>
+                                        <span class="text-muted font-size-13">@item.Description</span>
                                     </div>
                                 </div>
                                 <span class="badge badge-pill badge-cyan font-size-12">
@@ -242,78 +245,9 @@ Layout = "~/Areas/Admin/Views/Shared/_AdminLayout.cshtml";
                                 </span>
                             </div>
                         </li>
-                        <li class="list-group-item p-h-0">
-                            <div class="d-flex align-items-center justify-content-between">
-                                <div class="d-flex">
-                                    <div class="avatar avatar-image m-r-15">
-                                        <img src="Adminassets/images/others/thumb-10.jpg" alt="">
-                                    </div>
-                                    <div>
-                                        <h6 class="m-b-0">
-                                            <a href="javascript:void(0);" class="text-dark">Beat Headphone</a>
-                                        </h6>
-                                        <span class="text-muted font-size-13">Eletronic</span>
-                                    </div>
-                                </div>
-                                <span class="badge badge-pill badge-cyan font-size-12">
-                                    <span class="font-weight-semibold m-l-5">+12.7%</span>
-                                </span>
-                            </div>
-                        </li>
-                        <li class="list-group-item p-h-0">
-                            <div class="d-flex align-items-center justify-content-between">
-                                <div class="d-flex">
-                                    <div class="avatar avatar-image m-r-15">
-                                        <img src="Adminassets/images/others/thumb-11.jpg" alt="">
-                                    </div>
-                                    <div>
-                                        <h6 class="m-b-0">
-                                            <a href="javascript:void(0);" class="text-dark">Wooden Rhino</a>
-                                        </h6>
-                                        <span class="text-muted font-size-13">Home Decoration</span>
-                                    </div>
-                                </div>
-                                <span class="badge badge-pill badge-cyan font-size-12">
-                                    <span class="font-weight-semibold m-l-5">+9.2%</span>
-                                </span>
-                            </div>
-                        </li>
-                        <li class="list-group-item p-h-0">
-                            <div class="d-flex align-items-center justify-content-between">
-                                <div class="d-flex">
-                                    <div class="avatar avatar-image m-r-15">
-                                        <img src="Adminassets/images/others/thumb-12.jpg" alt="">
-                                    </div>
-                                    <div>
-                                        <h6 class="m-b-0">
-                                            <a href="javascript:void(0);" class="text-dark">Red Chair</a>
-                                        </h6>
-                                        <span class="text-muted font-size-13">Home Decoration</span>
-                                    </div>
-                                </div>
-                                <span class="badge badge-pill badge-cyan font-size-12">
-                                    <span class="font-weight-semibold m-l-5">+7.7%</span>
-                                </span>
-                            </div>
-                        </li>
-                        <li class="list-group-item p-h-0">
-                            <div class="d-flex align-items-center justify-content-between">
-                                <div class="d-flex">
-                                    <div class="avatar avatar-image m-r-15">
-                                        <img src="Adminassets/images/others/thumb-13.jpg" alt="">
-                                    </div>
-                                    <div>
-                                        <h6 class="m-b-0">
-                                            <a href="javascript:void(0);" class="text-dark">Wristband</a>
-                                        </h6>
-                                        <span class="text-muted font-size-13">Eletronic</span>
-                                    </div>
-                                </div>
-                                <span class="badge badge-pill badge-cyan font-size-12">
-                                    <span class="font-weight-semibold m-l-5">+5.8%</span>
-                                </span>
-                            </div>
-                        </li>
+                    }
+
+
                     </ul> 
                 </div>
             </div>
@@ -428,7 +362,7 @@ Layout = "~/Areas/Admin/Views/Shared/_AdminLayout.cshtml";
                                                 <div class="avatar avatar-image" style="height: 30px; min-width: 30px; max-width:30px">
                                                     <img src="Adminassets/images/avatars/thumb-3.jpg" alt="">
                                                 </div>
-                                                <h6 class="m-l-10 m-b-0">Marshall Nichols</h6>
+                                                <h6 class="m-l-10 m-b-0">test</h6>
                                             </div>
                                         </div>
                                     </td>
@@ -512,4 +446,3 @@ Layout = "~/Areas/Admin/Views/Shared/_AdminLayout.cshtml";
         </div>
     </div>
 </div>
-

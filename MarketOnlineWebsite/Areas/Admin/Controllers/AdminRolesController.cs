@@ -65,7 +65,7 @@ namespace MarketOnlineWebsite.Areas.Admin.Controllers
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("RoleId,RoleName,Description")] Role role)
+        public async Task<IActionResult> Create([Bind("RoleId,RoleName,Description,UserId")] Role role)
         {
             if (ModelState.IsValid)
             {
@@ -98,7 +98,7 @@ namespace MarketOnlineWebsite.Areas.Admin.Controllers
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(int id, [Bind("RoleId,RoleName,Description")] Role role)
+        public async Task<IActionResult> Edit(int id, [Bind("RoleId,RoleName,Description,UserId")] Role role)
         {
             if (id != role.RoleId)
             {

@@ -1,8 +1,9 @@
-﻿@model MarketOnlineWebsite.Models.Page
+﻿@model MarketOnlineWebsite.Models.Order
 
 @{
     ViewData["Title"] = "Details";
     Layout = "~/Areas/Admin/Views/Shared/_AdminLayout.cshtml";
+    List<OrderDetail> orderDetails =  ViewBag.Detail;
 }
 <!-- Content Wrapper START -->
 <div class="main-content">
@@ -11,8 +12,8 @@
         <div class="header-sub-title">
             <nav class="breadcrumb breadcrumb-dash">
                 <a href="#" class="breadcrumb-item"><i class="anticon anticon-home m-r-5"></i>Home</a>
-                <a class="breadcrumb-item" href="#">Pages</a>
-                <span class="breadcrumb-item active">Invoice</span>
+                <a class="breadcrumb-item" href="#">Danh sách đơn hàng</a>
+                <span class="breadcrumb-item active">Chi tiết đơn hàng</span>
             </nav>
         </div>
     </div>
@@ -127,59 +128,106 @@
     </div>
 </div>
 <!-- Content Wrapper END -->
-<div class="page-header">
-    <div class="header-sub-title">
-        <nav class="breadcrumb breadcrumb-dash">
-            <a asp-area="Admin" asp-controller="Home" asp-action="Index" class="breadcrumb-item"><i class="anticon anticon-home m-r-5"></i>Home</a>
-            <a class="breadcrumb-item"asp-area="Admin" asp-controller="AdminPages" asp-action="Index">Danh sách page</a>
-            <span class="breadcrumb-item active">Thông tin page</span>
-        </nav>
-    </div>
+
+<h1>Details</h1>
+
+<div>
+    <h4>Order</h4>
+    <hr />
+    <dl class="row">
+        <dt class = "col-sm-2">
+            @Html.DisplayNameFor(model => model.OrderDate)
+        </dt>
+        <dd class = "col-sm-10">
+            @Html.DisplayFor(model => model.OrderDate)
+        </dd>
+        <dt class = "col-sm-2">
+            @Html.DisplayNameFor(model => model.ShipDate)
+        </dt>
+        <dd class = "col-sm-10">
+            @Html.DisplayFor(model => model.ShipDate)
+        </dd>
+        <dt class = "col-sm-2">
+            @Html.DisplayNameFor(model => model.Deleted)
+        </dt>
+        <dd class = "col-sm-10">
+            @Html.DisplayFor(model => model.Deleted)
+        </dd>
+        <dt class = "col-sm-2">
+            @Html.DisplayNameFor(model => model.Paid)
+        </dt>
+        <dd class = "col-sm-10">
+            @Html.DisplayFor(model => model.Paid)
+        </dd>
+        <dt class = "col-sm-2">
+            @Html.DisplayNameFor(model => model.PaymentDate)
+        </dt>
+        <dd class = "col-sm-10">
+            @Html.DisplayFor(model => model.PaymentDate)
+        </dd>
+        <dt class = "col-sm-2">
+            @Html.DisplayNameFor(model => model.TotalMoney)
+        </dt>
+        <dd class = "col-sm-10">
+            @Html.DisplayFor(model => model.TotalMoney)
+        </dd>
+        <dt class = "col-sm-2">
+            @Html.DisplayNameFor(model => model.PaymentId)
+        </dt>
+        <dd class = "col-sm-10">
+            @Html.DisplayFor(model => model.PaymentId)
+        </dd>
+        <dt class = "col-sm-2">
+            @Html.DisplayNameFor(model => model.Note)
+        </dt>
+        <dd class = "col-sm-10">
+            @Html.DisplayFor(model => model.Note)
+        </dd>
+        <dt class = "col-sm-2">
+            @Html.DisplayNameFor(model => model.Address)
+        </dt>
+        <dd class = "col-sm-10">
+            @Html.DisplayFor(model => model.Address)
+        </dd>
+        <dt class = "col-sm-2">
+            @Html.DisplayNameFor(model => model.LocationId)
+        </dt>
+        <dd class = "col-sm-10">
+            @Html.DisplayFor(model => model.LocationId)
+        </dd>
+        <dt class = "col-sm-2">
+            @Html.DisplayNameFor(model => model.District)
+        </dt>
+        <dd class = "col-sm-10">
+            @Html.DisplayFor(model => model.District)
+        </dd>
+        <dt class = "col-sm-2">
+            @Html.DisplayNameFor(model => model.Ward)
+        </dt>
+        <dd class = "col-sm-10">
+            @Html.DisplayFor(model => model.Ward)
+        </dd>
+        <dt class = "col-sm-2">
+            @Html.DisplayNameFor(model => model.UserId)
+        </dt>
+        <dd class = "col-sm-10">
+            @Html.DisplayFor(model => model.UserId)
+        </dd>
+        <dt class = "col-sm-2">
+            @Html.DisplayNameFor(model => model.Customer)
+        </dt>
+        <dd class = "col-sm-10">
+            @Html.DisplayFor(model => model.Customer.CustomerId)
+        </dd>
+        <dt class = "col-sm-2">
+            @Html.DisplayNameFor(model => model.TransactStatus)
+        </dt>
+        <dd class = "col-sm-10">
+            @Html.DisplayFor(model => model.TransactStatus.TransactStatusId)
+        </dd>
+    </dl>
 </div>
-<div class="card">
-    <div class="card-body">
-        <h4 class="card-title">Thông tin chi tiết page</h4>
-        <div class="table-responsive">
-            <table class="product-info-table m-t-20">
-                <tbody>
-                    <tr>
-                        <td>ID:</td>
-                        <td class="text-dark font-weight-semibold">@Model.PageId</td>
-                    </tr>
-                    <tr>
-                        <td>Tên page:</td>
-                        <td>@Model.PageName</td>
-                    </tr>
-                    <tr>
-                        <td>Công khai:</td>
-                        <td>@Model.Published</td>
-                    </tr>
-                    <tr>
-                        <td>Tiêu đề:</td>
-                        <td>@Model.Title</td>
-                    </tr>
-                    <tr>
-                        <td>Bí danh:</td>
-                        <td>@Model.Alias</td>
-                    </tr>
-                    <tr>
-                        <td>Ngày tạo</td>
-                        <td>@Model.CreatedDate</td>
-                    </tr>
-                    <tr>
-                        <td>Vị trí:</td>
-                        <td>@Model.Ordering</td>
-                    </tr>
-                    <tr>
-                        <td>Ảnh dại diện:</td>
-                        <td>  <img height="200" width="200" src="~/images/pages/@Model.Thumb" alt="@Model.Title"/> </td>
-                    </tr>
-                    <tr>
-                        <td>Nội dung:</td>
-                        <td>@Model.Contents</td>
-                    </tr>
-                </tbody>
-            </table> 
-        </div>
-    </div>
+<div>
+    <a asp-action="Edit" asp-route-id="@Model.OrderId">Edit</a> |
+    <a asp-action="Index">Back to List</a>
 </div>

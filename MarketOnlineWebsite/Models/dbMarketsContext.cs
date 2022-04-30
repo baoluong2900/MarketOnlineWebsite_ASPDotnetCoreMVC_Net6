@@ -2,7 +2,6 @@
 using System.Collections.Generic;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata;
-using MarketOnlineWebsite.ModelViews;
 
 namespace MarketOnlineWebsite.Models
 {
@@ -48,6 +47,8 @@ namespace MarketOnlineWebsite.Models
             modelBuilder.Entity<Account>(entity =>
             {
                 entity.Property(e => e.AccountId).HasColumnName("AccountID");
+
+                entity.Property(e => e.Avatar).HasMaxLength(255);
 
                 entity.Property(e => e.CreateDate)
                     .HasColumnType("datetime")
@@ -365,15 +366,13 @@ namespace MarketOnlineWebsite.Models
             {
                 entity.Property(e => e.SupplierId).HasColumnName("SupplierID");
 
+                entity.Property(e => e.AccountId).HasColumnName("AccountID");
+
                 entity.Property(e => e.Addresss).HasMaxLength(255);
 
                 entity.Property(e => e.Companyname).HasMaxLength(255);
 
                 entity.Property(e => e.ContactTitle).HasMaxLength(255);
-
-                entity.Property(e => e.CreateDate)
-                    .HasColumnType("datetime")
-                    .HasDefaultValueSql("(getdate())");
 
                 entity.Property(e => e.CurrentOrder).HasMaxLength(50);
 
@@ -381,7 +380,7 @@ namespace MarketOnlineWebsite.Models
                     .HasMaxLength(10)
                     .IsFixedLength();
 
-                entity.Property(e => e.Email)
+                entity.Property(e => e.EmailContact)
                     .HasMaxLength(150)
                     .IsFixedLength();
 
@@ -389,13 +388,9 @@ namespace MarketOnlineWebsite.Models
                     .HasMaxLength(20)
                     .IsFixedLength();
 
-                entity.Property(e => e.LastLogin).HasColumnType("datetime");
-
                 entity.Property(e => e.LocationId).HasColumnName("LocationID");
 
                 entity.Property(e => e.Logo).HasMaxLength(255);
-
-                entity.Property(e => e.Password).HasMaxLength(50);
 
                 entity.Property(e => e.PaymentMethods).HasMaxLength(150);
 
@@ -406,6 +401,11 @@ namespace MarketOnlineWebsite.Models
                 entity.Property(e => e.Salt)
                     .HasMaxLength(8)
                     .IsFixedLength();
+
+                entity.HasOne(d => d.Account)
+                    .WithMany(p => p.Suppliers)
+                    .HasForeignKey(d => d.AccountId)
+                    .HasConstraintName("FK_Suppliers_Accounts");
 
                 entity.HasOne(d => d.Location)
                     .WithMany(p => p.Suppliers)
@@ -420,15 +420,15 @@ namespace MarketOnlineWebsite.Models
                 entity.Property(e => e.TransactStatusId).HasColumnName("TransactStatusID");
 
                 entity.Property(e => e.Status).HasMaxLength(50);
+
+                entity.Property(e => e.UserId)
+                    .HasMaxLength(10)
+                    .IsFixedLength();
             });
 
             OnModelCreatingPartial(modelBuilder);
         }
 
         partial void OnModelCreatingPartial(ModelBuilder modelBuilder);
-
-        public DbSet<MarketOnlineWebsite.ModelViews.RegisterVM> RegisterVM { get; set; }
-
-        public DbSet<MarketOnlineWebsite.ModelViews.ChangePasswordVM> ChangePasswordVM { get; set; }
     }
 }

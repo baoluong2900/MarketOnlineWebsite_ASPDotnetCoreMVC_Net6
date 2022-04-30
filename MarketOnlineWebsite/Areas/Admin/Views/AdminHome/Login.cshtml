@@ -1,0 +1,46 @@
+﻿@model MarketOnlineWebsite.ModelViews.LoginViewModel
+@{
+    ViewData["Title"] = "Index";
+    Layout = "~/Areas/Admin/Views/Shared/_AdminLoginView.cshtml";
+}
+<div class="card-body">
+    <div class="d-flex align-items-center justify-content-between m-b-30">
+        <img class="img-fluid" alt="" src="~/Adminassets/images/logo/logo.png">
+        <h2 class="m-b-0">Đăng nhập</h2>
+    </div>
+    <form asp-area="Admin" method="post" asp-action="Login" asp-controller="AdminHome" >
+     <div asp-validation-summary="ModelOnly" class="text-danger"></div>*
+        <div class="form-group">
+            <label class="font-weight-semibold" for="userName">Tài khoản:</label>
+            <div class="input-affix">
+                <i class="prefix-icon anticon anticon-user"></i>
+              <input type="text" class="form-control" id="userName" placeholder="Nhập tên tài khoản"  asp-area="Admin" type="text" asp-for="UserName" >
+            </div>
+            <span  asp-area="Admin" asp-validation-for="UserName" class="text-danger"></span>
+        </div>
+        <div class="form-group">
+            <label class="font-weight-semibold" for="password">Mật khẩu:</label>
+             
+            <a class="float-right font-size-13 text-muted" href="">Quên mật khẩu ?</a>
+            <div class="input-affix m-b-10">
+                <i class="prefix-icon anticon anticon-lock"></i>
+                <input type="password" class="form-control" id="password" placeholder="Nhập tên đăng nhập" asp-area="Admin" type="password" asp-for="Password">
+            </div>
+            <span  asp-area="Admin" asp-validation-for="Password" class="text-danger"></span>
+        </div>
+        <div class="form-group">
+            <div class="d-flex align-items-center justify-content-between">
+                <span class="font-size-13 text-muted">
+                    Đăng ký trở thành nhà cung cấp ?
+                    <a class="small" href="/Admin/dang-ky-user.html">Đăng ký</a>
+                </span>
+
+            </div>
+            <button class="btn btn-primary" style="margin-top: 26px;margin-left: 260px;">Đăng nhập</button>
+        </div>
+    </form>
+</div>
+    <script src="~/lib/jquery/jquery.js"></script>
+<script src="~/lib/jquery-validate/jquery.validate.js"></script>
+<script src="~/lib/jquery-validation-unobtrusive/jquery.validate.unobtrusive.js"></script>
+

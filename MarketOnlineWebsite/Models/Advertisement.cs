@@ -13,5 +13,6 @@ namespace MarketOnlineWebsite.Models
         public string? UrlLink { get; set; }
         public bool Active { get; set; }
         public DateTime? CreateDate { get; set; }
+        public int? UserId { get; set; }
     }
 }

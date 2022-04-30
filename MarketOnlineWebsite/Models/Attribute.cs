@@ -12,6 +12,7 @@ namespace MarketOnlineWebsite.Models
 
         public int AttributeId { get; set; }
         public string? Name { get; set; }
+        public int? UserId { get; set; }
 
         public virtual ICollection<AttributesPrice> AttributesPrices { get; set; }
     }

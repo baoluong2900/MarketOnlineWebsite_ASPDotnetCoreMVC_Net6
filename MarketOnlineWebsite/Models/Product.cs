@@ -30,6 +30,8 @@ namespace MarketOnlineWebsite.Models
         public string? Alias { get; set; }
         public string? PushilberId { get; set; }
         public int? UnitsInStock { get; set; }
+        public int? UserId { get; set; }
+
         public virtual Category? Cat { get; set; }
         public virtual ICollection<AttributesPrice> AttributesPrices { get; set; }
         public virtual ICollection<OrderDetail> OrderDetails { get; set; }

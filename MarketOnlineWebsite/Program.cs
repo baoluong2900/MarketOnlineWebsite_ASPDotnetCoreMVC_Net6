@@ -19,6 +19,7 @@ builder.Services.AddAuthentication(CookieAuthenticationDefaults.AuthenticationSc
     .AddCookie( p=> 
     {
        p.LoginPath = "/dang-nhap.html";
+       p.LogoutPath = "/Admin/dang-nhap-user.html";
        p.AccessDeniedPath = "/";
     });
 

@@ -22,6 +22,7 @@ namespace MarketOnlineWebsite.Models
         public string? Alias { get; set; }
         public string? Cover { get; set; }
         public string? SchemaMarkup { get; set; }
+        public int? UserId { get; set; }
 
         public virtual ICollection<Product> Products { get; set; }
     }
