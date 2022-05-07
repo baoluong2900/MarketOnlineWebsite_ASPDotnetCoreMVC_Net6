@@ -37,8 +37,13 @@ namespace MarketOnlineWebsite.Areas.Admin.Controllers
                   .Take(5)
                   .ToList();
             var lsOrders = _context.Orders.AsNoTracking()
-                .Include(x => x.TransactStatus);
-
+                .Where(x => x.TransactStatusId == 13 && x.Deleted == false)
+                .OrderByDescending(x => x.OrderDate)
+                .Include(x => x.TransactStatus)
+                .Include(x => x.Customer)
+                .Take(6)
+                .ToList();
+            ViewBag.ListOrder = lsOrders;
             ViewBag.ListProduct=lsProducts;
                 
             //var account = _context.Accounts.AsNoTracking()

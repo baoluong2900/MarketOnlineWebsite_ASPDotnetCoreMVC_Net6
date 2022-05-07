@@ -54,11 +54,17 @@ namespace MarketOnlineWebsite.Areas.Admin.Controllers
                 return NotFound();
             }
             var orderDetail = _context.OrderDetails.AsNoTracking()
+                .Include(x=>x.Product)
                 .Where(x => x.OrderId == order.OrderId)
                 .OrderBy(x => x.OrderDetailId)
                 .ToList();
             ViewBag.Detail=orderDetail;
 
+            string TinhThanh = GetNameLocation(order.LocationId.Value);
+            string QuanHuyen = GetNameLocation( order.District.Value);
+            string PhuongXa = GetNameLocation( order.Ward.Value );
+            string addressLoaction = $"{TinhThanh}, {QuanHuyen}, {PhuongXa}";
+            ViewBag.AddressLoaction = addressLoaction;
             return View(order);
         }
 
@@ -174,24 +180,89 @@ namespace MarketOnlineWebsite.Areas.Admin.Controllers
             return RedirectToAction(nameof(Index));
         }
 
+        [HttpGet]
         public async Task<IActionResult> ChangeStatus(int? id)
         {
             if(id == null)
             {
                 return NotFound();
             }
-            var order = await _context.Orders.FindAsync(id);
+            var order = await _context.Orders.AsNoTracking().Include(x => x.Customer).Include(x=>x.TransactStatus).FirstOrDefaultAsync(x => x.OrderId == id);
             if(order == null)
             {
                 return NotFound();
             }
-            ViewData["TransactStatusId"] = new SelectList(_context.TransactStatuses, "TransactStatusId", "Status", order.TransactStatusId);
+            ViewData["LsTransactStatus"] = new SelectList(_context.TransactStatuses, "TransactStatusId", "Status", order.TransactStatusId);
+            return View(order);
+        }
+
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public async Task<IActionResult> ChangeStatus(int id, [Bind("OrderId,CustomerId,OrderDate,ShipDate,TransactStatusId,Deleted,Paid,PaymentDate,TotalMoney,PaymentId,Note,Address,LocationId,District,Ward,UserId")] Order order)
+        {
+            if (id != order.OrderId)
+            {
+                return NotFound();
+            }    
+                try
+                {
+                    var orders = await _context.Orders.AsNoTracking().FirstOrDefaultAsync(x => x.OrderId == id);
+                    if(orders != null)
+                    {
+                        orders.Paid = order.Paid;
+                        orders.Deleted= order.Deleted;
+                        orders.TransactStatusId = order.TransactStatusId;
+                        if(orders.Paid == true)
+                        {
+                            orders.PaymentDate = DateTime.Now;
+                        }
+                        if(orders.TransactStatusId == 17)
+                        {
+                            order.Deleted = true;
+                        }
+                        if (orders.TransactStatusId == 15)
+                        {
+                            orders.ShipDate = DateTime.Now;
+                        }
+                    }
+                    _context.Update(orders);
+                    await _context.SaveChangesAsync();
+                    _INotyfService.Success("Cập nhật trạng thái đơn hàng thành công");
+                }
+                catch (DbUpdateConcurrencyException)
+                {
+                    if (!OrderExists(order.OrderId))
+                    {
+                        return NotFound();
+                    }
+                    else
+                    {
+                        throw;
+                    }
+                }
+                return RedirectToAction(nameof(Index));
+            
+            ViewData["LsTransactStatus"] = new SelectList(_context.TransactStatuses, "TransactStatusId", "Status", order.TransactStatusId);
             return View(order);
         }
 
         private bool OrderExists(int id)
         {
             return _context.Orders.Any(e => e.OrderId == id);
+        }
+
+        public string GetNameLocation(int idLocation)
+        {
+            try
+            {
+                string nameFetchedId = _context.Locations.SingleOrDefault(x => x.LocationId == idLocation)?.Name;
+                return nameFetchedId;
+            }
+            catch (Exception ex)
+            {
+                return null;
+            }
+            return null;
         }
     }
 }

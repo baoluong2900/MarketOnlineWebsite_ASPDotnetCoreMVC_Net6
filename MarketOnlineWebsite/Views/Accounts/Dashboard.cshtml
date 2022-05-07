@@ -5,10 +5,7 @@
     ViewData["Title"] = "Dashboard";
     Layout = "~/Views/Shared/_Layout.cshtml";
     List<Order> ListOrder = ViewBag.Order;
-    //var pagedList = (IPagedList)ViewBag.PageList ;
     MarketOnlineWebsite.ModelViews.ChangePasswordVM changePassword = new MarketOnlineWebsite.ModelViews.ChangePasswordVM();
-    MarketOnlineWebsite.ModelViews.PersonalVM personalVM = new MarketOnlineWebsite.ModelViews.PersonalVM();
-  
  }
 <main class="main-content">
     <div class="breadcrumb-area breadcrumb-height" data-bg-image="Userassets/images/breadcrumb/bg/1-1.jpg">
@@ -99,8 +96,6 @@
                                       <hr/>
                                       <div id="records_table">
                                       </div>
-
-
                                 </div>
                                 }
                                 else 

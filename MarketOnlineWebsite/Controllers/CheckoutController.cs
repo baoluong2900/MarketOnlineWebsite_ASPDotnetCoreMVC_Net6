@@ -73,7 +73,8 @@ namespace MarketOnlineWebsite.Controllers
             var cart = HttpContext.Session.Get<List<CartItem>>("Cart");
             var accountID = HttpContext.Session.GetString("CustomerId");
             PurchaseVM model = new PurchaseVM();
-            if(accountID != null && ModelState.IsValid)
+
+            if (accountID != null && ModelState.IsValid)
             {
                 var customer = _context.Customers.AsNoTracking()
                 .SingleOrDefault(x => x.CustomerId == int.Parse(accountID));
@@ -90,6 +91,14 @@ namespace MarketOnlineWebsite.Controllers
                 _context.Update(customer);
                 _context.SaveChanges();
             }
+
+
+            ViewData["lsLTinhThanh"] = new SelectList(_context.Locations.Where(x => x.Levels == 1).OrderByDescending(x => x.Name).ToList(), "LocationId", "Name");
+            int idTinhThanh = int.Parse(purchaseVM.TinhThanh.ToString());
+            int idQuanHuyen = int.Parse(purchaseVM.QuanHuyen.ToString());
+            int idPhuongXa = int.Parse(purchaseVM.PhuongXa.ToString());
+            ViewData["lsLQuanHuyen"] = new SelectList(_context.Locations.Where(x => x.Levels == 2 && x.Parent == idTinhThanh).OrderByDescending(x => x.LocationId == idQuanHuyen).ThenBy(x => x.Name).ToList(), "LocationId", "Name");
+            ViewData["LsPhuongXa"] = new SelectList(_context.Locations.Where(x => x.Levels == 3 && x.Parent == idQuanHuyen).OrderByDescending(x => x.LocationId == idPhuongXa).ThenBy(x => x.Name).ToList(), "LocationId", "Name");
 
             try
             {
@@ -138,15 +147,25 @@ namespace MarketOnlineWebsite.Controllers
 
                     return RedirectToAction("Success");
                 }
+                else
+                {
+                    //HttpCookie userIdCookie = new HttpCookie("UserID");
+                    //userIdCookie.Value = id.ToString();
+                    //Response.Cookies.Add(userIdCookie);
+                    ViewData["lsLTinhThanh"] = new SelectList(_context.Locations.Where(x => x.Levels == 1).OrderByDescending(x => x.Name).ToList(), "LocationId", "Name");
+                    ViewBag.Cart = cart;
+                    return View(purchaseVM);
+                }
             }
             catch (Exception ex)
             {
                 ViewData["lsLTinhThanh"] = new SelectList(_context.Locations.Where(x => x.Levels == 1).OrderBy(x => x.Type).ToList(), "LocationId", "Name");
                 ViewBag.Cart = cart;
+                
                 return View(model);
 
             }
-            ViewData["lsLTinhThanh"] = new SelectList(_context.Locations.Where(x => x.Levels == 1).OrderBy(x => x.Type).ToList(), "LocationId", "Name");
+
             ViewBag.Cart = cart;
             return View(model);
         }

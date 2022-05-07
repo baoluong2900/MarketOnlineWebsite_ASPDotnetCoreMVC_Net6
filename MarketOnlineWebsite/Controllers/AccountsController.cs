@@ -6,6 +6,7 @@ using MarketOnlineWebsite.ModelViews;
 using Microsoft.AspNetCore.Authentication;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Mvc.ModelBinding;
 using Microsoft.EntityFrameworkCore;
 using PagedList.Core;
 using System.Security.Claims;
@@ -52,7 +53,7 @@ namespace MarketOnlineWebsite.Controllers
             try
             {
                 var customer=_context.Customers.AsNoTracking()
-                    .SingleOrDefault(x=>x.Phone.ToLower() == Phone.Trim().ToLower());
+                    .SingleOrDefault(x=>x.Phone.Trim().ToLower() == Phone.Trim().ToLower());
                 if (customer !  == null)
                 {
                     return Json(data: "Số điện thoại : " + Phone + " Đã được sử dụng ");
@@ -73,7 +74,7 @@ namespace MarketOnlineWebsite.Controllers
             try
             {
                 var customer = _context.Customers.AsNoTracking()
-                    .SingleOrDefault(x => x.Email.ToLower() == Email.Trim().ToLower());
+                    .SingleOrDefault(x => x.Email.Trim().ToLower() == Email.Trim().ToLower());
                 if (customer! == null)
                 {
                     return Json(data: "Email : " + Email + " Đã được sử dụng<br />");
@@ -131,12 +132,27 @@ namespace MarketOnlineWebsite.Controllers
             {
                 if (ModelState.IsValid)
                 {
+                    var accountPhone = _context.Customers.AsNoTracking().FirstOrDefault(x=> x.Phone.Trim() == Accounts.Phone.Trim());
+                    var accountEmail = _context.Customers.AsNoTracking().FirstOrDefault(x => x.Email.Trim() == Accounts.Email.Trim() );
+                    if(accountPhone != null || accountEmail !=null)
+                    {
+                        if (accountEmail != null)
+                        {
+                            ModelState.AddModelError("Email", "Email này đã tồn tại rồi");
+                        }
+                        if (accountPhone != null)
+                        {
+                            ModelState.AddModelError("Phone", "Số điện thoại này đã tồn tại rồi");
+                        }
+                        return View(Accounts);
+                    }
+             
                     string salt = Utilities.GetRandomKey();
                     Customer customer = new Customer
                     {
-                        FullName = Accounts.FullName,
-                        Phone = Accounts.Phone.Trim().ToLower(),
-                        Email = Accounts.Email.Trim().ToLower(),
+                        FullName = Accounts.FullName.Trim(),
+                        Phone = Accounts.Phone.Trim(),
+                        Email = Accounts.Email.Trim(),
                         Password = (Accounts.Password + salt.Trim()).ToMD5(),
                         Active = true,
                         Salt = salt
@@ -169,12 +185,14 @@ namespace MarketOnlineWebsite.Controllers
                 }
                 else
                 {
+                    _INotyfService.Error("Có lỗi xảy ra");
                     return View(Accounts);
                 }
 
             }
             catch
             {
+                _INotyfService.Error("Có lỗi xảy ra");
                 return View(Accounts);
             }
         }
@@ -182,13 +200,16 @@ namespace MarketOnlineWebsite.Controllers
         [HttpGet]
         [AllowAnonymous]
         [Route("dang-nhap.html", Name = "DangNhap")]
-        public IActionResult Login()
+        public IActionResult Login(string returnUrl = null)
         {
             var customerID = HttpContext.Session.GetString("CustomerId");
             if (customerID != null)
             {
+                ViewData["ReturnUrl"] = returnUrl;
+
                 return Redirect("my-account.html");
             }
+            ViewData["ReturnUrl"] = returnUrl;
 
             // Check nếu giỏ hàng đã có thì trả về giỏ hàng để khách hàng thấy
             //ViewBag.ShoppingCarts = Cart;
@@ -198,11 +219,13 @@ namespace MarketOnlineWebsite.Controllers
 
         [HttpPost]
         [AllowAnonymous]
+        [ValidateAntiForgeryToken]
         [Route("dang-nhap.html", Name = "DangNhap")]
-        public async Task<IActionResult> Login(LoginViewModel customers, string? returnUrl = null)
+        public async Task<IActionResult> Login(LoginViewModel customers, string returnUrl = null)
         {
             try
             {
+                ViewData["ReturnUrl"] = returnUrl;
                 var carts = HttpContext.Session.Get<List<CartItem>>("Cart");
                 if (ModelState.IsValid)
                 {
@@ -236,7 +259,7 @@ namespace MarketOnlineWebsite.Controllers
                     var customerID = HttpContext.Session.GetString("CustomerId");
                     // Indentity
 
-                    var claims = new List<Claim>
+                     var claims = new List<Claim>
                         {
                             new Claim(ClaimTypes.Name, customer.FullName),
                             new Claim("CustomerId", customer.CustomerId.ToString()),

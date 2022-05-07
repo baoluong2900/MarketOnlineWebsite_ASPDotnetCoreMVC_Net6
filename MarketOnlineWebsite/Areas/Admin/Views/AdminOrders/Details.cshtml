@@ -4,6 +4,7 @@
     ViewData["Title"] = "Details";
     Layout = "~/Areas/Admin/Views/Shared/_AdminLayout.cshtml";
     List<OrderDetail> orderDetails =  ViewBag.Detail;
+    string addressLocation = ViewBag.AddressLoaction;
 }
 <!-- Content Wrapper START -->
 <div class="main-content">
@@ -23,38 +24,61 @@
                 <div id="invoice" class="p-h-30">
                     <div class="m-t-15 lh-2">
                         <div class="inline-block">
-                            <img class="img-fluid" src="assets/images/logo/logo.png" alt="">
+                            <img class="img-fluid" src="~/Adminassets/images/logo/logo.png" alt="">
                             <address class="p-l-10">
-                                <span class="font-weight-semibold text-dark">Enlink, Inc.</span><br>
-                                <span>9498 Harvard Street</span><br>
-                                <span>Fairfield, Chicago Town 06824</span><br>
-                                <abbr class="text-dark" title="Phone">Phone:</abbr>
+                                <span class="font-weight-semibold text-dark">Harmic market</span><br>
+                                <span>26, Nguyễn Huệ</span><br>
+                                <span>Phường vĩnh Ninh,Huế, Thành Phố Huế </span><br>
+                                <abbr class="text-dark" title="Phone">Số điện thoại:</abbr>
                                 <span>(123) 456-7890</span>
                             </address>
                         </div>
                         <div class="float-right">
-                            <h2>INVOICE</h2>
+                            <h2>HÓA ĐƠN THANH TOÁN</h2>
                         </div>
                     </div>
                     <div class="row m-t-20 lh-2">
                         <div class="col-sm-9">
-                            <h3 class="p-l-10 m-t-10">Invoice To:</h3>
+                            <h3 class="p-l-10 m-t-10">THÔNG TIN HÓA ĐƠN:</h3>
                             <address class="p-l-10 m-t-10">
-                                <span class="font-weight-semibold text-dark">Genting Holdings.</span><br>
-                                <span>8626 Maiden Dr. </span><br>
-                                <span>Niagara Falls, New York 14304</span>
+                                <span class="font-weight-semibold text-dark">@Model.Customer.FullName</span><br>
+                                <span>@Model.Address </span><br>
+                                <span>@addressLocation</span>
                             </address>
                         </div>
                         <div class="col-sm-3">
                             <div class="m-t-80">
                                 <div class="text-dark text-uppercase d-inline-block">
-                                    <span class="font-weight-semibold text-dark">Invoice No :</span></div>
-                                <div class="float-right">#1668</div>
+                                    <span class="font-weight-semibold text-dark">Mã hoán đơn :</span></div>
+                                <div class="float-right">#@Model.OrderId</div>
                             </div>
                             <div class="text-dark text-uppercase d-inline-block">
-                                <span class="font-weight-semibold text-dark">Date :</span>
+                                <span class="font-weight-semibold text-dark">Ngày đặt :</span>
                             </div>
-                            <div class="float-right">25/7/2018</div>
+                            @if (Model.OrderDate !=null )
+                            {
+                                if(Model.PaymentId == 1 && Model.TransactStatusId == 16)
+                                {
+                                    <div class="float-right">@Model.OrderDate.Value.ToString("dd/MM/yyyy")</div>
+                                    <div class="text-dark text-uppercase d-inline-block">
+                                        <span class="font-weight-semibold text-dark">Trạng thái :</span>
+                                    </div>
+                                    <div class="float-right">Đã thannh toán</div>
+                                }
+                                else if (Model.PaymentId == 2 || Model.PaymentId == 3 )
+                                {
+                                    <div class="float-right">@Model.OrderDate.Value.ToString("dd/MM/yyyy")</div>
+                                    <div class="text-dark text-uppercase d-inline-block">
+                                        <span class="font-weight-semibold text-dark">Trạng thái :</span>
+                                    </div>
+                                    <div class="float-right">Đã thannh toán</div>
+                                }
+                            }
+                            else
+                            {
+                                
+                            }
+
                         </div>
                     </div>
                     <div class="m-t-20">
@@ -63,51 +87,40 @@
                                 <thead>
                                     <tr>
                                         <th>No.</th>
-                                        <th>Items</th>
-                                        <th>Quantity</th>
-                                        <th>Price</th>
-                                        <th>Total</th>
+                                        <th>Sản phẩm</th>
+                                        <th>Số lượng</th>
+                                        <th>Giá</th>
+                                        <th>Thành tiền</th>
                                     </tr>
                                 </thead>
                                 <tbody>
-                                    <tr>
-                                        <th>1</th>
-                                        <td>Asus Zenfone 3 Zoom ZE553KL Dual Sim (4GB, 64GB)</td>
-                                        <td>2</td>
-                                        <td>$450.00</td>
-                                        <td>$900.00</td>
-                                    </tr>
-                                    <tr>
-                                        <th>2</th>
-                                        <td>HP Pavilion 15-au103TX 15.6˝ Laptop Red</td>
-                                        <td>1</td>
-                                        <td>$550.00</td>
-                                        <td>$550.00</td>
-                                    </tr>
-                                    <tr>
-                                        <th>3</th>
-                                        <td>Canon EOS 77D</td>
-                                        <td>1</td>
-                                        <td>$875.00</td>
-                                        <td>$875.00</td>
-                                    </tr>
+                                    @if(orderDetails !=null && orderDetails.Count() >0)
+                                    {
+                                         var rowNumber = 1; 
+                                        @foreach (var item in orderDetails)
+                                        {
+                                             <tr>
+                                                <th>@rowNumber</th>
+                                                <td>@item.Product.ProductName</td>
+                                                <td>@item.Amount</td>
+                                                <td>@item.Price</td>
+                                                   @{
+                                                        var total = @item.Amount * @item.Price;
+                                                    }
+                                                <td>@total.Value.ToString("#,##0") VNĐ</td>
+                                            </tr>
+                                             rowNumber ++; 
+                                        }
+                                    }
                                 </tbody>
                             </table>
                         </div>
                         <div class="row m-t-30 lh-1-8">
                             <div class="col-sm-12">
                                 <div class="float-right text-right">
-                                    <p>Sub - Total amount: $2,325</p>
-                                    <p>vat (10%) : $232 </p>
+                                    <p>Tổng tiền: @Model.TotalMoney.ToString("#,##0") VNĐ </p>
                                     <hr>
-                                    <h3><span class="font-weight-semibold text-dark">Total :</span> $2,557.00</h3>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="row m-t-30 lh-2">
-                            <div class="col-sm-12">
-                                <div class="border-bottom p-v-20">
-                                    <p class="text-opacity"><small>In exceptional circumstances, Financial Services can provide an urgent manually processed special cheque. Note, however, that urgent special cheques should be requested only on an emergency basis as manually produced cheques involve duplication of effort and considerable staff resources. Requests need to be supported by a letter explaining the circumstances to justify the special cheque payment.</small></p>
+                                    <h3><span class="font-weight-semibold text-dark">Tổng tiền thanh toán :</span>  @Model.TotalMoney.ToString("#,##0") VNĐ</h3>
                                 </div>
                             </div>
                         </div>
@@ -116,9 +129,9 @@
                                 <img class="img-fluid text-opacity m-t-5" width="100" src="assets/images/logo/logo.png" alt="">
                             </div>
                             <div class="col-sm-6 text-right">
-                                <small><span class="font-weight-semibold text-dark">Phone:</span> (123) 456-7890</small>
+                                <small><span class="font-weight-semibold text-dark"> SĐT:</span> (123) 456-7890</small>
                                 <br>
-                                <small>support@themenate.com</small>
+                                <small>support@harmic.com</small>
                             </div>
                         </div>
                     </div>
@@ -129,104 +142,6 @@
 </div>
 <!-- Content Wrapper END -->
 
-<h1>Details</h1>
-
-<div>
-    <h4>Order</h4>
-    <hr />
-    <dl class="row">
-        <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.OrderDate)
-        </dt>
-        <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.OrderDate)
-        </dd>
-        <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.ShipDate)
-        </dt>
-        <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.ShipDate)
-        </dd>
-        <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.Deleted)
-        </dt>
-        <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.Deleted)
-        </dd>
-        <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.Paid)
-        </dt>
-        <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.Paid)
-        </dd>
-        <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.PaymentDate)
-        </dt>
-        <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.PaymentDate)
-        </dd>
-        <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.TotalMoney)
-        </dt>
-        <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.TotalMoney)
-        </dd>
-        <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.PaymentId)
-        </dt>
-        <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.PaymentId)
-        </dd>
-        <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.Note)
-        </dt>
-        <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.Note)
-        </dd>
-        <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.Address)
-        </dt>
-        <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.Address)
-        </dd>
-        <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.LocationId)
-        </dt>
-        <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.LocationId)
-        </dd>
-        <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.District)
-        </dt>
-        <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.District)
-        </dd>
-        <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.Ward)
-        </dt>
-        <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.Ward)
-        </dd>
-        <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.UserId)
-        </dt>
-        <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.UserId)
-        </dd>
-        <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.Customer)
-        </dt>
-        <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.Customer.CustomerId)
-        </dd>
-        <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.TransactStatus)
-        </dt>
-        <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.TransactStatus.TransactStatusId)
-        </dd>
-    </dl>
-</div>
 <div>
     <a asp-action="Edit" asp-route-id="@Model.OrderId">Edit</a> |
     <a asp-action="Index">Back to List</a>

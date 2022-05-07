@@ -3,6 +3,7 @@
     ViewData["Title"] = "Admin Index";
     Layout = "~/Areas/Admin/Views/Shared/_AdminLayout.cshtml";
     List<Product> listProduct = ViewBag.ListProduct;
+    List<Order> listOrder = ViewBag.ListOrder;
 }
 <div class="row">
     <div class="col-lg-5">
@@ -12,7 +13,7 @@
                     <div class="card-body">
                         <div class="d-flex justify-content-between align-items-center">
                             <div>
-                                <p class="m-b-0 text-muted">Sales</p>
+                                <p class="m-b-0 text-muted">Tổng doanh thu tháng</p>
                                 <h2 class="m-b-0">$23,523</h2>
                             </div>
                             <span class="badge badge-pill badge-cyan font-size-12">
@@ -40,7 +41,7 @@
                     <div class="card-body">
                         <div class="d-flex justify-content-between align-items-center">
                             <div>
-                                <p class="m-b-0 text-muted">Margin</p>
+                                <p class="m-b-0 text-muted">Tổng doanh thu ngày</p>
                                 <h2 class="m-b-0">$8,753</h2>
                             </div>
                             <span class="badge badge-pill badge-red font-size-12">
@@ -70,7 +71,7 @@
                     <div class="card-body">
                         <div class="d-flex justify-content-between align-items-center">
                             <div>
-                                <p class="m-b-0 text-muted">Orders</p>
+                                <p class="m-b-0 text-muted">Số lượng dơn hàng</p>
                                 <h2 class="m-b-0">1,753</h2>
                             </div>
                             <span class="badge badge-pill badge-red font-size-12">
@@ -98,7 +99,7 @@
                     <div class="card-body">
                         <div class="d-flex justify-content-between align-items-center">
                             <div>
-                                <p class="m-b-0 text-muted">Affiliate</p>
+                                <p class="m-b-0 text-muted">Số lượng người dùng</p>
                                 <h2 class="m-b-0">236</h2>
                             </div>
                             <span class="badge badge-pill badge-gold font-size-12">
@@ -127,7 +128,7 @@
         <div class="card">
             <div class="card-body">
                 <div class="d-flex justify-content-between align-items-center">
-                    <h5>Sales Statistics</h5>
+                    <h5>Thống kê bán hàng</h5>
                     <div class="dropdown dropdown-animated scale-left">
                         <a class="text-gray font-size-18" href="javascript:void(0);" data-toggle="dropdown">
                             <i class="anticon anticon-ellipsis"></i>
@@ -178,7 +179,7 @@
         <div class="card">
             <div class="card-body">
                 <div class="d-flex justify-content-between align-items-center">
-                    <h5>Revenue</h5>
+                    <h5>Doanh thu</h5>
                     <div>
                         <a href="javascript:void(0);" class="btn btn-sm btn-default">View All</a>
                     </div>
@@ -186,21 +187,21 @@
                 <div class="m-t-30">
                     <div class="d-md-flex">
                         <div class="pr-4 m-v-10 border-right border-hide-md">
-                            <p class="m-b-0">Net Revenue</p>
+                            <p class="m-b-0">Lợi nhuận</p>
                             <h3 class="m-b-0">
                                 <span>$58,323</span>
                                 <span class="text-success m-l-10 font-size-14">+6.71%</span>
                             </h3>
                         </div>
                         <div class="px-md-4 m-v-10 border-right border-hide-md">
-                            <p class="m-b-0">Selling</p>
+                            <p class="m-b-0">Bán hàng</p>
                             <h3 class="m-b-0">
                                 <span>$17,523</span>
                                 <span class="text-danger m-l-10 font-size-14">+1.82%</span>
                             </h3>
                         </div>
                         <div class="px-md-4 m-v-10">
-                            <p class="m-b-0">Cost</p>
+                            <p class="m-b-0">Phí tổn</p>
                             <h3 class="m-b-0">
                                 <span>$8,217</span>
                                 <span class="text-success m-l-10 font-size-14">+11.2%</span>
@@ -218,9 +219,10 @@
         <div class="card">
             <div class="card-body">
                 <div class="d-flex justify-content-between align-items-center">
-                    <h5>Top Products</h5>
+                    <h5>Top sản phảm được đặt hàng nhiều nhất</h5>
                     <div>
-                        <a href="javascript:void(0);" class="btn btn-sm btn-default">View All</a>
+                      
+                        <a asp-area="Admin" asp-controller="AdminProducts" asp-action="Index" class="btn btn-sm btn-default">Xem tất cả</a>
                     </div>
                 </div>
                 <div class="m-t-30">
@@ -258,7 +260,7 @@
     <div class="col-lg-4">
         <div class="card">
             <div class="card-body">
-                <h5>Customers</h5>
+                <h5>Người dùng hệ thống</h5>
                 <div class="m-v-45 text-center" style="height: 220px">
                     <canvas class="chart" id="customer-chart"></canvas>
                 </div>
@@ -267,21 +269,21 @@
                         <div class="d-flex justify-content-between align-items-center m-b-20">
                             <p class="m-b-0 d-flex align-items-center">
                                 <span class="badge badge-warning badge-dot m-r-10"></span>
-                                <span>Direct</span>
+                                <span>Nhà cung cấp</span>
                             </p>
                             <h5 class="m-b-0">350</h5>
                         </div>
                         <div class="d-flex justify-content-between align-items-center m-b-20">
                             <p class="m-b-0 d-flex align-items-center">
                                 <span class="badge badge-primary badge-dot m-r-10"></span>
-                                <span>Referral</span>
+                                <span>Khách hàng</span>
                             </p>
                             <h5 class="m-b-0">450</h5>
                         </div>
                         <div class="d-flex justify-content-between align-items-center m-b-20">
                             <p class="m-b-0 d-flex align-items-center">
                                 <span class="badge badge-danger badge-dot m-r-10"></span>
-                                <span>Social Network</span>
+                                <span>Quản trị hệ thống</span>
                             </p>
                             <h5 class="m-b-0">100</h5>
                         </div>
@@ -294,9 +296,9 @@
         <div class="card">
             <div class="card-body">
                 <div class="d-flex justify-content-between align-items-center">
-                    <h5>Recent Orders</h5>
+                    <h5>Những đơn đặt hàng gần đây</h5>
                     <div>
-                        <a href="javascript:void(0);" class="btn btn-sm btn-default">View All</a>
+                         <a asp-area="Admin" asp-controller="AdminOrders" asp-action="Index" class="btn btn-sm btn-default">Xem tất cả</a>
                     </div>
                 </div>
                 <div class="m-t-30">
@@ -304,141 +306,54 @@
                         <table class="table table-hover">
                             <thead>
                                 <tr>
-                                    <th>ID</th>
-                                    <th>Customer</th>
-                                    <th>Date</th>
-                                    <th>Amount</th>
-                                    <th>Status</th>
+                                    <th>Mã hóa đơn</th>
+                                    <th>Tên khách hàng</th>
+                                    <th>Ngày đặt</th>
+                                    <th>Tổng tiền</th>
+                                    <th>Trạng thái</th>
                                 </tr>
                             </thead>
+                          @foreach (var item in listOrder)
+                         {
                             <tbody>
                                 <tr>
-                                    <td>#5331</td>
+                                    <td>@item.OrderId</td>
                                     <td>
-                                        <div class="d-flex align-items-center">
-                                            <div class="d-flex align-items-center">
-                                                <div class="avatar avatar-image" style="height: 30px; min-width: 30px; max-width:30px">
-                                                    <img src="Adminassets/images/avatars/thumb-1.jpg" alt="">
+                                        @if(item.Customer.Avatar == null)
+                                           {
+                                               <div class="d-flex align-items-center">
+                                                    <div class="d-flex align-items-center">
+                                                        <div class="avatar avatar-image" style="height: 30px; min-width: 30px; max-width:30px">
+                                                            <img src="/images/customers/default.jpg" alt="">
+                                                        </div>
+                                                        <h6 class="m-l-10 m-b-0">@item.Customer.FullName</h6>
+                                                    </div>
                                                 </div>
-                                                <h6 class="m-l-10 m-b-0">Erin Gonzales</h6>
-                                            </div>
-                                        </div>
-                                    </td>
-                                    <td>8 May 2019</td>
-                                    <td>$137.00</td>
-                                    <td>
-                                        <div class="d-flex align-items-center">
-                                            <span class="badge badge-success badge-dot m-r-10"></span>
-                                            <span>Approved</span>
-                                        </div>
-                                    </td>
-                                </tr>
-                                <tr>
-                                    <td>#5375</td>
-                                    <td>
-                                        <div class="d-flex align-items-center">
-                                            <div class="d-flex align-items-center">
-                                                <div class="avatar avatar-image" style="height: 30px; min-width: 30px; max-width:30px">
-                                                    <img src="Adminassets/images/avatars/thumb-2.jpg" alt="">
+                                            }
+                                          else 
+                                            {
+                                                <div class="d-flex align-items-center">
+                                                    <div class="d-flex align-items-center">
+                                                        <div class="avatar avatar-image" style="height: 30px; min-width: 30px; max-width:30px">
+                                                            <img src="/images/customers/@item.Customer.Avatar" alt="">
+                                                        </div>
+                                                        <h6 class="m-l-10 m-b-0">@item.Customer.FullName</h6>
+                                                    </div>
                                                 </div>
-                                                <h6 class="m-l-10 m-b-0">Darryl Day</h6>
-                                            </div>
-                                        </div>
+                                             }
+         
                                     </td>
-                                    <td>6 May 2019</td>
-                                    <td>$322.00</td>
+                                    <td>@item.OrderDate.Value.ToString("dd/MM/yyyy")</td>
+                                    <td>@item.TotalMoney.ToString("#,###") VNĐ</td>
                                     <td>
                                         <div class="d-flex align-items-center">
-                                            <span class="badge badge-success badge-dot m-r-10"></span>
-                                            <span>Approved</span>
-                                        </div>
-                                    </td>
-                                </tr>
-                                <tr>
-                                    <td>#5762</td>
-                                    <td>
-                                        <div class="d-flex align-items-center">
-                                            <div class="d-flex align-items-center">
-                                                <div class="avatar avatar-image" style="height: 30px; min-width: 30px; max-width:30px">
-                                                    <img src="Adminassets/images/avatars/thumb-3.jpg" alt="">
-                                                </div>
-                                                <h6 class="m-l-10 m-b-0">test</h6>
-                                            </div>
-                                        </div>
-                                    </td>
-                                    <td>1 May 2019</td>
-                                    <td>$543.00</td>
-                                    <td>
-                                        <div class="d-flex align-items-center">
-                                            <span class="badge badge-success badge-dot m-r-10"></span>
-                                            <span>Approved</span>
-                                        </div>
-                                    </td>
-                                </tr>
-                                <tr>
-                                    <td>#5865</td>
-                                    <td>
-                                        <div class="d-flex align-items-center">
-                                            <div class="d-flex align-items-center">
-                                                <div class="avatar avatar-image" style="height: 30px; min-width: 30px; max-width:30px">
-                                                    <img src="Adminassets/images/avatars/thumb-4.jpg" alt="">
-                                                </div>
-                                                <h6 class="m-l-10 m-b-0">Virgil Gonzales</h6>
-                                            </div>
-                                        </div>
-                                    </td>
-                                    <td>28 April 2019</td>
-                                    <td>$876.00</td>
-                                    <td>
-                                        <div class="d-flex align-items-center">
-                                            <span class="badge badge-primary badge-dot m-r-10"></span>
-                                            <span>Pending</span>
-                                        </div>
-                                    </td>
-                                </tr>
-                                <tr>
-                                    <td>#5213</td>
-                                    <td>
-                                        <div class="d-flex align-items-center">
-                                            <div class="d-flex align-items-center">
-                                                <div class="avatar avatar-image" style="height: 30px; min-width: 30px; max-width:30px">
-                                                    <img src="Adminassets/images/avatars/thumb-5.jpg" alt="">
-                                                </div>
-                                                <h6 class="m-l-10 m-b-0">Nicole Wyne</h6>
-                                            </div>
-                                        </div>
-                                    </td>
-                                    <td>28 April 2019</td>
-                                    <td>$241.00</td>
-                                    <td>
-                                        <div class="d-flex align-items-center">
-                                            <span class="badge badge-success badge-dot m-r-10"></span>
-                                            <span>Approved</span>
-                                        </div>
-                                    </td>
-                                </tr>
-                                <tr>
-                                    <td>#5211</td>
-                                    <td>
-                                        <div class="d-flex align-items-center">
-                                            <div class="d-flex align-items-center">
-                                                <div class="avatar avatar-image" style="height: 30px; min-width: 30px; max-width:30px">
-                                                    <img src="Adminassets/images/avatars/thumb-6.jpg" alt="">
-                                                </div>
-                                                <h6 class="m-l-10 m-b-0">Riley Newman</h6>
-                                            </div>
-                                        </div>
-                                    </td>
-                                    <td>28 April 2019</td>
-                                    <td>$872.00</td>
-                                    <td>
-                                        <div class="d-flex align-items-center">
-                                            <span class="badge badge-danger badge-dot m-r-10"></span>
-                                            <span>Rejected</span>
+                                            <span class="badge badge-danger badge-dot m-r-10"></span>                                           
+                                            <span>Đang chờ xác nhận</span>
                                         </div>
                                     </td>
                                 </tr>
                             </tbody>
+                         }
                         </table>
                     </div>
                 </div>

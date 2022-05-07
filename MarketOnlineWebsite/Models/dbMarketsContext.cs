@@ -255,7 +255,7 @@ namespace MarketOnlineWebsite.Models
                 entity.HasOne(d => d.Customer)
                     .WithMany(p => p.Orders)
                     .HasForeignKey(d => d.CustomerId)
-                    .HasConstraintName("FK_Orders_Customers");
+                    .HasConstraintName("FK_Orders_Customers1");
 
                 entity.HasOne(d => d.TransactStatus)
                     .WithMany(p => p.Orders)

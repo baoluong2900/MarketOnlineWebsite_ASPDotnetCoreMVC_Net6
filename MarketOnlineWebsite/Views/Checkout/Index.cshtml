@@ -60,7 +60,7 @@
     </div>
     <div class="checkout-area section-space-y-axis-100">
         <div class="container">
-            <form asp-controller="Checkout" asp-action="Index" method="post" >
+            <form asp-controller="Checkout" asp-action="Index" method="post" id="submit_form">
                 <input hidden asp-for="CustomerId" />
             <div class="row">
                 <div class="col-lg-6 col-12">
@@ -103,24 +103,51 @@
                                         </div>
                                  </div>
                                <div class="col-md-4">
-                                        <div class="country-select">
-                                            <label>Quận/Huyện <span>*</span></label>
-                                            <select asp-for="QuanHuyen" class="myniceselect nice-select wide">
-                                                <option value="0" disabled selected>Quận/Huyện</option>
-                                            </select>
-                                            <span asp-validation-for="QuanHuyen" class="text-danger"></span>
+                                    @if(Model.QuanHuyen !=null )
+                                    {
+                                         <div class="country-select">
+                                                <label>Quận/Huyện <span>*</span></label>
+                                                <select asp-for="QuanHuyen" asp-items="ViewBag.lsLQuanHuyen" class="myniceselect nice-select wide">
+                                                <option value="0" disabled selected>Quận/Huyện</option>                                      
+                                                </select>
+                                                <span asp-validation-for="QuanHuyen" class="text-danger"></span>
 
                                         </div>
+                                    }
+                                    else
+                                    {
+                                         <div class="country-select">
+                                                <label>Quận/Huyện <span>*</span></label>
+                                                <select asp-for="QuanHuyen" class="myniceselect nice-select wide">
+                                                <option value="0" disabled selected>Quận/Huyện</option>                                      
+                                                </select>
+                                                <span asp-validation-for="QuanHuyen" class="text-danger"></span>
+                                        </div>                                       
+                                    }
+
                                  </div>
                                <div class="col-md-4">
-                                        <div class="country-select">
+                                    @if (Model.PhuongXa != null)
+                                    {
+                                      <div class="country-select">
+                                            <label>Phường/Xã<span>*</span></label>
+                                            <select asp-for="PhuongXa" asp-items="ViewBag.LsPhuongXa"   class="myniceselect nice-select wide">
+                                                 <option value="0" disabled selected >Phường/Xã</option>
+                                            </select>
+                                            <span asp-validation-for="PhuongXa" class="text-danger"></span>
+                                        </div>  
+                                    }
+                                    else
+                                    {
+                                      <div class="country-select">
                                             <label>Phường/Xã<span>*</span></label>
                                             <select asp-for="PhuongXa" class="myniceselect nice-select wide">
-                                                <option value="0" disabled selected >Phường/Xã</option>  
+                                                 <option value="0" disabled selected >Phường/Xã</option>
                                             </select>
-                                         <span asp-validation-for="PhuongXa" class="text-danger"></span>
-                                        </div>
-                                 </div>
+                                            <span asp-validation-for="PhuongXa" class="text-danger"></span>
+                                        </div>                                      
+                                    }
+                                </div>
                                 <div class="order-notes col-md-12">
                                         <div class="checkout-form-list checkout-form-list-2">
                                             <label style="margin-top: 25px;">Ghi chú</label>
@@ -209,7 +236,7 @@
                                             </p>
                                     </div>
 
-                                    <input value="ĐẶT HÀNG" type="submit">
+                                    <input value="ĐẶT HÀNG" type="submit" id="add_to_Cart" >
                                 </div>
                             </div>
                         </div>
@@ -225,8 +252,14 @@
 @section Scripts {
 <script>
     $(document).ready(function () {
+       
         $('select').niceSelect();
             $(function () {
+                 console.log("alo")
+                let tinhthanh =  localStorage.getItem("tinhthanh");
+                let quanhuyen =  localStorage.getItem("quanhuyen")
+                let phuongxa = localStorage.getItem("phuongxa")
+
                 $("#TinhThanh").change(function () {
                     var locationid = $('#TinhThanh').val();
                     $.ajax({
@@ -256,6 +289,7 @@
                     //var locationid = $('#QuanHuyen').val();
                        ////var locationid = 603;
                        var locationid = $('#QuanHuyen').val();
+                       console.log("tHANH PHO DA CHON", locationid)
                         $.ajax({
                             url: '/Location/PhuongXaList',
                             type: "GET",
@@ -274,6 +308,32 @@
                      });
             });
         });
+        //if($("#TinhThanh").val() != 0) {
+        //    var locationid = $('#TinhThanh').val();
+        //    $.ajax({
+        //        url: '/Location/QuanHuyenList',
+        //        type: "GET",
+        //        dataType: "JSON",
+        //        data: { LocationId: locationid },
+        //        success: function (QuanHuyens) {
+        //            $("#QuanHuyen").empty();// clear before appending new list
+        //            $("#PhuongXa").empty();
+        //            var strPhuongXa = '<option value="" disabled selected>Phường/Xã</option>';
+        //            console.log("strPhuongXa", strPhuongXa)
+        //            $("#PhuongXa").append(strPhuongXa);
+        //            var strQuanHuyen = '<option value="" disabled selected>Quận/Huyện</option>';
+        //            $("#QuanHuyen").append(strQuanHuyen);
+        //            $.each(QuanHuyens, function (i, item) {
+        //                        console.log("item", item.locationId)
+        //                        var option = '<option value ="' + item.locationId + '">' + item.name + '</option>';
+        //                        //var option = `<option value = ${item.locationId}> test </option>`
+        //                    $("#QuanHuyen").append(option);
+        //            });
+        //            $('select').niceSelect('update');
+        //        }
+        //    });
+        //    console.log($('#TinhThanh').val());
+        //}
     });
 </script> 
 

@@ -3,100 +3,103 @@
 @{
     ViewData["Title"] = "ChangeStatus";
     Layout = "~/Areas/Admin/Views/Shared/_AdminLayout.cshtml";
+    //List<TransactStatus> transactStatuses= 
 }
 
-<h1>ChangeStatus</h1>
-
-<h4>Order</h4>
-<hr />
-<div class="row">
-    <div class="col-md-4">
-        <form asp-action="ChangeStatus">
-            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
-            <input type="hidden" asp-for="OrderId" />
-            <div class="form-group">
-                <label asp-for="CustomerId" class="control-label"></label>
-                <select asp-for="CustomerId" class="form-control" asp-items="ViewBag.CustomerId"></select>
-                <span asp-validation-for="CustomerId" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <label asp-for="OrderDate" class="control-label"></label>
-                <input asp-for="OrderDate" class="form-control" />
-                <span asp-validation-for="OrderDate" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <label asp-for="ShipDate" class="control-label"></label>
-                <input asp-for="ShipDate" class="form-control" />
-                <span asp-validation-for="ShipDate" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <label asp-for="TransactStatusId" class="control-label"></label>
-                <select asp-for="TransactStatusId" class="form-control" asp-items="ViewBag.TransactStatusId"></select>
-                <span asp-validation-for="TransactStatusId" class="text-danger"></span>
-            </div>
-            <div class="form-group form-check">
-                <label class="form-check-label">
-                    <input class="form-check-input" asp-for="Deleted" /> @Html.DisplayNameFor(model => model.Deleted)
-                </label>
-            </div>
-            <div class="form-group form-check">
-                <label class="form-check-label">
-                    <input class="form-check-input" asp-for="Paid" /> @Html.DisplayNameFor(model => model.Paid)
-                </label>
-            </div>
-            <div class="form-group">
-                <label asp-for="PaymentDate" class="control-label"></label>
-                <input asp-for="PaymentDate" class="form-control" />
-                <span asp-validation-for="PaymentDate" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <label asp-for="TotalMoney" class="control-label"></label>
-                <input asp-for="TotalMoney" class="form-control" />
-                <span asp-validation-for="TotalMoney" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <label asp-for="PaymentId" class="control-label"></label>
-                <input asp-for="PaymentId" class="form-control" />
-                <span asp-validation-for="PaymentId" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <label asp-for="Note" class="control-label"></label>
-                <input asp-for="Note" class="form-control" />
-                <span asp-validation-for="Note" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <label asp-for="Address" class="control-label"></label>
-                <input asp-for="Address" class="form-control" />
-                <span asp-validation-for="Address" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <label asp-for="LocationId" class="control-label"></label>
-                <input asp-for="LocationId" class="form-control" />
-                <span asp-validation-for="LocationId" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <label asp-for="District" class="control-label"></label>
-                <input asp-for="District" class="form-control" />
-                <span asp-validation-for="District" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <label asp-for="Ward" class="control-label"></label>
-                <input asp-for="Ward" class="form-control" />
-                <span asp-validation-for="Ward" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <label asp-for="UserId" class="control-label"></label>
-                <input asp-for="UserId" class="form-control" />
-                <span asp-validation-for="UserId" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <input type="submit" value="Save" class="btn btn-primary" />
-            </div>
-        </form>
+<div class="page-header">
+    <div class="header-sub-title">
+        <nav class="breadcrumb breadcrumb-dash">
+            <a asp-area="Admin" asp-controller="AdminHome" asp-action="Index" class="breadcrumb-item"><i class="anticon anticon-home m-r-5"></i>Home</a>
+             <a asp-area="Admin" asp-controller="AdminOrders" asp-action="Index" class="breadcrumb-item"><i class="anticon anticon-home m-r-5"></i>Danh sách đơn hàng</a>
+            <span class="breadcrumb-item active">Cập nhật đơn hàng</span>
+        </nav>
     </div>
 </div>
 
-<div>
-    <a asp-action="Index">Back to List</a>
-</div>
-
+ <form asp-controller="AdminOrders" asp-action="ChangeStatus" asp-route-id="@Model.OrderId" method="post" >
+    <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+    <input type="hidden" asp-for="OrderId" />
+    <div class="page-header no-gutters has-tab">
+        <div class="d-md-flex m-b-15 align-items-center justify-content-between">
+            <div class="media align-items-center m-b-15">
+            </div>
+            <div class="m-b-15">
+                <button class="btn btn-primary">
+                    <i class="anticon anticon-save"></i>
+                    <span>Lưu thay đổi</span>
+                </button>
+            </div>
+        </div>
+        <ul class="nav nav-tabs" >
+            <li class="nav-item">
+                <a class="nav-link active" data-toggle="tab" href="#product-edit-basic">Thông tin đơn hàng</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" data-toggle="tab" href="#product-edit-option">Chọn trạng thái đơn hàng</a>
+            </li>
+        </ul>
+    </div>
+    <div class="tab-content m-t-15">
+        <div class="tab-pane fade show active" id="product-edit-basic" >
+           <div class="card">
+                <div class="card-body">
+                    <table class="product-info-table m-t-20">
+                        <tbody>
+                            <tr>
+                                <td>Mã đơn hàng:</td>
+                                <td >@Model.OrderId</td>
+                            </tr>
+                            <tr>
+                                <td>Ngày mua:</td>
+                                <td>@Model.OrderDate.Value.ToString("dd/MM/yyyyy")</td>
+                            </tr>
+                            <tr>
+                                <td>Khách hàng:</td>
+                                <td>@Model.Customer.FullName</td>
+                            </tr>
+                            <tr>
+                                <td>Số điện thoại:</td>
+                                <td>@Model.Customer.Phone</td>
+                            </tr>
+                            <tr>
+                                <td>Địa chỉ:</td>
+                                <td>@Model.Address</td>
+                            </tr>
+                        </tbody>
+                    </table> 
+                 </div>                  
+             </div>
+            </div>
+        <div class="tab-pane fade" id="product-edit-option">
+            <div class="card">
+                <div class="card-body">
+                    <div class="form-group">
+                          <label>Trạng thái đơn hàng</label>
+                            <select class="custom-select" asp-for="TransactStatusId" asp-items="ViewBag.LsTransactStatus">
+                                <option value="0" disabled selected> 
+                                  Chọn trạng thái đơn hàng
+                                 </option>
+                            </select>
+                    </div>
+                    <div class="row">
+                        <div class="form-group col-md-6 align-items-center">
+                            <div class="switch m-r-10">
+                                <input type="checkbox"  data-val="true"  id="Paid" name="Paid" value="true" asp-for="Paid">
+                                <label for="Paid"></label>
+                            </div>
+                           <label>Đơn hàng đã thanh toán</label>
+                        </div>
+                        <div class="form-group col-md-6 align-items-center">
+                            <div class="switch m-r-10">
+                                <input type="checkbox" data-val="true" data-val-required="The HomeFlag field is required." id="Deleted" name="Deleted" value="true" asp-for="Deleted">
+                                <label for="Deleted"></label>
+                            </div>
+                            <label>Đơn hàng bị hủy</label>
+                        </div>
+                    </div>
+                 </div>
+                </div>
+        </div>
+       </div>
+</form>
+ 
