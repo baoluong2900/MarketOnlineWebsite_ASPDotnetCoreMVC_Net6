@@ -40,8 +40,8 @@ namespace MarketOnlineWebsite.Controllers
         #endregion Hàm lấy giỏ hàng
 
         // GET: checkout/Index
-        [Route("checkout.html",Name ="Checkout")] 
-        public IActionResult Index (string? returnUrl = null)
+        [Route("checkout.html", Name = "Checkout")]
+        public IActionResult Index(string? returnUrl = null)
         {
 
             // Lấy giỏ hàng ra để xử lý
@@ -51,7 +51,7 @@ namespace MarketOnlineWebsite.Controllers
             if (accountID != null)
             {
                 var customer = _context.Customers.AsNoTracking()
-                    .SingleOrDefault(x=> x.CustomerId == int.Parse(accountID));
+                    .SingleOrDefault(x => x.CustomerId == int.Parse(accountID));
                 model.CustomerId = customer.CustomerId;
                 model.FullName = customer.FullName;
                 model.Email = customer.Email;
@@ -60,13 +60,13 @@ namespace MarketOnlineWebsite.Controllers
 
             }
 
-            ViewData["lsLTinhThanh"] = new SelectList(_context.Locations.Where(x => x.Levels == 1).OrderBy(x => x.Type).ToList(), "LocationId","Name");
+            ViewData["lsLTinhThanh"] = new SelectList(_context.Locations.Where(x => x.Levels == 1).OrderBy(x => x.Type).ToList(), "LocationId", "Name");
             ViewBag.Cart = cart;
             return View(model);
         }
 
         [HttpPost]
-        [Route("checkout.html",Name ="Checkout")]
+        [Route("checkout.html", Name = "Checkout")]
         public IActionResult Index(PurchaseVM purchaseVM)
         {
             // Lấy giỏ hàng ra để xử lý
@@ -87,7 +87,7 @@ namespace MarketOnlineWebsite.Controllers
                 customer.LocationId = purchaseVM.TinhThanh;
                 customer.District = purchaseVM.QuanHuyen;
                 customer.Ward = purchaseVM.PhuongXa;
-               
+
                 _context.Update(customer);
                 _context.SaveChanges();
             }
@@ -116,7 +116,7 @@ namespace MarketOnlineWebsite.Controllers
                     order.Deleted = false;
                     order.Paid = false; // thanh toán chưa
                     order.Note = Utilities.StripHTML(purchaseVM.Note);
-                    order.TotalMoney = Convert.ToInt32(cart.Sum(x=> x.TotalMoney));
+                    order.TotalMoney = Convert.ToInt32(cart.Sum(x => x.TotalMoney));
                     _context.Add(order);
                     _context.SaveChanges();
 
@@ -161,7 +161,7 @@ namespace MarketOnlineWebsite.Controllers
             {
                 ViewData["lsLTinhThanh"] = new SelectList(_context.Locations.Where(x => x.Levels == 1).OrderBy(x => x.Type).ToList(), "LocationId", "Name");
                 ViewBag.Cart = cart;
-                
+
                 return View(model);
 
             }
@@ -170,22 +170,22 @@ namespace MarketOnlineWebsite.Controllers
             return View(model);
         }
 
-        [Route("dat-hang-thanh-cong.html",Name= "Success")]
-        public IActionResult Success()      
+        [Route("dat-hang-thanh-cong.html", Name = "Success")]
+        public IActionResult Success()
         {
             try
             {
                 var accountID = HttpContext.Session.GetString("CustomerId");
-                if(string.IsNullOrEmpty(accountID))
+                if (string.IsNullOrEmpty(accountID))
                 {
                     return RedirectToAction("Login", "Accounts", new { returnUrl = "/dat-hang-thanh-cong.html" });
                 }
                 var customer = _context.Customers.AsNoTracking()
-                    .SingleOrDefault(x=>x.CustomerId == int.Parse(accountID));
+                    .SingleOrDefault(x => x.CustomerId == int.Parse(accountID));
                 var order = _context.Orders
                     .Where(x => x.CustomerId == int.Parse(accountID))
                     .OrderByDescending(x => x.OrderDate).FirstOrDefault();
-           
+
 
                 PurchaseSuccessVM successVM = new PurchaseSuccessVM();
                 successVM.FullName = customer.FullName;

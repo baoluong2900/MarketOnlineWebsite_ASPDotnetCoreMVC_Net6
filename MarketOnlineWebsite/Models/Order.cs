@@ -25,7 +25,6 @@ namespace MarketOnlineWebsite.Models
         public int? LocationId { get; set; }
         public int? District { get; set; }
         public int? Ward { get; set; }
-        public int? UserId { get; set; }
 
         public virtual Customer? Customer { get; set; }
         public virtual TransactStatus TransactStatus { get; set; } = null!;

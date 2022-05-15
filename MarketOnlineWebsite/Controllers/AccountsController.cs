@@ -200,7 +200,7 @@ namespace MarketOnlineWebsite.Controllers
         [HttpGet]
         [AllowAnonymous]
         [Route("dang-nhap.html", Name = "DangNhap")]
-        public IActionResult Login(string returnUrl = null)
+        public IActionResult Login(string returnUrl)
         {
             var customerID = HttpContext.Session.GetString("CustomerId");
             if (customerID != null)
@@ -221,7 +221,7 @@ namespace MarketOnlineWebsite.Controllers
         [AllowAnonymous]
         [ValidateAntiForgeryToken]
         [Route("dang-nhap.html", Name = "DangNhap")]
-        public async Task<IActionResult> Login(LoginViewModel customers, string returnUrl = null)
+        public async Task<IActionResult> Login(LoginViewModel customers, string? returnUrl)
         {
             try
             {

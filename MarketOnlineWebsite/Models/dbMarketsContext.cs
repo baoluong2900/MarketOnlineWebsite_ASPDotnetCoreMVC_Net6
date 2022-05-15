@@ -326,6 +326,8 @@ namespace MarketOnlineWebsite.Models
 
                 entity.Property(e => e.ShortDesc).HasMaxLength(255);
 
+                entity.Property(e => e.SupplierId).HasColumnName("SupplierID");
+
                 entity.Property(e => e.Thumb).HasMaxLength(255);
 
                 entity.Property(e => e.Title).HasMaxLength(255);
@@ -336,6 +338,11 @@ namespace MarketOnlineWebsite.Models
                     .WithMany(p => p.Products)
                     .HasForeignKey(d => d.CatId)
                     .HasConstraintName("FK_Products_Categories");
+
+                entity.HasOne(d => d.Supplier)
+                    .WithMany(p => p.Products)
+                    .HasForeignKey(d => d.SupplierId)
+                    .HasConstraintName("FK_Products_Suppliers");
             });
 
             modelBuilder.Entity<Role>(entity =>
@@ -420,10 +427,6 @@ namespace MarketOnlineWebsite.Models
                 entity.Property(e => e.TransactStatusId).HasColumnName("TransactStatusID");
 
                 entity.Property(e => e.Status).HasMaxLength(50);
-
-                entity.Property(e => e.UserId)
-                    .HasMaxLength(10)
-                    .IsFixedLength();
             });
 
             OnModelCreatingPartial(modelBuilder);

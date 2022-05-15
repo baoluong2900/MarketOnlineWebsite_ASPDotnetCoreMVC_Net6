@@ -26,12 +26,12 @@ namespace MarketOnlineWebsite.Controllers
             // Khởi tạo model chính
             HomeViewVM model = new HomeViewVM();
 
-            // Lấy ra danh sách các sản phẩm được lên trang chủ
-            var lsProducts = _context.Products.AsNoTracking()
-                .Where(x => x.Active == true && x.HomeFlag == true)
-                .OrderByDescending(x => x.DateCreated)
-                .Take(16)
-                .ToList();
+            //Lấy ra danh sách các sản phẩm được lên trang chủ
+           var lsProducts = _context.Products.AsNoTracking()
+               .Where(x => x.Active == true && x.HomeFlag == true)
+               .OrderByDescending(x => x.DateCreated)
+               .Take(16)
+               .ToList();
 
             // Lấy ra danh sách các danh mục sản phẩm
             List<ProductHomeVM> lsProductViews = new List<ProductHomeVM>();

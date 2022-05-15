@@ -21,7 +21,6 @@ namespace MarketOnlineWebsite.Models
         public int? RoleId { get; set; }
         public DateTime? LastLogin { get; set; }
         public DateTime? CreateDate { get; set; }
-        public int? UserId { get; set; }
 
         public virtual Role? Role { get; set; }
         public virtual ICollection<Supplier> Suppliers { get; set; }

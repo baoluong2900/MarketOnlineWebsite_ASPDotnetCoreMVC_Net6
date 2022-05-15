@@ -14,6 +14,5 @@ namespace MarketOnlineWebsite.Models
         public string? Alias { get; set; }
         public DateTime? CreatedDate { get; set; }
         public int? Ordering { get; set; }
-        public int? UserId { get; set; }
     }
 }

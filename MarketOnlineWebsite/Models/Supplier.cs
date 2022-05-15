@@ -5,6 +5,11 @@ namespace MarketOnlineWebsite.Models
 {
     public partial class Supplier
     {
+        public Supplier()
+        {
+            Products = new HashSet<Product>();
+        }
+
         public int SupplierId { get; set; }
         public int? AccountId { get; set; }
         public string? EmailContact { get; set; }
@@ -22,9 +27,9 @@ namespace MarketOnlineWebsite.Models
         public string? Notes { get; set; }
         public string? CurrentOrder { get; set; }
         public string? Logo { get; set; }
-        public int? UserId { get; set; }
 
         public virtual Account? Account { get; set; }
         public virtual Location? Location { get; set; }
+        public virtual ICollection<Product> Products { get; set; }
     }
 }

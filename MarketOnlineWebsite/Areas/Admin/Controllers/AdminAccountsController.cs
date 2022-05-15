@@ -37,12 +37,12 @@ namespace MarketOnlineWebsite.Areas.Admin.Controllers
             ViewData["QuyenTruyCap"] = new SelectList(_context.Roles, "RoleId", "Description");
 
             // Lọc theo trạng thái
-            List<SelectListItem> lsActive =new List<SelectListItem>();
+            List<SelectListItem> lsActive = new List<SelectListItem>();
             lsActive.Add(new SelectListItem() { Text = "Active", Value = "1" });
             lsActive.Add(new SelectListItem() { Text = "Block", Value = "0" });
-            ViewData["Active"]= lsActive;
+            ViewData["Active"] = lsActive;
 
-         //  var dbMarketsContext = _context.Accounts.Include(a => a.Role);
+            //  var dbMarketsContext = _context.Accounts.Include(a => a.Role);
             return View(models);
         }
 
@@ -77,7 +77,7 @@ namespace MarketOnlineWebsite.Areas.Admin.Controllers
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("AccountId,Phone,Email,Password,Salt,Active,FullName,Avatar,RoleId,LastLogin,CreateDate,UserId")] Account account)
+        public async Task<IActionResult> Create([Bind("AccountId,Phone,Email,Password,Salt,Active,FullName,Avatar,RoleId,LastLogin,CreateDate")] Account account)
         {
             if (ModelState.IsValid)
             {
@@ -111,7 +111,7 @@ namespace MarketOnlineWebsite.Areas.Admin.Controllers
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(int id, [Bind("AccountId,Phone,Email,Password,Salt,Active,FullName,Avatar,RoleId,LastLogin,CreateDate,UserId")] Account account)
+        public async Task<IActionResult> Edit(int id, [Bind("AccountId,Phone,Email,Password,Salt,Active,FullName,Avatar,RoleId,LastLogin,CreateDate")] Account account)
         {
             if (id != account.AccountId)
             {

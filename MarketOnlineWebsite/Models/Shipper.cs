@@ -10,6 +10,5 @@ namespace MarketOnlineWebsite.Models
         public string? Phone { get; set; }
         public string? Company { get; set; }
         public DateTime? ShipDate { get; set; }
-        public int? UserId { get; set; }
     }
 }

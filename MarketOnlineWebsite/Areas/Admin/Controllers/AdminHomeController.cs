@@ -19,7 +19,6 @@ namespace MarketOnlineWebsite.Areas.Admin.Controllers
     public class AdminHomeController : Controller
     {
 
-        private readonly UserManager<IdentityUser> _userManager;
         private readonly dbMarketsContext _context;
         public INotyfService _INotyfService { get; }
         public AdminHomeController(dbMarketsContext context, INotyfService inotyfService)

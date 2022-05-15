@@ -20,6 +20,5 @@ namespace MarketOnlineWebsite.Models
         public bool IsHot { get; set; }
         public bool IsNewfeed { get; set; }
         public int? Views { get; set; }
-        public int? UserId { get; set; }
     }
 }
