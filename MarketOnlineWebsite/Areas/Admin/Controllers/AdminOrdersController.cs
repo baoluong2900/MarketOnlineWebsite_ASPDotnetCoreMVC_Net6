@@ -210,8 +210,16 @@ namespace MarketOnlineWebsite.Areas.Admin.Controllers
                     if(orders != null)
                     {
                         orders.Paid = order.Paid;
-                        orders.Deleted= order.Deleted;
+                        if (order.Deleted ==true)
+                        {
+                        
+                            orders.TransactStatusId = 1002;
+                        }
+                        else
+                        {
                         orders.TransactStatusId = order.TransactStatusId;
+                    }
+                      
                         if(orders.Paid == true)
                         {
                             orders.PaymentDate = DateTime.Now;

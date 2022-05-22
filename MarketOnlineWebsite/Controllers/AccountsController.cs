@@ -389,6 +389,7 @@ namespace MarketOnlineWebsite.Controllers
                     if (string.IsNullOrEmpty(customer.Avatar)) customer.Avatar = "default.jpg";
                     customer.Email = customers.Email.Trim();
                     customer.Phone= customers.Phone.Trim();
+                    customer.Birthday = customers.Birthday;
                     _INotyfService.Success("Cập nhật thông tin thành công");
                     _context.Update(customer);
                     _context.SaveChanges();

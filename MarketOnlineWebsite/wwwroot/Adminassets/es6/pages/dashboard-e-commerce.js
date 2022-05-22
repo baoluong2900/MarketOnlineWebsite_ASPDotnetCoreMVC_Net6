@@ -141,6 +141,7 @@ class DashboardECommerce {
         });
 
         const customerChart = document.getElementById("customer-chart");
+        var id= document.getElementById("myText");
         const customerChartCtx = customerChart.getContext('2d');
         customerChart.height = 292;
         const customerChartConfig = new Chart(customerChartCtx, {

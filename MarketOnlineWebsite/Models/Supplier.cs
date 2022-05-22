@@ -14,7 +14,6 @@ namespace MarketOnlineWebsite.Models
         public int? AccountId { get; set; }
         public string? EmailContact { get; set; }
         public string? Companyname { get; set; }
-        public string? Salt { get; set; }
         public string? ContactTitle { get; set; }
         public string? Addresss { get; set; }
         public string? PostalCode { get; set; }

@@ -2,11 +2,12 @@
 @model PagedList.Core.IPagedList<MarketOnlineWebsite.Models.Product>
 @{
     Category category = ViewBag.CurrentCat;
-
+      string searchString = ViewBag.CurrentFilter;
     ViewData["Title"] = category.Title;
     Layout = "~/Views/Shared/_Layout.cshtml";
     int PageCurrent =ViewBag.CurrentPage ;
    int PageNext = PageCurrent+1;
+       List<Product> topProducts = ViewBag.TopProducts;
 }
 <!-- Begin Main Content Area -->
 <main class="main-content">
@@ -30,79 +31,66 @@
     <div class="shop-area section-space-y-axis-100">
         <div class="container">
             <div class="row">
-                <div class="col-lg-3 order-lg-1 order-2 pt-10 pt-lg-0">
+                  <div class="col-lg-3 order-lg-1 order-2 pt-10 pt-lg-0">
                     <div class="sidebar-area">
                         <div class="widgets-searchbox mb-9">
-                            <form id="widgets-searchbox" action="#">
-                                <input class="input-field" type="text" placeholder="Search">
-                                <button class="widgets-searchbox-btn" type="submit">
+                            <form  id="widgets-searchbox" action="#">
+                                <input name="searchProductNamme" value="@searchString" class="input-field" type="text" placeholder="Tìm kiếm">
+                                <button class="widgets-searchbox-btn" value="Search" type="submit">
                                     <i class="pe-7s-search"></i>
                                 </button>
                             </form>
                         </div>
                         <div class="widgets-area mb-9">
-                            <h2 class="widgets-title mb-5">Refine By</h2>
+                            <h2 class="widgets-title mb-5">Điều chỉnh</h2>
                             <div class="widgets-item">
                                 <ul class="widgets-checkbox">
                                     <li>
                                         <input class="input-checkbox" type="checkbox" id="refine-item">
-                                        <label class="label-checkbox mb-0" for="refine-item">On Sale
+                                        <label class="label-checkbox mb-0" for="refine-item">Đang giảm giá
                                             <span>4</span>
                                         </label>
                                     </li>
                                     <li>
                                         <input class="input-checkbox" type="checkbox" id="refine-item-2" checked>
-                                        <label class="label-checkbox mb-0" for="refine-item-2">New
+                                        <label class="label-checkbox mb-0" for="refine-item-2">Mới nhất
                                             <span>4</span>
                                         </label>
                                     </li>
                                     <li>
                                         <input class="input-checkbox" type="checkbox" id="refine-item-3">
-                                        <label class="label-checkbox mb-0" for="refine-item-3">In Stock
+                                        <label class="label-checkbox mb-0" for="refine-item-3">Trong kho
                                             <span>4</span>
                                         </label>
                                     </li>
                                 </ul>
                             </div>
                         </div>
-                        <div class="widgets-area widgets-filter mb-9">
-                            <h2 class="widgets-title mb-5">Price Filter</h2>
-                            <div class="price-filter">
-                                <div id="slider-range"></div>
-                                <div class="price-slider-amount">
-                                    <button class="btn btn-primary btn-secondary-hover">Filter</button>
-                                    <div class="label-input position-relative">
-                                        <label>price : </label>
-                                        <input type="text" id="amount" name="price" placeholder="Add Your Price" />
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
                         <div class="widgets-area mb-9">
-                            <h2 class="widgets-title mb-5">Color</h2>
+                            <h2 class="widgets-title mb-5">Loại sản phẩm</h2>
                             <div class="widgets-item">
                                 <ul class="widgets-checkbox">
                                     <li>
                                         <input class="input-checkbox" type="checkbox" id="color-selection-1">
-                                        <label class="label-checkbox mb-0" for="color-selection-1">Green
+                                        <label class="label-checkbox mb-0" for="color-selection-1">Trái cây
                                             <span>7</span>
                                         </label>
                                     </li>
                                     <li>
                                         <input class="input-checkbox" type="checkbox" id="color-selection-2" checked>
-                                        <label class="label-checkbox mb-0" for="color-selection-2">Cream
+                                        <label class="label-checkbox mb-0" for="color-selection-2">Thịt
                                             <span>3</span>
                                         </label>
                                     </li>
                                     <li>
                                         <input class="input-checkbox" type="checkbox" id="color-selection-3">
-                                        <label class="label-checkbox mb-0" for="color-selection-3">Blue
+                                        <label class="label-checkbox mb-0" for="color-selection-3">Rau củ
                                             <span>4</span>
                                         </label>
                                     </li>
                                     <li>
                                         <input class="input-checkbox" type="checkbox" id="color-selection-4">
-                                        <label class="label-checkbox mb-0" for="color-selection-4">Black
+                                        <label class="label-checkbox mb-0" for="color-selection-4">Sữa
                                             <span>6</span>
                                         </label>
                                     </li>
@@ -110,112 +98,42 @@
                             </div>
                         </div>
                         <div class="widgets-area mb-9">
-                            <h2 class="widgets-title mb-5">Size</h2>
-                            <div class="widgets-item">
-                                <ul class="widgets-checkbox">
-                                    <li>
-                                        <input class="input-checkbox" type="checkbox" id="size-selection-1">
-                                        <label class="label-checkbox mb-0" for="size-selection-1">XL</label>
-                                    </li>
-                                    <li>
-                                        <input class="input-checkbox" type="checkbox" id="size-selection-2" checked>
-                                        <label class="label-checkbox mb-0" for="size-selection-2">L</label>
-                                    </li>
-                                    <li>
-                                        <input class="input-checkbox" type="checkbox" id="size-selection-3">
-                                        <label class="label-checkbox mb-0" for="size-selection-3">SM</label>
-                                    </li>
-                                    <li>
-                                        <input class="input-checkbox" type="checkbox" id="size-selection-4">
-                                        <label class="label-checkbox mb-0" for="size-selection-4">XXL</label>
-                                    </li>
-                                </ul>
-                            </div>
-                        </div>
-                        <div class="widgets-area mb-9">
-                            <h2 class="widgets-title mb-5">Top Rated Products</h2>
+                            <h2 class="widgets-title mb-5">Sản phẩm mua nhiều nhất</h2>
                             <div class="widgets-item">
                                 <div class="swiper-container widgets-list-slider">
-                                    <div class="swiper-wrapper">
-                                        <div class="swiper-slide">
-                                            <div class="product-list-item">
-                                                <div class="product-img img-zoom-effect">
-                                                    <a href="single-product.html">
-                                                        <img class="img-full" src="~/Userassets/images/product/small-size/1-1-112x124.jpg" alt="Product Images">
-                                                    </a>
-                                                </div>
-                                                <div class="product-content">
-                                                    <a class="product-name" href="single-product.html">Black Pepper Grains</a>
-                                                    <div class="price-box pb-1">
-                                                        <span class="new-price">$80.00</span>
+                                    @foreach (var item in topProducts)
+                                    {
+                                        string url = $"/{item.Alias}-{item.ProductId}.html";
+                                        <div class="swiper-wrapper">
+                                            <div class="swiper-slide">
+                                                <div class="product-list-item">
+                                                    <div class="product-img img-zoom-effect">
+                                                        <a href="@url">
+                                                            <img class="img-full" src="~/images/products/@item.Thumb" alt="@item.ProductName">
+                                                        </a>
                                                     </div>
-                                                    <div class="rating-box-wrap">
-                                                        <div class="rating-box">
-                                                            <ul>
-                                                                <li><i class="pe-7s-star"></i></li>
-                                                                <li><i class="pe-7s-star"></i></li>
-                                                                <li><i class="pe-7s-star"></i></li>
-                                                                <li><i class="pe-7s-star"></i></li>
-                                                                <li><i class="pe-7s-star"></i></li>
-                                                            </ul>
+                                                    <div class="product-content">
+                                                        <a class="product-name"href="@url">@item.ProductName</a>
+                                                        <div class="price-box pb-1">
+                                                            <span class="new-price">@item.Price.Value.ToString("#,##0") VNĐ</span>
+                                                        </div>
+                                                        <div class="rating-box-wrap">
+                                                            <div class="rating-box">
+                                                                <ul>
+                                                                    <li><i class="pe-7s-star"></i></li>
+                                                                    <li><i class="pe-7s-star"></i></li>
+                                                                    <li><i class="pe-7s-star"></i></li>
+                                                                    <li><i class="pe-7s-star"></i></li>
+                                                                    <li><i class="pe-7s-star"></i></li>
+                                                                </ul>
+                                                            </div>
                                                         </div>
                                                     </div>
                                                 </div>
                                             </div>
                                         </div>
-                                        <div class="swiper-slide">
-                                            <div class="product-list-item">
-                                                <div class="product-img img-zoom-effect">
-                                                    <a href="single-product.html">
-                                                        <img class="img-full" src="~/Userassets/images/product/small-size/1-2-112x124.jpg" alt="Product Images">
-                                                    </a>
-                                                </div>
-                                                <div class="product-content">
-                                                    <a class="product-name" href="single-product.html">Peanut Big Bean</a>
-                                                    <div class="price-box pb-1">
-                                                        <span class="new-price">$80.00</span>
-                                                    </div>
-                                                    <div class="rating-box-wrap">
-                                                        <div class="rating-box">
-                                                            <ul>
-                                                                <li><i class="pe-7s-star"></i></li>
-                                                                <li><i class="pe-7s-star"></i></li>
-                                                                <li><i class="pe-7s-star"></i></li>
-                                                                <li><i class="pe-7s-star"></i></li>
-                                                                <li><i class="pe-7s-star"></i></li>
-                                                            </ul>
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                        </div>
-                                        <div class="swiper-slide">
-                                            <div class="product-list-item">
-                                                <div class="product-img img-zoom-effect">
-                                                    <a href="single-product.html">
-                                                        <img class="img-full" src="~/Userassets/images/product/small-size/1-3-112x124.jpg" alt="Product Images">
-                                                    </a>
-                                                </div>
-                                                <div class="product-content">
-                                                    <a class="product-name" href="single-product.html">Dried Lemon Green</a>
-                                                    <div class="price-box pb-1">
-                                                        <span class="new-price">$80.00</span>
-                                                    </div>
-                                                    <div class="rating-box-wrap">
-                                                        <div class="rating-box">
-                                                            <ul>
-                                                                <li><i class="pe-7s-star"></i></li>
-                                                                <li><i class="pe-7s-star"></i></li>
-                                                                <li><i class="pe-7s-star"></i></li>
-                                                                <li><i class="pe-7s-star"></i></li>
-                                                                <li><i class="pe-7s-star"></i></li>
-                                                            </ul>
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
+                                    }
+                             
                                 </div>
                             </div>
                         </div>
@@ -223,29 +141,24 @@
                             <h2 class="widgets-title mb-5">Tag</h2>
                             <div class="widgets-item">
                                 <ul class="widgets-tags">
-                                    <li>
-                                        <a href="javascript:void(0)">Clothing</a>
-                                    </li>
-                                    <li>
-                                        <a href="javascript:void(0)">Accessories</a>
-                                    </li>
-                                    <li>
-                                        <a href="javascript:void(0)">For Men</a>
-                                    </li>
-                                    <li>
-                                        <a href="javascript:void(0)">Women</a>
-                                    </li>
-                                    <li>
-                                        <a href="javascript:void(0)">Fashion</a>
-                                    </li>
+                                    @foreach (var item in Model)
+                                    {
+                                        if(item.Tags !=null)
+                                        {
+                                             <li>
+                                                <a href="javascript:void(0)">@item.Tags</a>
+                                            </li> 
+                                        }
+
+                                    }
                                 </ul>
                             </div>
                         </div>
                     </div>
                 </div>
-                <div class="col-lg-9 order-lg-2 order-1">
+                     <div class="col-lg-9 order-lg-2 order-1">
                     <div class="product-topbar">
-                        <ul>
+                        <ul style="width: 907px;">
                             <li class="product-view-wrap">
                                 <ul class="nav" role="tablist">
                                     <li class="grid-view" role="presentation">
@@ -261,24 +174,43 @@
                                 </ul>
                             </li>
                             <li class="page-count">
-                                <span>23</span> Product Found of <span>50</span>
+                                @{
+                                    var rowNumber = 0;
+                                    if(Model.Count == 12 )
+                                    {
+                                        if(Model.PageNumber == 1)
+                                        {
+                                            rowNumber = Model.Count;
+                                        }
+                                        else
+                                        {
+                                            rowNumber = Model.Count*Model.PageNumber;
+                                        } 
+
+                                    }
+                                    else
+                                    {
+                                        rowNumber = Model.TotalItemCount;
+                                    }
+                                }
+                                <span>@Model.Count </span>Sản phẩm tìm thấy <span>@rowNumber</span>
                             </li>
-                            <li class="short">
-                                <select list="@Model" asp-action="Index" a class="nice-select wide rounded-0"  id="txtCatID" name="txtCatID">
-                                    <option value="1">Sort by Default</option>
-                                    <option value="2">Sort by Popularity</option>
-                                    <option value="3">Sort by Rated</option>
-                                    <option value="4">Sort by Latest</option>
-                                    <option value="5">Sort by High Price</option>
-                                    <option value="6">Sort by Low Price</option>
+                            <li class="short" style="width: 238px;">
+                                 <select class="nice-select wide rounded-0" name="theme" id="theme">
+                                    <option value="1">Sắp xếp theo Mặc định</option>
+                                    <option value="2">Sắp xếp theo mức độ phổ biến</option>
+                                    <option value="3">Sắp xếp theo khuyến mãi</option>
+                                    <option value="4">Sắp xếp theo giá giảm dần</option>
+                                    <option value="5">Sắp xếp theo giá tăng dần</option>
                                 </select>
+
                             </li>
                         </ul>
                     </div>
                     <div class="tab-content text-charcoal pt-8">
                         <div class="tab-pane fade show active" id="grid-view" role="tabpanel" aria-labelledby="grid-view-tab">
                             <div class="product-grid-view row">
-                                @if(Model !=null && Model.Count() >0) 
+                                @if(Model!=null && Model.Count() >0) 
                                 {
                                     foreach( var productItem in Model)
                                     {
@@ -292,13 +224,8 @@
                                                     <div class="product-add-action">
                                                         <ul>
                                                             <li>
-                                                                <a href="cart.html">
+                                                                <a href="@url">
                                                                     <i class="pe-7s-cart"></i>
-                                                                </a>
-                                                            </li>
-                                                            <li>
-                                                                <a href="compare.html">
-                                                                    <i class="pe-7s-shuffle"></i>
                                                                 </a>
                                                             </li>
                                                             <li>
@@ -389,7 +316,7 @@
                     </div>
                     <div class="pagination-area pt-10">
                             <ul class="pagination justify-content-center">
-                                <pager class="pager-container" options="@PagedListRenderOptions.Bootstrap4PageNumbersOnly" list="@Model" asp-area="" asp-route-Alias="@category.Alias" asp-controller="Product" asp-action="List"></pager>
+                                <pager class="pager-container" options="@PagedListRenderOptions.Bootstrap4PageNumbersOnly" asp-route-searchProductNamme="@searchString"  list="@Model" asp-area="" asp-controller="Product" asp-action="Index"></pager>
                             </ul>
                     </div>
                 </div>

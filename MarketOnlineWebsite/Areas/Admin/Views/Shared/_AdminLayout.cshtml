@@ -8,7 +8,8 @@
     <title>@ViewData["Title"]</title>
 
     <!-- Favicon -->
-    <link rel="shortcut icon" href="~/Adminassets/images/logo/favicon.png">
+@*    <link rel="shortcut icon" href="~/Adminassets/images/logo/fa.png*@
+       <link rel="shortcut icon" type="image/x-icon" href="~/Adminassets/images/logo/favicon.ico"/>
 
     <!-- page css -->
     <link href="~/Adminassets/vendors/bootstrap-datepicker/bootstrap-datepicker.min.css" rel="stylesheet">
@@ -29,13 +30,13 @@
                 <div class="logo logo-dark">
                     <a href="index.html">
                         <img src="~/Adminassets/images/logo/dark.png" alt="Logo" style="padding-top: 20px;">
-                        <img class="logo-fold" src="~/Adminassets/images/logo/logo-fold.png" alt="Logo">
+                        <img class="logo-fold" src="~/Adminassets/images/logo/dark.png" alt="Logo" style="width: 74px;padding-top: 27px;">
                     </a>
                 </div>
                 <div class="logo logo-white">
                     <a href="index.html">
                         <img src="~/Adminassets/images/logo/logo-white.png" alt="Logo">
-                        <img class="logo-fold" src="~/Adminassets/images/logo/logo-fold-white.png" alt="Logo">
+                        <img class="logo-fold" src="~/Adminassets/images/logo/dark.png" alt="Logo" style="width: 74px;padding-top: 27px;">
                     </a>
                 </div>
                 <div class="nav-wrap">
@@ -60,10 +61,10 @@
                                 <div class="p-v-15 p-h-25 border-bottom d-flex justify-content-between align-items-center">
                                     <p class="text-dark font-weight-semibold m-b-0">
                                         <i class="anticon anticon-bell"></i>
-                                        <span class="m-l-10">Notification</span>
+                                        <span class="m-l-10">Thông báo</span>
                                     </p>
                                     <a class="btn-sm btn-default btn" href="javascript:void(0);">
-                                        <small>View All</small>
+                                        <small>Xem tất cả</small>
                                     </a>
                                 </div>
                                 <div class="relative">
@@ -74,8 +75,8 @@
                                                     <i class="anticon anticon-mail"></i>
                                                 </div>
                                                 <div class="m-l-15">
-                                                    <p class="m-b-0 text-dark">You received a new message</p>
-                                                    <p class="m-b-0"><small>8 min ago</small></p>
+                                                    <p class="m-b-0 text-dark">Bạn đã nhận được một tin nhắn mới</p>
+                                                    <p class="m-b-0"><small>8 phút trước</small></p>
                                                 </div>
                                             </div>
                                         </a>
@@ -85,8 +86,8 @@
                                                     <i class="anticon anticon-user-add"></i>
                                                 </div>
                                                 <div class="m-l-15">
-                                                    <p class="m-b-0 text-dark">New user registered</p>
-                                                    <p class="m-b-0"><small>7 hours ago</small></p>
+                                                    <p class="m-b-0 text-dark">Người dùng mới đã đăng ký</p>
+                                                    <p class="m-b-0"><small>7 tiếng trước</small></p>
                                                 </div>
                                             </div>
                                         </a>
@@ -96,8 +97,8 @@
                                                     <i class="anticon anticon-user-add"></i>
                                                 </div>
                                                 <div class="m-l-15">
-                                                    <p class="m-b-0 text-dark">System Alert</p>
-                                                    <p class="m-b-0"><small>8 hours ago</small></p>
+                                                    <p class="m-b-0 text-dark">Cảnh báo hệ thống</p>
+                                                    <p class="m-b-0"><small>8 giờ trước</small></p>
                                                 </div>
                                             </div>
                                         </a>
@@ -107,8 +108,8 @@
                                                     <i class="anticon anticon-user-add"></i>
                                                 </div>
                                                 <div class="m-l-15">
-                                                    <p class="m-b-0 text-dark">You have a new update</p>
-                                                    <p class="m-b-0"><small>2 days ago</small></p>
+                                                    <p class="m-b-0 text-dark">Bạn có một bản cập nhật mới</p>
+                                                    <p class="m-b-0"><small>2 ngày trước</small></p>
                                                 </div>
                                             </div>
                                         </a>
@@ -143,27 +144,27 @@
                                     <div class="d-flex align-items-center justify-content-between">
                                         <div>
                                             <i class="anticon opacity-04 font-size-16 anticon-user"></i>
-                                            <span class="m-l-10">Edit Profile</span>
+                                            <span class="m-l-10">Chỉnh sửa thông tin cá nhân</span>
                                         </div>
-                                        <i class="anticon font-size-10 anticon-right"></i>
+                                  
                                     </div>
                                 </a>
                                 <a href="javascript:void(0);" class="dropdown-item d-block p-h-15 p-v-10">
                                     <div class="d-flex align-items-center justify-content-between">
                                         <div>
                                             <i class="anticon opacity-04 font-size-16 anticon-lock"></i>
-                                            <span class="m-l-10">Account Setting</span>
+                                            <span class="m-l-10">Thiết lập tài khoản</span>
                                         </div>
-                                        <i class="anticon font-size-10 anticon-right"></i>
+                                  
                                     </div>
                                 </a>
                                 <a href="javascript:void(0);" class="dropdown-item d-block p-h-15 p-v-10">
                                     <div class="d-flex align-items-center justify-content-between">
                                         <div>
                                             <i class="anticon opacity-04 font-size-16 anticon-project"></i>
-                                            <span class="m-l-10">Projects</span>
+                                            <span class="m-l-10">Điều khoản sử dụng</span>
                                         </div>
-                                        <i class="anticon font-size-10 anticon-right"></i>
+                                      
                                     </div>
                                 </a>
                                 <a href="/Admin/dang-xuat-user.html" class="dropdown-item d-block p-h-15 p-v-10">
@@ -173,7 +174,7 @@
                                          
                                          <span class="m-l-10">Đăng xuất</span>
                                         </div>
-                                        <i class="anticon font-size-10 anticon-right"></i>
+                                       
                                     </div>
                                 </a>
                             </div>
@@ -200,10 +201,11 @@
                 <!-- Footer START -->
                 <footer class="footer">
                     <div class="footer-content">
-                        <p class="m-b-0">Copyright © 2019 Theme_Nate. All rights reserved.</p>
+                        <p class="m-b-0"></p>
                         <span>
-                            <a href="" class="text-gray m-r-15">Term &amp; Conditions</a>
-                            <a href="" class="text-gray">Privacy &amp; Policy</a>
+                            & 
+                            <a href="" class="text-gray m-r-15"> Điều khoản &amp; Điều kiện</a>
+                            <a href="" class="text-gray">Quyền riêng tư &amp; Chính sách</a>
                         </span>
                     </div>
                 </footer>

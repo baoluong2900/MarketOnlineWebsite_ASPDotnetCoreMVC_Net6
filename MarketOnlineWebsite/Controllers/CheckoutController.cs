@@ -13,11 +13,13 @@ namespace MarketOnlineWebsite.Controllers
     {
         private readonly dbMarketsContext _context;
         public INotyfService _INotyfService { get; }
+
         public CheckoutController(dbMarketsContext context, INotyfService inotyfService)
         {
             _context = context;
             _INotyfService = inotyfService;
         }
+
         #region Hàm lấy giỏ hàng
 
         public List<CartItem> Cart
@@ -43,7 +45,6 @@ namespace MarketOnlineWebsite.Controllers
         [Route("checkout.html", Name = "Checkout")]
         public IActionResult Index(string? returnUrl = null)
         {
-
             // Lấy giỏ hàng ra để xử lý
             var cart = HttpContext.Session.Get<List<CartItem>>("Cart");
             var accountID = HttpContext.Session.GetString("CustomerId");
@@ -57,7 +58,6 @@ namespace MarketOnlineWebsite.Controllers
                 model.Email = customer.Email;
                 model.Phone = customer.Phone;
                 model.Address = customer.Address;
-
             }
 
             ViewData["lsLTinhThanh"] = new SelectList(_context.Locations.Where(x => x.Levels == 1).OrderBy(x => x.Type).ToList(), "LocationId", "Name");
@@ -91,7 +91,6 @@ namespace MarketOnlineWebsite.Controllers
                 _context.Update(customer);
                 _context.SaveChanges();
             }
-
 
             ViewData["lsLTinhThanh"] = new SelectList(_context.Locations.Where(x => x.Levels == 1).OrderByDescending(x => x.Name).ToList(), "LocationId", "Name");
             int idTinhThanh = int.Parse(purchaseVM.TinhThanh.ToString());
@@ -136,7 +135,6 @@ namespace MarketOnlineWebsite.Controllers
                         orderDetail.TotalMoney = order.TotalMoney;
                         orderDetail.OrderNumber = orderNumber;
                         _context.Add(orderDetail);
-
                     }
 
                     _context.SaveChanges();
@@ -163,7 +161,6 @@ namespace MarketOnlineWebsite.Controllers
                 ViewBag.Cart = cart;
 
                 return View(model);
-
             }
 
             ViewBag.Cart = cart;
@@ -186,7 +183,6 @@ namespace MarketOnlineWebsite.Controllers
                     .Where(x => x.CustomerId == int.Parse(accountID))
                     .OrderByDescending(x => x.OrderDate).FirstOrDefault();
 
-
                 PurchaseSuccessVM successVM = new PurchaseSuccessVM();
                 successVM.FullName = customer.FullName;
                 successVM.OrderID = order.OrderId;
@@ -196,8 +192,6 @@ namespace MarketOnlineWebsite.Controllers
                 successVM.QuanHuyen = GetNameLocation(order.District.Value);
                 successVM.TinhThanh = GetNameLocation(order.LocationId.Value);
                 return View(successVM);
-
-
             }
             catch
             {

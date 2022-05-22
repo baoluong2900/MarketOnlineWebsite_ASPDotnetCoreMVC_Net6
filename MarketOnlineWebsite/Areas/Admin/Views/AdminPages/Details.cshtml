@@ -47,7 +47,8 @@
                         <div class="col-sm-3">
                             <div class="m-t-80">
                                 <div class="text-dark text-uppercase d-inline-block">
-                                    <span class="font-weight-semibold text-dark">Invoice No :</span></div>
+                                    <span class="font-weight-semibold text-dark">Invoice No :</span>
+                                </div>
                                 <div class="float-right">#1668</div>
                             </div>
                             <div class="text-dark text-uppercase d-inline-block">
@@ -106,13 +107,19 @@
                         <div class="row m-t-30 lh-2">
                             <div class="col-sm-12">
                                 <div class="border-bottom p-v-20">
-                                    <p class="text-opacity"><small>In exceptional circumstances, Financial Services can provide an urgent manually processed special cheque. Note, however, that urgent special cheques should be requested only on an emergency basis as manually produced cheques involve duplication of effort and considerable staff resources. Requests need to be supported by a letter explaining the circumstances to justify the special cheque payment.</small></p>
+                                    <p class="text-opacity"><small>In exceptional circumstances, Financial Services can
+                                            provide an urgent manually processed special cheque. Note, however, that
+                                            urgent special cheques should be requested only on an emergency basis as
+                                            manually produced cheques involve duplication of effort and considerable
+                                            staff resources. Requests need to be supported by a letter explaining the
+                                            circumstances to justify the special cheque payment.</small></p>
                                 </div>
                             </div>
                         </div>
                         <div class="row m-v-20">
                             <div class="col-sm-6">
-                                <img class="img-fluid text-opacity m-t-5" width="100" src="assets/images/logo/logo.png" alt="">
+                                <img class="img-fluid text-opacity m-t-5" width="100" src="assets/images/logo/logo.png"
+                                    alt="">
                             </div>
                             <div class="col-sm-6 text-right">
                                 <small><span class="font-weight-semibold text-dark">Phone:</span> (123) 456-7890</small>
@@ -130,8 +137,10 @@
 <div class="page-header">
     <div class="header-sub-title">
         <nav class="breadcrumb breadcrumb-dash">
-            <a asp-area="Admin" asp-controller="Home" asp-action="Index" class="breadcrumb-item"><i class="anticon anticon-home m-r-5"></i>Home</a>
-            <a class="breadcrumb-item"asp-area="Admin" asp-controller="AdminPages" asp-action="Index">Danh sách page</a>
+            <a asp-area="Admin" asp-controller="AdminHome" asp-action="Index" class="breadcrumb-item"><i
+                    class="anticon anticon-home m-r-5"></i>Home</a>
+            <a class="breadcrumb-item" asp-area="Admin" asp-controller="AdminPages" asp-action="Index">Danh sách
+                page</a>
             <span class="breadcrumb-item active">Thông tin page</span>
         </nav>
     </div>
@@ -172,14 +181,14 @@
                     </tr>
                     <tr>
                         <td>Ảnh dại diện:</td>
-                        <td>  <img height="200" width="200" src="~/images/pages/@Model.Thumb" alt="@Model.Title"/> </td>
+                        <td> <img height="200" width="200" src="~/images/pages/@Model.Thumb" alt="@Model.Title" /> </td>
                     </tr>
                     <tr>
                         <td>Nội dung:</td>
                         <td>@Model.Contents</td>
                     </tr>
                 </tbody>
-            </table> 
+            </table>
         </div>
     </div>
 </div>

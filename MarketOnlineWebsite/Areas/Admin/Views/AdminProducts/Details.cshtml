@@ -7,8 +7,10 @@
 <div class="page-header">
     <div class="header-sub-title">
         <nav class="breadcrumb breadcrumb-dash">
-            <a asp-area="Admin" asp-controller="Home" asp-action="Index" class="breadcrumb-item"><i class="anticon anticon-home m-r-5"></i>Home</a>
-            <a class="breadcrumb-item"asp-area="Admin" asp-controller="AdminProducts" asp-action="Index">Danh sách sản phẩm</a>
+            <a asp-area="Admin" asp-controller="AdminHome" asp-action="Index" class="breadcrumb-item"><i
+                    class="anticon anticon-home m-r-5"></i>Home</a>
+            <a class="breadcrumb-item" asp-area="Admin" asp-controller="AdminProducts" asp-action="Index">Danh sách sản
+                phẩm</a>
             <span class="breadcrumb-item active">Thông tin sản phẩm</span>
         </nav>
     </div>
@@ -74,7 +76,8 @@
                     </tr>
                     <tr>
                         <td>Ảnh dại diện:</td>
-                        <td>  <img height="200" width="200" src="~/images/products/@Model.Thumb" alt="@Model.Title"/> </td>
+                        <td> <img height="200" width="200" src="~/images/products/@Model.Thumb" alt="@Model.Title" />
+                        </td>
                     </tr>
                     <tr>
                         <td>Trạng thái:</td>
@@ -89,15 +92,15 @@
                         <td>@Model.BestSellers</td>
                     </tr>
                     <tr>
-                         <td>Hàng tồn kho:</td>
+                        <td>Hàng tồn kho:</td>
                         <td>@Model.UnitsInStock</td>
                     </tr>
                     <tr>
-                    <td>Trạng thái công khai:</td>
+                        <td>Trạng thái công khai:</td>
                         <td>@Model.PushilberId</td>
                     </tr>
                 </tbody>
-            </table> 
+            </table>
         </div>
     </div>
 </div>

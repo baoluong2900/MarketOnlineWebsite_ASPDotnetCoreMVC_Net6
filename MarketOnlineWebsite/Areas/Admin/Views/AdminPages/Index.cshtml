@@ -8,7 +8,8 @@
 <div class="page-header">
     <div class="header-sub-title">
         <nav class="breadcrumb breadcrumb-dash">
-            <a asp-area="Admin" asp-controller="Home" asp-action="Index" class="breadcrumb-item"><i class="anticon anticon-home m-r-5"></i>Home</a>
+            <a asp-area="Admin" asp-controller="AdminHome" asp-action="Index" class="breadcrumb-item"><i
+                    class="anticon anticon-home m-r-5"></i>Home</a>
             <span class="breadcrumb-item active">Danh sách page : Trang @currentPage</span>
         </nav>
     </div>
@@ -19,42 +20,44 @@
             <div class="col-lg-8">
                 <div class="d-md-flex">
                     <div class="m-b-10 m-r-15">
-                        <select class="custom-select" style="min-width: 250px;" id="idRoles" name="idRoles" asp-items="ViewBag.QuyenTruyCap">
-                            <option value="" disabled selected> 
+                        <select class="custom-select" style="min-width: 250px;" id="idRoles" name="idRoles"
+                            asp-items="ViewBag.QuyenTruyCap">
+                            <option value="" disabled selected>
                                 Chọn quyền truy cập
                             </option>
                         </select>
                     </div>
                     <div class="m-b-10">
-                        <select class="custom-select" style="min-width: 180px;" id="idStatus" name="idStatus" asp-items="ViewBag.Active">
-                            <option value="" disabled selected> 
-                               Trạng thái
+                        <select class="custom-select" style="min-width: 180px;" id="idStatus" name="idStatus"
+                            asp-items="ViewBag.Active">
+                            <option value="" disabled selected>
+                                Trạng thái
                             </option>
                         </select>
                     </div>
                 </div>
             </div>
             <div class="col-lg-4 text-right">
-                    <a class="anticon anticon-plus-circle btn btn-primary btn-tone m-r-5" asp-action="Create">
-                        <span class="m-l-25"> Thêm mới page</span>
-                    </a>
+                <a class="anticon anticon-plus-circle btn btn-primary btn-tone m-r-5" asp-action="Create">
+                    <span class="m-l-25"> Thêm mới page</span>
+                </a>
             </div>
         </div>
         <div class="table-responsive">
             <table class="table table-hover e-commerce-table">
                 <thead>
                     <tr>
-                        <th>#</th>
+                        <th>No.</th>
                         <th>ID</th>
                         <th>Tên page</th>
                         <th>Trạng thái</th>
-                        <th>Chức năng</th>
+                        <th>#</th>
                     </tr>
                 </thead>
                 <tbody>
-                    @if(Model !=null)
+                    @if (Model != null)
                     {
-                        var rowNumber = 1; 
+                        var rowNumber = 1;
                         foreach (var pagesItem in Model)
                         {
                             <tr>
@@ -66,40 +69,43 @@
                                     @pagesItem.PageName
                                 </td>
                                 <td>
-                                    @if( @pagesItem.Published )
+                                    @if (@pagesItem.Published)
                                     {
                                         <div class="d-flex align-items-center">
-                                        <div class="badge badge-success badge-dot m-r-10"></div>
-                                        <div>Công khai</div>
+                                            <div class="badge badge-success badge-dot m-r-10"></div>
+                                            <div>Công khai</div>
                                         </div>
                                     }
                                     else
                                     {
                                         <div class="d-flex align-items-center">
-                                        <div class="badge badge-danger badge-dot m-r-10"></div>
-                                        <div>Không công khai</div>
+                                            <div class="badge badge-danger badge-dot m-r-10"></div>
+                                            <div>Không công khai</div>
                                         </div>
                                     }
-                                    
+
                                 </td>
                                 <td>
-                                     <a class="anticon anticon-bars btn btn-success btn-tone m-r-5" asp-action="Details" asp-route-id="@pagesItem.PageId"></a> 
-                                     <a class="anticon anticon-edit btn btn-warning btn-tone m-r-5"  asp-action="Edit" asp-route-id="@pagesItem.PageId"></a>
-                                     <a class="anticon anticon-delete btn btn-danger btn-tone m-r-5" asp-action="Delete" asp-route-id="@pagesItem.PageId"></a> 
+                                    <a class="anticon anticon-bars btn btn-success btn-tone m-r-5" asp-action="Details"
+                                asp-route-id="@pagesItem.PageId"></a>
+                                    <a class="anticon anticon-edit btn btn-warning btn-tone m-r-5" asp-action="Edit"
+                                asp-route-id="@pagesItem.PageId"></a>
+                                    <a class="anticon anticon-delete btn btn-danger btn-tone m-r-5" asp-action="Delete"
+                                asp-route-id="@pagesItem.PageId"></a>
                                 </td>
                             </tr>
-                             rowNumber ++; 
+                            rowNumber++;
                         }
                     }
-  
+
                 </tbody>
             </table>
-              <div aria-label="Page navigation Example">
-                  <ul class="pagination">
-                      <pager class="pager-container" list="@Model" asp-area="Admin" asp-controller="AdminPages" asp-action="Index"></pager>
-                  </ul>
-              </div>
+            <div aria-label="Page navigation Example">
+                <ul class="pagination">
+                    <pager class="pager-container" list="@Model" asp-area="Admin" asp-controller="AdminPages"
+                        asp-action="Index"></pager>
+                </ul>
+            </div>
         </div>
     </div>
 </div>
-

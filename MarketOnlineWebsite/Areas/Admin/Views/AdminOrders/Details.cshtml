@@ -9,11 +9,10 @@
 <!-- Content Wrapper START -->
 <div class="main-content">
     <div class="page-header">
-        <h2 class="header-title">Invoice</h2>
         <div class="header-sub-title">
             <nav class="breadcrumb breadcrumb-dash">
-                <a href="#" class="breadcrumb-item"><i class="anticon anticon-home m-r-5"></i>Home</a>
-                <a class="breadcrumb-item" href="#">Danh sách đơn hàng</a>
+                <a  asp-area="Admin" asp-controller="AdminHome" asp-action="Index" class="breadcrumb-item"><i class="anticon anticon-home m-r-5"></i>Home</a>
+                  <a asp-area="Admin" asp-controller="AdminOrders" asp-action="Index" class="breadcrumb-item">Danh sách đơn hàng</a>
                 <span class="breadcrumb-item active">Chi tiết đơn hàng</span>
             </nav>
         </div>
@@ -24,9 +23,9 @@
                 <div id="invoice" class="p-h-30">
                     <div class="m-t-15 lh-2">
                         <div class="inline-block">
-                            <img class="img-fluid" src="~/Adminassets/images/logo/logo.png" alt="">
+                            <img class="img-fluid" src="~/Adminassets/images/logo/dark.png" alt="">
                             <address class="p-l-10">
-                                <span class="font-weight-semibold text-dark">Harmic market</span><br>
+                                <span class="font-weight-semibold text-dark">Harmic Online</span><br>
                                 <span>26, Nguyễn Huệ</span><br>
                                 <span>Phường vĩnh Ninh,Huế, Thành Phố Huế </span><br>
                                 <abbr class="text-dark" title="Phone">Số điện thoại:</abbr>
@@ -49,16 +48,17 @@
                         <div class="col-sm-3">
                             <div class="m-t-80">
                                 <div class="text-dark text-uppercase d-inline-block">
-                                    <span class="font-weight-semibold text-dark">Mã hoán đơn :</span></div>
+                                    <span class="font-weight-semibold text-dark">Mã hoá đơn :</span></div>
                                 <div class="float-right">#@Model.OrderId</div>
                             </div>
-                            <div class="text-dark text-uppercase d-inline-block">
-                                <span class="font-weight-semibold text-dark">Ngày đặt :</span>
-                            </div>
+
                             @if (Model.OrderDate !=null )
                             {
                                 if(Model.PaymentId == 1 && Model.TransactStatusId == 16)
                                 {
+                                     <div class="text-dark text-uppercase d-inline-block">
+                                        <span class="font-weight-semibold text-dark">Ngày đặt :</span>
+                                    </div>
                                     <div class="float-right">@Model.OrderDate.Value.ToString("dd/MM/yyyy")</div>
                                     <div class="text-dark text-uppercase d-inline-block">
                                         <span class="font-weight-semibold text-dark">Trạng thái :</span>
@@ -67,6 +67,9 @@
                                 }
                                 else if (Model.PaymentId == 2 || Model.PaymentId == 3 )
                                 {
+                                     <div class="text-dark text-uppercase d-inline-block">
+                                        <span class="font-weight-semibold text-dark">Ngày đặt :</span>
+                                    </div>
                                     <div class="float-right">@Model.OrderDate.Value.ToString("dd/MM/yyyy")</div>
                                     <div class="text-dark text-uppercase d-inline-block">
                                         <span class="font-weight-semibold text-dark">Trạng thái :</span>
@@ -76,7 +79,14 @@
                             }
                             else
                             {
-                                
+                                     <div class="text-dark text-uppercase d-inline-block">
+                                        <span class="font-weight-semibold text-dark">Ngày đặt :</span>
+                                    </div>
+                                    <div class="float-right">@Model.OrderDate.Value.ToString("dd/MM/yyyy")</div>
+                                    <div class="text-dark text-uppercase d-inline-block">
+                                        <span class="font-weight-semibold text-dark">Trạng thái :</span>
+                                    </div>
+                                    <div class="float-right"></div>
                             }
 
                         </div>
@@ -141,8 +151,3 @@
     </div>
 </div>
 <!-- Content Wrapper END -->
-
-<div>
-    <a asp-action="Edit" asp-route-id="@Model.OrderId">Edit</a> |
-    <a asp-action="Index">Back to List</a>
-</div>

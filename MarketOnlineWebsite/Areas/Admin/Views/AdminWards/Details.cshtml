@@ -1,0 +1,55 @@
+﻿@model MarketOnlineWebsite.Models.Location
+
+@{
+    ViewData["Title"] = "Details";
+    Layout = "~/Areas/Admin/Views/Shared/_AdminLayout.cshtml";
+}
+
+<h1>Details</h1>
+
+<div>
+    <h4>Location</h4>
+    <hr />
+    <dl class="row">
+        <dt class = "col-sm-2">
+            @Html.DisplayNameFor(model => model.Name)
+        </dt>
+        <dd class = "col-sm-10">
+            @Html.DisplayFor(model => model.Name)
+        </dd>
+        <dt class = "col-sm-2">
+            @Html.DisplayNameFor(model => model.Parent)
+        </dt>
+        <dd class = "col-sm-10">
+            @Html.DisplayFor(model => model.Parent)
+        </dd>
+        <dt class = "col-sm-2">
+            @Html.DisplayNameFor(model => model.Levels)
+        </dt>
+        <dd class = "col-sm-10">
+            @Html.DisplayFor(model => model.Levels)
+        </dd>
+        <dt class = "col-sm-2">
+            @Html.DisplayNameFor(model => model.Slug)
+        </dt>
+        <dd class = "col-sm-10">
+            @Html.DisplayFor(model => model.Slug)
+        </dd>
+        <dt class = "col-sm-2">
+            @Html.DisplayNameFor(model => model.NameWithType)
+        </dt>
+        <dd class = "col-sm-10">
+            @Html.DisplayFor(model => model.NameWithType)
+        </dd>
+        <dt class = "col-sm-2">
+            @Html.DisplayNameFor(model => model.Type)
+        </dt>
+        <dd class = "col-sm-10">
+            @Html.DisplayFor(model => model.Type)
+        </dd>
+    </dl>
+</div>
+<div>
+    <a asp-action="Edit" asp-route-id="@Model.LocationId">Edit</a> |
+    <a asp-action="Index">Back to List</a>
+</div>

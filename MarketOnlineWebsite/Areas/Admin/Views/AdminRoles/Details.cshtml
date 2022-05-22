@@ -6,8 +6,10 @@
 <div class="page-header">
     <div class="header-sub-title">
         <nav class="breadcrumb breadcrumb-dash">
-            <a asp-area="Admin" asp-controller="Home" asp-action="Index" class="breadcrumb-item"><i class="anticon anticon-home m-r-5"></i>Home</a>
-            <a class="breadcrumb-item"asp-area="Admin" asp-controller="AdminRoles" asp-action="Index">Danh sách quyền truy cập</a>
+            <a asp-area="Admin" asp-controller="AdminHome" asp-action="Index" class="breadcrumb-item"><i
+                    class="anticon anticon-home m-r-5"></i>Home</a>
+            <a class="breadcrumb-item" asp-area="Admin" asp-controller="AdminRoles" asp-action="Index">Danh sách quyền
+                truy cập</a>
             <span class="breadcrumb-item active">Thông tin quyền truy cập</span>
         </nav>
     </div>
@@ -31,7 +33,7 @@
                         <td>@Model.Description</td>
                     </tr>
                 </tbody>
-            </table> 
+            </table>
         </div>
     </div>
 </div>

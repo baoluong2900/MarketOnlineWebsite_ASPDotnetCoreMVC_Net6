@@ -62,6 +62,8 @@ namespace MarketOnlineWebsite.Controllers
                 PagedList<Product> models = new PagedList<Product>(lsProducts, pageNumber, pageSize);
                 ViewBag.CurrentPage = pageNumber;
                 ViewBag.Count = lsProducts.Count();
+                var topProducts = _context.Products.AsNoTracking().Where(x => x.HomeFlag == true && x.Active == true && x.BestSellers == true).OrderByDescending(x => x.DateCreated).Take(3).ToList();
+                ViewBag.TopProducts = topProducts;
                 return View(models);
             }
             catch 
@@ -137,6 +139,8 @@ namespace MarketOnlineWebsite.Controllers
                 PagedList<Product> models = new PagedList<Product>(lsProducts, page, pageSize);
                 ViewBag.CurrentPage = page;
                 ViewBag.CurrentCat = lsCategories;
+                var topProducts = _context.Products.AsNoTracking().Where(x => x.HomeFlag == true && x.Active == true && x.BestSellers == true).OrderByDescending(x => x.DateCreated).Take(3).ToList();
+                ViewBag.TopProducts = topProducts;
                 return View(models);
             }
             catch
@@ -173,5 +177,6 @@ namespace MarketOnlineWebsite.Controllers
             }
 
         }
+
     }
 }

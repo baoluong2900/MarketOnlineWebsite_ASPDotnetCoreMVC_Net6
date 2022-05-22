@@ -1,9 +1,13 @@
 ﻿@model MarketOnlineWebsite.Areas.Admin.ModelViews.AdminHomeAllVM
 @{
-    ViewData["Title"] = "Admin Index";
+    ViewData["Title"] = "Quản lý thống kê";
     Layout = "~/Areas/Admin/Views/Shared/_AdminLayout.cshtml";
     List<Product> listProduct = ViewBag.ListProduct;
     List<Order> listOrder = ViewBag.ListOrder;
+    int Suppliers = ViewBag.CountSuppliers; 
+    int Customers=  ViewBag.CountCustomers;
+    int Accounts  = ViewBag.CountAccounts;
+
 }
 <div class="row">
     <div class="col-lg-5">
@@ -25,7 +29,7 @@
                             <div class="d-flex justify-content-between">
                                 <div class="d-flex align-items-center">
                                     <span class="badge badge-primary badge-dot m-r-10"></span>
-                                    <span class="text-gray font-weight-semibold font-size-13">Monthly Goal</span>
+                                    <span class="text-gray font-weight-semibold font-size-13">Mục tiêu hàng tháng</span>
                                 </div>
                                 <span class="text-dark font-weight-semibold font-size-13">70% </span>
                             </div>
@@ -53,7 +57,7 @@
                             <div class="d-flex justify-content-between">
                                 <div class="d-flex align-items-center">
                                     <span class="badge badge-success badge-dot m-r-10"></span>
-                                    <span class="text-gray font-weight-semibold font-size-13">Monthly Goal</span>
+                                    <span class="text-gray font-weight-semibold font-size-13">Mục tiêu hàng tháng</span>
                                 </div>
                                 <span class="text-dark font-weight-semibold font-size-13">60% </span>
                             </div>
@@ -83,7 +87,7 @@
                             <div class="d-flex justify-content-between">
                                 <div class="d-flex align-items-center">
                                     <span class="badge badge-warning badge-dot m-r-10"></span>
-                                    <span class="text-gray font-weight-semibold font-size-13">Monthly Goal</span>
+                                    <span class="text-gray font-weight-semibold font-size-13">Mục tiêu hàng tháng</span>
                                 </div>
                                 <span class="text-dark font-weight-semibold font-size-13">45% </span>
                             </div>
@@ -111,7 +115,7 @@
                             <div class="d-flex justify-content-between">
                                 <div class="d-flex align-items-center">
                                     <span class="badge badge-secondary badge-dot m-r-10"></span>
-                                    <span class="text-gray font-weight-semibold font-size-13">Monthly Goal</span>
+                                    <span class="text-gray font-weight-semibold font-size-13">Mục tiêu hàng tháng</span>
                                 </div>
                                 <span class="text-dark font-weight-semibold font-size-13">50% </span>
                             </div>
@@ -271,21 +275,21 @@
                                 <span class="badge badge-warning badge-dot m-r-10"></span>
                                 <span>Nhà cung cấp</span>
                             </p>
-                            <h5 class="m-b-0">350</h5>
+                            <h5 class="m-b-0">@Suppliers</h5>
                         </div>
                         <div class="d-flex justify-content-between align-items-center m-b-20">
                             <p class="m-b-0 d-flex align-items-center">
                                 <span class="badge badge-primary badge-dot m-r-10"></span>
                                 <span>Khách hàng</span>
                             </p>
-                            <h5 class="m-b-0">450</h5>
+                            <h5 class="m-b-0">@Customers</h5>
                         </div>
                         <div class="d-flex justify-content-between align-items-center m-b-20">
                             <p class="m-b-0 d-flex align-items-center">
                                 <span class="badge badge-danger badge-dot m-r-10"></span>
                                 <span>Quản trị hệ thống</span>
                             </p>
-                            <h5 class="m-b-0">100</h5>
+                            <h5 class="m-b-0" id="myText">@Accounts</h5>
                         </div>
                     </div>
                 </div>

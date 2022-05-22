@@ -138,10 +138,6 @@ namespace MarketOnlineWebsite.Models
 
                 entity.Property(e => e.CatName).HasMaxLength(250);
 
-                entity.Property(e => e.Cover).HasMaxLength(255);
-
-                entity.Property(e => e.ParentId).HasColumnName("ParentID");
-
                 entity.Property(e => e.Thumb).HasMaxLength(250);
 
                 entity.Property(e => e.Title).HasMaxLength(250);
@@ -358,7 +354,15 @@ namespace MarketOnlineWebsite.Models
             {
                 entity.Property(e => e.ShipperId).HasColumnName("ShipperID");
 
-                entity.Property(e => e.Company).HasMaxLength(150);
+                entity.Property(e => e.Avatar).HasMaxLength(255);
+
+                entity.Property(e => e.Birthday).HasColumnType("datetime");
+
+                entity.Property(e => e.Email)
+                    .HasMaxLength(150)
+                    .IsFixedLength();
+
+                entity.Property(e => e.LocationId).HasColumnName("LocationID");
 
                 entity.Property(e => e.Phone)
                     .HasMaxLength(10)
@@ -367,6 +371,8 @@ namespace MarketOnlineWebsite.Models
                 entity.Property(e => e.ShipDate).HasColumnType("datetime");
 
                 entity.Property(e => e.ShipperName).HasMaxLength(150);
+
+                entity.Property(e => e.SupplierId).HasColumnName("SupplierID");
             });
 
             modelBuilder.Entity<Supplier>(entity =>
@@ -403,10 +409,6 @@ namespace MarketOnlineWebsite.Models
 
                 entity.Property(e => e.PostalCode)
                     .HasMaxLength(15)
-                    .IsFixedLength();
-
-                entity.Property(e => e.Salt)
-                    .HasMaxLength(8)
                     .IsFixedLength();
 
                 entity.HasOne(d => d.Account)

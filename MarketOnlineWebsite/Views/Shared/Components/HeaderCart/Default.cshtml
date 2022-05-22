@@ -31,15 +31,9 @@
           <strong>   <span class="ammount">@Model.Sum(x=>x.TotalMoney).ToString("#,##0") VNĐ</span></strong>
         </div>
         <div class="group-btn_wrap d-grid gap-2">
-             @if (User.Identity.IsAuthenticated)
-            {
-                   <a href="cart.html" class="btn btn-secondary btn-primary-hover">Xem giỏ hàng</a>
-            }
-            else
-            {
-                   <a href="/dang-nhap.html?returnUrl=cart.html" class="btn btn-secondary btn-primary-hover">Xem giỏ hàng</a>
-            }
-         
+
+            <a href="cart.html" class="btn btn-secondary btn-primary-hover">Xem giỏ hàng</a>
+            
             @if (User.Identity.IsAuthenticated)
              {
                <a href="/checkout.html" class="btn btn-secondary btn-primary-hover">Thanh toán</a>

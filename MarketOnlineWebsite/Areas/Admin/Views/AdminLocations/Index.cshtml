@@ -1,0 +1,90 @@
+﻿@using PagedList.Core.Mvc
+@model PagedList.Core.IPagedList<MarketOnlineWebsite.Models.Location>
+@{
+    int currentPage = ViewBag.CurrentPage;
+    ViewData["Title"] = "Danh sách tỉnh thành";
+    Layout = "~/Areas/Admin/Views/Shared/_AdminLayout.cshtml";
+}
+<div class="page-header">
+    <div class="header-sub-title">
+        <nav class="breadcrumb breadcrumb-dash">
+            <a asp-area="Admin" asp-controller="AdminHome" asp-action="Index" class="breadcrumb-item"><i class="anticon anticon-home m-r-5"></i>Home</a>
+            <span class="breadcrumb-item active">Danh sách tỉnh/thành : Trang @currentPage</span>
+        </nav>
+    </div>
+</div>
+<div class="card">
+    <div class="card-body">
+        <div class="row m-b-30">
+            <div class="col-lg-8">
+                <div class="d-md-flex">
+                    <div class="m-b-10 m-r-15">
+                    </div>
+                    <div class="m-b-10">
+                    </div>
+                </div>
+            </div>
+            <div class="col-lg-4 text-right">
+                    <a class="anticon anticon-plus-circle btn btn-primary btn-tone m-r-5" asp-action="Create">
+                        <span class="m-l-25"> Thêm tỉnh/thành</span>
+                    </a>
+            </div>
+        </div>
+        <div class="table-responsive">
+            <table class="table table-hover e-commerce-table">
+                <thead>
+                    <tr>
+                        <th>No.</th>
+                        <th>ID</th>
+                        <th>Tỉnh/thành</th>
+                        <th>Cấp độ</th>
+                        <th>Mô tả</th>
+                        <th>Kiểu </th>
+                        <th>#</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @if(Model !=null)
+                    {
+                        var rowNumber = 1; 
+                        foreach (var Item in Model)
+                        {
+                            <tr>
+                                <th scope="row">@rowNumber</th>
+                                <td>
+                                    @Item.LocationId
+                                </td>
+                                <td>
+                                    @Item.Name
+                                </td>
+                                <td>
+                                    @Item.Levels
+                                </td>
+                                <td>
+                                    @Item.NameWithType
+                                   
+                                </td>
+                                <td>
+                                    @Item.Type
+                                </td>
+                                <td>
+                           
+                                     <a class="anticon anticon-bars btn btn-success btn-tone m-r-5" asp-action="Details" asp-route-id="@Item.LocationId"></a> 
+                                     <a class="anticon anticon-edit btn btn-warning btn-tone m-r-5"  asp-action="Edit" asp-route-id="@Item.LocationId"></a>
+                                     <a class="anticon anticon-delete btn btn-danger btn-tone m-r-5" asp-action="Delete" asp-route-id="@Item.LocationId"></a> 
+                                </td>
+                             </tr>
+                              rowNumber ++; 
+                        }
+                    }
+  
+                </tbody>
+            </table>
+              <div aria-label="Page navigation Example">
+                  <ul class="pagination">
+                      <pager class="pager-container" list="@Model" asp-area="Admin" asp-controller="AdminLocations" asp-action="Index"></pager>
+                  </ul>
+              </div>
+        </div>
+    </div>
+</div>

@@ -42,9 +42,21 @@ namespace MarketOnlineWebsite.Areas.Admin.Controllers
                 .Include(x => x.Customer)
                 .Take(6)
                 .ToList();
+
+            var countSuppliers = _context.Suppliers.AsNoTracking().Count();
+            var countCustomers= _context.Customers.AsNoTracking().Count();
+            var countAccounts= _context.Accounts.AsNoTracking().Count();
+
+  
+            ViewBag.CountSuppliers = countSuppliers;
+            ViewBag.CountCustomers = countCustomers;
+            ViewBag.CountAccounts = countAccounts;
+
+
             ViewBag.ListOrder = lsOrders;
             ViewBag.ListProduct=lsProducts;
-                
+       
+
             //var account = _context.Accounts.AsNoTracking()
             //       .SingleOrDefault(x =>x.AccountId  == Convert.ToInt32(accountID.Trim()));
             return View();

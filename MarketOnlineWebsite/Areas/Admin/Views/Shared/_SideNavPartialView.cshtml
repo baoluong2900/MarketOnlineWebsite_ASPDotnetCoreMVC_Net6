@@ -83,12 +83,15 @@
                     <li>
                         <a asp-area="Admin" asp-controller="AdminRoles" asp-action="Index">Quản lý truyền truy cập</a>
                     </li>
-                      <li>
-                        <a href="data-table.html">Quản lý truyền Tỉnh/Thành</a>
+                     <li>
+                        <a asp-area="Admin" asp-controller="AdminLocations" asp-action="Index">Quản lý Tỉnh/thành</a>
                     </li>
-                      <li>
-                        <a href="data-table.html">Quản lý truyền truy cập</a>
-                      </li>
+                    <li>
+                        <a asp-area="Admin" asp-controller="AdminDistricts" asp-action="Index">Quản lý Quận/huyện</a>
+                    </li>
+                    <li>
+                        <a asp-area="Admin" asp-controller="AdminWards" asp-action="Index">Quản lý Phường/xã</a>
+                    </li>
                 </ul>
                  </li>
             }
@@ -138,7 +141,7 @@
                 </a>
                 <ul class="dropdown-menu">
                     <li>
-                        <a href="login-1.html">Quản lý shipper</a>
+                       <a asp-area="Admin" asp-controller="AdminShippers" asp-action="Index">Danh sách shipper</a>
                     </li>
                 </ul>
             </li>
