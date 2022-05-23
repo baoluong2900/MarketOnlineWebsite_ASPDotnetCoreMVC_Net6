@@ -316,10 +316,6 @@ namespace MarketOnlineWebsite.Models
 
                 entity.Property(e => e.ProductName).HasMaxLength(255);
 
-                entity.Property(e => e.PushilberId)
-                    .HasMaxLength(10)
-                    .IsFixedLength();
-
                 entity.Property(e => e.ShortDesc).HasMaxLength(255);
 
                 entity.Property(e => e.SupplierId).HasColumnName("SupplierID");

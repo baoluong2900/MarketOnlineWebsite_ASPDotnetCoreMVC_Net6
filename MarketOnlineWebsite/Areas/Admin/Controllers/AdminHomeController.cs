@@ -35,27 +35,38 @@ namespace MarketOnlineWebsite.Areas.Admin.Controllers
                   .OrderByDescending(x => x.DateCreated)
                   .Take(5)
                   .ToList();
+
             var lsOrders = _context.Orders.AsNoTracking()
-                .Where(x => x.TransactStatusId == 13 && x.Deleted == false)
+                .Where(x => x.TransactStatusId == 14 && x.Deleted == false)
                 .OrderByDescending(x => x.OrderDate)
                 .Include(x => x.TransactStatus)
                 .Include(x => x.Customer)
                 .Take(6)
                 .ToList();
 
+            var monthNow = DateTime.Now.Month;
+            var totalTevenueMonth = _context.Orders.AsNoTracking().Where(x=>x.OrderDate.Value.Month == monthNow).Sum(x => x.TotalMoney);
+
+            var dayNow = DateTime.Now.Day;
+            var totalTevenueDay = _context.Orders.AsNoTracking().Where(x => x.OrderDate.Value.Day == dayNow).Sum(x => x.TotalMoney);
+
+            var countOrders = _context.Orders.AsNoTracking().Count();
             var countSuppliers = _context.Suppliers.AsNoTracking().Count();
             var countCustomers= _context.Customers.AsNoTracking().Count();
             var countAccounts= _context.Accounts.AsNoTracking().Count();
 
+            var sumUsers = countAccounts + countCustomers;
   
             ViewBag.CountSuppliers = countSuppliers;
             ViewBag.CountCustomers = countCustomers;
             ViewBag.CountAccounts = countAccounts;
-
-
+            ViewBag.CountOrders = countOrders;
+            ViewBag.TotalTevenueMonth = totalTevenueMonth;
+            ViewBag.TotalTevenueDay = totalTevenueDay;
             ViewBag.ListOrder = lsOrders;
             ViewBag.ListProduct=lsProducts;
-       
+            ViewBag.SumUsers = sumUsers;
+
 
             //var account = _context.Accounts.AsNoTracking()
             //       .SingleOrDefault(x =>x.AccountId  == Convert.ToInt32(accountID.Trim()));

@@ -17,21 +17,19 @@
     <div class="card-body">
         <div class="row m-b-30">
             <div class="col-lg-8">
-                <div class="d-md-flex">
-                    <div class="m-b-10 m-r-15">
-                        <select class="custom-select" style="min-width: 250px;" id="idRoles" name="idRoles" asp-items="ViewBag.QuyenTruyCap">
-                            <option value="" disabled selected> 
-                                Chọn quyền truy cập
-                            </option>
-                        </select>
+                <div class="row">
+                    <div class="col-md-5">
+                        <div class="input-affix m-v-10">
+                            <i class="prefix-icon anticon anticon-search opacity-04"></i>
+                            <input id="keyword" name="keyword" type="text" class="form-control"
+                                placeholder="Tìm kiếm khách hàng">
+                        </div>
                     </div>
-                    <div class="m-b-10">
-                        <select class="custom-select" style="min-width: 180px;" id="idStatus" name="idStatus" asp-items="ViewBag.Active">
-                            <option value="" disabled selected> 
-                               Trạng thái
-                            </option>
-                        </select>
+                    <div class="col-md-3">
+                        <div class="input-affix m-v-10">
+                        </div>
                     </div>
+
                 </div>
             </div>
             <div class="col-lg-4 text-right">
@@ -47,13 +45,13 @@
                         <th>No.</th>
                         <th>ID</th>
                         <th>Họ và tên</th>
-                        <th>Địa chỉ</th>
-                        <th>Tỉnh thành</th>
-                        <th>Trạng thái</th>
+                        <th>Số điện thoại</th>
+                        <th>Email</th>
+                        <th>Lần đăng nhập gần đây</th>
                         <th>#</th>
                     </tr>
                 </thead>
-                <tbody>
+                <tbody id="records_table">
                     @if(Model !=null)
                     {
                         var rowNumber = 1; 
@@ -66,34 +64,13 @@
                                 </td>
                                 <td>
                                     <div class="d-flex align-items-center">
-                                        <img class="img-fluid rounded" src="assets/images/others/thumb-15.jpg" style="max-width: 60px" alt="">
+                                        <img class="img-fluid rounded" src="~/images/customers/@customersItem.Avatar" style="max-width: 60px" alt="">
                                         <h6 class="m-b-0 m-l-10">@customersItem.FullName</h6>
                                     </div>
                                 </td>
-                                <td>
-                                    <p><@customersItem.Address></p>
-                                    <p><@customersItem.Email></>/p>
-                                    <p><@customersItem.Phone></>/p>
-                                    
-                                 </td>
-               @*                 <td>@customersItem.Location.Name</td>*@
-                                <td>
-                                    @if( @customersItem.Active )
-                                    {
-                                        <div class="d-flex align-items-center">
-                                        <div class="badge badge-success badge-dot m-r-10"></div>
-                                        <div>Active</div>
-                                        </div>
-                                    }
-                                    else
-                                    {
-                                        <div class="d-flex align-items-center">
-                                        <div class="badge badge-danger badge-dot m-r-10"></div>
-                                        <div>Block</div>
-                                        </div>
-                                    }
-                                    
-                                </td>
+                                <td>@customersItem.Phone</td>
+                                <td>@customersItem.Email</td>
+                                <td>@customersItem.LastLogin</td>
                                 <td>
                                      <a class="anticon anticon-bars btn btn-success btn-tone m-r-5" asp-action="Details" asp-route-id="@customersItem.CustomerId"></a> 
                                      <a class="anticon anticon-edit btn btn-warning btn-tone m-r-5"  asp-action="Edit" asp-route-id="@customersItem.CustomerId"></a>
@@ -135,3 +112,26 @@
         </div>
     </div>
 </div>
+@section Scripts {
+<script>
+    $(document).ready(function () {
+        $("#keyword").keyup(function () {
+            var strkeyword = $('#keyword').val();
+                 $.ajax({
+                    url: '/Admin/Search/FindCustomer/',
+                    datatype: "json",
+                    type: "POST",
+                    data: { keyword: strkeyword },
+                    async: true,
+                    success: function (results) {
+                        $("#records_table").html("");
+                        $("#records_table").html(results);
+                    },
+                    error: function (xhr) {
+                        alert('error');
+                    }
+                });
+        });
+    });
+</script>
+}

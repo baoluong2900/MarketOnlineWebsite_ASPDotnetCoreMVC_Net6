@@ -8,6 +8,7 @@ using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 using MarketOnlineWebsite.Models;
 using PagedList.Core;
+using AspNetCoreHero.ToastNotification.Abstractions;
 
 namespace MarketOnlineWebsite.Areas.Admin.Controllers
 {
@@ -15,10 +16,12 @@ namespace MarketOnlineWebsite.Areas.Admin.Controllers
     public class AdminCustomersController : Controller
     {
         private readonly dbMarketsContext _context;
+        public INotyfService _INotyfService { get; }
 
-        public AdminCustomersController(dbMarketsContext context)
+        public AdminCustomersController(dbMarketsContext context, INotyfService inotyfService)
         {
             _context = context;
+            _INotyfService = inotyfService;
         }
 
         // GET: Admin/AdminCustomers
@@ -32,6 +35,9 @@ namespace MarketOnlineWebsite.Areas.Admin.Controllers
 
             //var dbMarketsContext = _context.Customers.Include(c => c.Location);
             //return View(await dbMarketsContext.ToListAsync());
+
+
+
             return View(models);
         }
 
@@ -46,6 +52,11 @@ namespace MarketOnlineWebsite.Areas.Admin.Controllers
             var customer = await _context.Customers
                 .Include(c => c.Location)
                 .FirstOrDefaultAsync(m => m.CustomerId == id);
+            string TinhThanh = GetNameLocation(customer.LocationId.Value);
+            string QuanHuyen = GetNameLocation(customer.District.Value);
+            string PhuongXa = GetNameLocation(customer.Ward.Value);
+            string addressLoaction = $"{TinhThanh}, {QuanHuyen}, {PhuongXa}";
+            ViewBag.AddressLoaction = addressLoaction;
             if (customer == null)
             {
                 return NotFound();
@@ -164,6 +175,20 @@ namespace MarketOnlineWebsite.Areas.Admin.Controllers
         private bool CustomerExists(int id)
         {
             return _context.Customers.Any(e => e.CustomerId == id);
+        }
+
+        public string GetNameLocation(int idLocation)
+        {
+            try
+            {
+                string nameFetchedId = _context.Locations.SingleOrDefault(x => x.LocationId == idLocation)?.Name;
+                return nameFetchedId;
+            }
+            catch (Exception ex)
+            {
+                return null;
+            }
+            return null;
         }
     }
 }

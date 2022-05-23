@@ -60,11 +60,7 @@ namespace MarketOnlineWebsite.Areas.Admin.Controllers
                 .ToList();
             ViewBag.Detail=orderDetail;
 
-            string TinhThanh = GetNameLocation(order.LocationId.Value);
-            string QuanHuyen = GetNameLocation( order.District.Value);
-            string PhuongXa = GetNameLocation( order.Ward.Value );
-            string addressLoaction = $"{TinhThanh}, {QuanHuyen}, {PhuongXa}";
-            ViewBag.AddressLoaction = addressLoaction;
+         
             return View(order);
         }
 
@@ -161,6 +157,11 @@ namespace MarketOnlineWebsite.Areas.Admin.Controllers
                 .Include(o => o.Customer)
                 .Include(o => o.TransactStatus)
                 .FirstOrDefaultAsync(m => m.OrderId == id);
+            string TinhThanh = GetNameLocation(order.LocationId.Value);
+            string QuanHuyen = GetNameLocation(order.District.Value);
+            string PhuongXa = GetNameLocation(order.Ward.Value);
+            string addressLoaction = $"{PhuongXa}, {QuanHuyen}, {TinhThanh}";
+            ViewBag.AddressLoaction = addressLoaction;
             if (order == null)
             {
                 return NotFound();

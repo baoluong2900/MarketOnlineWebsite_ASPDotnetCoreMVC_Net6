@@ -69,10 +69,18 @@
                     </div>
                     <br />
                     <div class="row">
-                         <div class="form-group col-md-6">
-                            <label class="font-weight-semibold" for="productCategory">Category</label>
+                          <div class="form-group col-md-6">
+                            <label class="font-weight-semibold" for="productCategory">Danh mục sản phẩm</label>
                             <select class="custom-select" style="min-width: 180px;" asp-for="CatId" asp-items="ViewBag.DanhMucSanPham">
                                 <option value="" disabled selected> 
+                                  Chọn danh mục
+                                 </option>
+                            </select>
+                         </div>
+                          <div class="form-group col-md-6">
+                            <label class="font-weight-semibold" for="productSupplier">Nhà cung cấp</label>
+                            <select class="custom-select" style="min-width: 180px;" asp-for="SupplierId" asp-items="ViewBag.LsNhaCungCap">
+                                <option value="0" disabled selected> 
                                   Chọn danh mục
                                  </option>
                             </select>

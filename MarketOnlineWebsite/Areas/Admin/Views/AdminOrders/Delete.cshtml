@@ -3,104 +3,100 @@
 @{
     ViewData["Title"] = "Delete";
     Layout = "~/Areas/Admin/Views/Shared/_AdminLayout.cshtml";
+    string location = ViewBag.AddressLoaction;
 }
+<div class="page-header">
+    <div class="header-sub-title">
+        <nav class="breadcrumb breadcrumb-dash">
+            <a asp-area="Admin" asp-controller="AdminHome" asp-action="Index" class="breadcrumb-item"><i
+                    class="anticon anticon-home m-r-5"></i>Home</a>
+            <a class="breadcrumb-item" asp-area="Admin" asp-controller="AdminOrders" asp-action="Index">Danh sách đơn hàng </a>
+            <span class="breadcrumb-item active">Xóa đơn hàng </span>
+        </nav>
+    </div>
+</div>
+<div class="card">
+    <div class="card-body">
+        <h4 class="card-title">Thông tin đơn hàng</h4>
+        <div class="table-responsive">
+            <table class="product-info-table m-t-20">
+                <tbody>
+                    <tr>
+                        <td>ID:</td>
+                        <td class="text-dark font-weight-semibold">@Model.OrderId</td>
+                    </tr>
+                    <tr>
+                        <td>Ngày đặt hàng:</td>
+                        <td>@Model.OrderDate</td>
+                    </tr>
+                    <tr>
+                        <td>Ngày giao hàng:</td>
+                        <td>@Model.ShipDate</td>
+                    </tr>
+                    <tr>
+                        <td>Thanh toán chưa:</td>
+                        @if (Model.Paid == true)
+                        {
+                            <td>Đã thanh toán</td>
+                        }
+                        else
+                        {
+                            <td>Chưa thanh toán</td>
+                        }
 
-<h1>Delete</h1>
+                    </tr>
+                    <tr>
+                        <td>Ngày thanh toán:</td>
+                        <td>@Model.PaymentDate</td>
+                    </tr>
+                    <tr>
+                        <td>Tổng tiền:</td>
+                        <td>@Model.TotalMoney.ToString("#,##0") VNĐ</td>
+                    </tr>
 
-<h3>Are you sure you want to delete this?</h3>
-<div>
-    <h4>Order</h4>
-    <hr />
-    <dl class="row">
-        <dt class="col-sm-2">
-            @Html.DisplayNameFor(model => model.OrderDate)
-        </dt>
-        <dd class="col-sm-10">
-            @Html.DisplayFor(model => model.OrderDate)
-        </dd>
-        <dt class="col-sm-2">
-            @Html.DisplayNameFor(model => model.ShipDate)
-        </dt>
-        <dd class="col-sm-10">
-            @Html.DisplayFor(model => model.ShipDate)
-        </dd>
-        <dt class="col-sm-2">
-            @Html.DisplayNameFor(model => model.Deleted)
-        </dt>
-        <dd class="col-sm-10">
-            @Html.DisplayFor(model => model.Deleted)
-        </dd>
-        <dt class="col-sm-2">
-            @Html.DisplayNameFor(model => model.Paid)
-        </dt>
-        <dd class="col-sm-10">
-            @Html.DisplayFor(model => model.Paid)
-        </dd>
-        <dt class="col-sm-2">
-            @Html.DisplayNameFor(model => model.PaymentDate)
-        </dt>
-        <dd class="col-sm-10">
-            @Html.DisplayFor(model => model.PaymentDate)
-        </dd>
-        <dt class="col-sm-2">
-            @Html.DisplayNameFor(model => model.TotalMoney)
-        </dt>
-        <dd class="col-sm-10">
-            @Html.DisplayFor(model => model.TotalMoney)
-        </dd>
-        <dt class="col-sm-2">
-            @Html.DisplayNameFor(model => model.PaymentId)
-        </dt>
-        <dd class="col-sm-10">
-            @Html.DisplayFor(model => model.PaymentId)
-        </dd>
-        <dt class="col-sm-2">
-            @Html.DisplayNameFor(model => model.Note)
-        </dt>
-        <dd class="col-sm-10">
-            @Html.DisplayFor(model => model.Note)
-        </dd>
-        <dt class="col-sm-2">
-            @Html.DisplayNameFor(model => model.Address)
-        </dt>
-        <dd class="col-sm-10">
-            @Html.DisplayFor(model => model.Address)
-        </dd>
-        <dt class="col-sm-2">
-            @Html.DisplayNameFor(model => model.LocationId)
-        </dt>
-        <dd class="col-sm-10">
-            @Html.DisplayFor(model => model.LocationId)
-        </dd>
-        <dt class="col-sm-2">
-            @Html.DisplayNameFor(model => model.District)
-        </dt>
-        <dd class="col-sm-10">
-            @Html.DisplayFor(model => model.District)
-        </dd>
-        <dt class="col-sm-2">
-            @Html.DisplayNameFor(model => model.Ward)
-        </dt>
-        <dd class="col-sm-10">
-            @Html.DisplayFor(model => model.Ward)
-        </dd>
-        <dt class="col-sm-2">
-            @Html.DisplayNameFor(model => model.Customer)
-        </dt>
-        <dd class="col-sm-10">
-            @Html.DisplayFor(model => model.Customer.CustomerId)
-        </dd>
-        <dt class="col-sm-2">
-            @Html.DisplayNameFor(model => model.TransactStatus)
-        </dt>
-        <dd class="col-sm-10">
-            @Html.DisplayFor(model => model.TransactStatus.TransactStatusId)
-        </dd>
-    </dl>
-
-    <form asp-action="Delete">
-        <input type="hidden" asp-for="OrderId" />
-        <input type="submit" value="Delete" class="btn btn-danger" /> |
-        <a asp-action="Index">Back to List</a>
-    </form>
+                    <tr>
+                        <td>Phương thức thanh toán:</td>
+                        @if(@Model.PaymentId == 1)
+                        {
+                            <td>Thanh toán khi nhận hàng (COD)</td>
+                        }
+                        else if (@Model.PaymentId == 2)
+                        {
+                             <td>Chuyển khoản ngân hàng</td>   
+                        }
+                        else
+                        {
+                            <td>Thanh toán qua MOMO</td>
+                        }
+                       
+                    </tr>
+                    <tr>
+                        <td>Ghi chú:</td>
+                        <td>@Model.Note</td>
+                    </tr>
+                    <tr>
+                        <td>Địa chỉ giao hàng:</td>
+                        <td>@Model.Address, @location</td>
+                    </tr>
+                    <tr>
+                        <td>Tên khách hàng:</td>
+                        <td>@Model.Customer.FullName</td>
+                    </tr>
+                    <tr>
+                        <td>Trạng thái đơn hàng:</td>
+                        <td>@Model.TransactStatus.Status</td>
+                    </tr>
+                     <tr>
+                        <td>Xác nhận xóa:</td>
+                        <td>
+                            <form asp-controller="AdminOrders" asp-action="Delete" asp-route-id="@Model.OrderId">
+                                <input type="hidden" asp-for="OrderId" />
+                                <input type="submit" value="Delete" class="btn btn-danger" />
+                            </form>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
 </div>

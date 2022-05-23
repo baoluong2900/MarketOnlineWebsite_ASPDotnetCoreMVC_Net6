@@ -28,7 +28,6 @@ namespace MarketOnlineWebsite.Models
         public string? Tags { get; set; }
         public string? Title { get; set; }
         public string? Alias { get; set; }
-        public string? PushilberId { get; set; }
         public int? UnitsInStock { get; set; }
         public int? SupplierId { get; set; }
 

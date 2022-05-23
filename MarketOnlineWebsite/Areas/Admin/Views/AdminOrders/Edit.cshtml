@@ -4,8 +4,104 @@
     ViewData["Title"] = "Edit";
     Layout = "~/Areas/Admin/Views/Shared/_AdminLayout.cshtml";
 }
+<div class="page-header">
+    <div class="header-sub-title">
+        <nav class="breadcrumb breadcrumb-dash">
+            <a asp-area="Admin" asp-controller="AdminHome" asp-action="Index" class="breadcrumb-item"><i class="anticon anticon-home m-r-5"></i>Home</a>
+             <a asp-area="Admin" asp-controller="AdminOrders" asp-action="Index" class="breadcrumb-item"><i class="anticon anticon-home m-r-5"></i>Danh sách đơn hàng</a>
+            <span class="breadcrumb-item active">Chỉnh sửa đơn hàng</span>
+        </nav>
+    </div>
+</div>
 
+@* <form asp-controller="AdminOrders" asp-action="Edit" asp-route-id="@Model.OrderId" method="post" >
+    <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+    <input type="hidden" asp-for="OrderId" />
+    <div class="page-header no-gutters has-tab">
+        <div class="d-md-flex m-b-15 align-items-center justify-content-between">
+            <div class="media align-items-center m-b-15">
+            </div>
+            <div class="m-b-15">
+                <button class="btn btn-primary">
+                    <i class="anticon anticon-save"></i>
+                    <span>Lưu thay đổi</span>
+                </button>
+            </div>
+        </div>
+        <ul class="nav nav-tabs" >
+            <li class="nav-item">
+                <a class="nav-link active" data-toggle="tab" href="#product-edit-basic">Thông tin đơn hàng</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" data-toggle="tab" href="#product-edit-option">Chọn trạng thái đơn hàng</a>
+            </li>
+        </ul>
+    </div>
+    <div class="tab-content m-t-15">
+        <div class="tab-pane fade show active" id="product-edit-basic" >
+           <div class="card">
+                <div class="card-body">
+                    <table class="product-info-table m-t-20">
+                        <tbody>
+                            <tr>
+                                <td>Mã đơn hàng:</td>
+                                <td >@Model.OrderId</td>
+                            </tr>
+                            <tr>
+                                <td>Ngày mua:</td>
+                                <td>@Model.OrderDate.Value.ToString("dd/MM/yyyyy")</td>
+                            </tr>
+                          <tr>
+                                <td>Khách hàng:</td>
+                                <td>@Model.Customer.FullName</td>
+                            </tr>
+                            <tr>
+                                <td>Số điện thoại:</td>
+                                <td>@Model.Customer.Phone</td>
+                            </tr>
+                            <tr>
+                                <td>Địa chỉ:</td>
+                                <td>@Model.Address</td>
+                            </tr>
+                        </tbody>
+                    </table> 
+                 </div>                  
+             </div>
+            </div>
+        <div class="tab-pane fade" id="product-edit-option">
+            <div class="card">
+                <div class="card-body">
+                    <div class="form-group">
+                          <label>Trạng thái đơn hàng</label>
+                            <select class="custom-select" asp-for="TransactStatusId" asp-items="ViewBag.LsTransactStatus">
+                                <option value="0" disabled selected> 
+                                  Chọn trạng thái đơn hàng
+                                 </option>
+                            </select>
+                    </div>
+                    <div class="row">
+                        <div class="form-group col-md-6 align-items-center">
+                            <div class="switch m-r-10">
+                                <input type="checkbox"  data-val="true"  id="Paid" name="Paid" value="true" asp-for="Paid">
+                                <label for="Paid"></label>
+                            </div>
+                           <label>Đơn hàng đã thanh toán</label>
+                        </div>
+                        <div class="form-group col-md-6 align-items-center">
+                            <div class="switch m-r-10">
+                                <input type="checkbox" data-val="true" data-val-required="The HomeFlag field is required." id="Deleted" name="Deleted" value="true" asp-for="Deleted">
+                                <label for="Deleted"></label>
+                            </div>
+                            <label>Đơn hàng bị hủy</label>
+                        </div>
+                    </div>
+                 </div>
+                </div>
+        </div>
+       </div>
+</form>
 <h1>Edit</h1>
+*@
 
 <h4>Order</h4>
 <hr />

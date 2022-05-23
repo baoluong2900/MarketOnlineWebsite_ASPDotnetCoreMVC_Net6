@@ -93,6 +93,7 @@ namespace MarketOnlineWebsite.Areas.Admin.Controllers
         public IActionResult Create()
         {
             ViewData["DanhMucSanPham"] = new SelectList(_context.Categories, "CatId", "CatName");
+            ViewData["LsNhaCungCap"] = new SelectList(_context.Suppliers, "SupplierId", "Companyname");
             return View();
         }
 
@@ -101,7 +102,7 @@ namespace MarketOnlineWebsite.Areas.Admin.Controllers
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("ProductId,ProductName,ShortDesc,Description,CatId,Price,Discount,Thumb,Video,DateCreated,DateModified,BestSellers,HomeFlag,Active,Tags,Title,Alias,PushilberId,UnitsInStock,SupplierID")] Product product, Microsoft.AspNetCore.Http.IFormFile fThumb)
+        public async Task<IActionResult> Create([Bind("ProductId,ProductName,ShortDesc,Description,CatId,Price,Discount,Thumb,Video,DateCreated,DateModified,BestSellers,HomeFlag,Active,Tags,Title,Alias,UnitsInStock,SupplierId")] Product product, Microsoft.AspNetCore.Http.IFormFile fThumb)
         {
             if (ModelState.IsValid)
             {
@@ -123,6 +124,7 @@ namespace MarketOnlineWebsite.Areas.Admin.Controllers
                 return RedirectToAction(nameof(Index));
             }
             ViewData["DanhMucSanPham"] = new SelectList(_context.Categories, "CatId", "CatName", product.CatId);
+            ViewData["LsNhaCungCap"] = new SelectList(_context.Suppliers, "SupplierId", "Companyname", product.SupplierId);
             return View(product);
         }
 
@@ -140,6 +142,7 @@ namespace MarketOnlineWebsite.Areas.Admin.Controllers
                 return NotFound();
             }
             ViewData["DanhMucSanPham"] = new SelectList(_context.Categories, "CatId", "CatName", product.CatId);
+            ViewData["LsNhaCungCap"] = new SelectList(_context.Suppliers, "SupplierId", "Companyname", product.SupplierId);
             return View(product);
         }
 
@@ -148,7 +151,7 @@ namespace MarketOnlineWebsite.Areas.Admin.Controllers
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(int id, [Bind("ProductId,ProductName,ShortDesc,Description,CatId,Price,Discount,Thumb,Video,DateCreated,DateModified,BestSellers,HomeFlag,Active,Tags,Title,Alias,PushilberId,UnitsInStock,SupplierID")] Product product, Microsoft.AspNetCore.Http.IFormFile fThumb)
+        public async Task<IActionResult> Edit(int id, [Bind("ProductId,ProductName,ShortDesc,Description,CatId,Price,Discount,Thumb,Video,DateCreated,DateModified,BestSellers,HomeFlag,Active,Tags,Title,Alias,UnitsInStock,SupplierId")] Product product, Microsoft.AspNetCore.Http.IFormFile fThumb)
         {
             if (id != product.ProductId)
             {
@@ -188,6 +191,7 @@ namespace MarketOnlineWebsite.Areas.Admin.Controllers
                 }
                 return RedirectToAction(nameof(Index));
             }
+            ViewData["LsNhaCungCap"] = new SelectList(_context.Suppliers, "SupplierId", "Companyname", product.SupplierId);
             ViewData["DanhMucSanPham"] = new SelectList(_context.Categories, "CatId", "CatName", product.CatId);
             return View(product);
         }

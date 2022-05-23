@@ -1,0 +1,29 @@
+﻿@model List<Customer>
+@if (Model !=null)
+{
+    var rowNumber = 1; 
+    foreach (var customersItem in Model)
+    {
+        <tr>
+            <th scope="row">@rowNumber</th>
+            <td>
+                @customersItem.CustomerId
+            </td>
+            <td>
+                <div class="d-flex align-items-center">
+                    <img class="img-fluid rounded" src="~/images/customers/@customersItem.Avatar" style="max-width: 60px" alt="">
+                    <h6 class="m-b-0 m-l-10">@customersItem.FullName</h6>
+                </div>
+            </td>
+            <td>@customersItem.Phone</td>
+            <td>@customersItem.Email</td>
+            <td>@customersItem.LastLogin</td>
+            <td>
+                    <a class="anticon anticon-bars btn btn-success btn-tone m-r-5" asp-action="Details" asp-route-id="@customersItem.CustomerId"></a> 
+                    <a class="anticon anticon-edit btn btn-warning btn-tone m-r-5"  asp-action="Edit" asp-route-id="@customersItem.CustomerId"></a>
+                    <a class="anticon anticon-delete btn btn-danger btn-tone m-r-5" asp-action="Delete" asp-route-id="@customersItem.CustomerId"></a> 
+            </td>
+        </tr>
+         rowNumber ++; 
+    }
+}
