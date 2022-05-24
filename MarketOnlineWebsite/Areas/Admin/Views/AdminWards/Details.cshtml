@@ -1,55 +1,74 @@
 ﻿@model MarketOnlineWebsite.Models.Location
 
 @{
-    ViewData["Title"] = "Details";
+    ViewData["Title"] = "Thông tin chi tiết quận/huyện";
     Layout = "~/Areas/Admin/Views/Shared/_AdminLayout.cshtml";
+     List<Location> locations = ViewBag.LsLocation;
 }
-
-<h1>Details</h1>
-
-<div>
-    <h4>Location</h4>
-    <hr />
-    <dl class="row">
-        <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.Name)
-        </dt>
-        <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.Name)
-        </dd>
-        <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.Parent)
-        </dt>
-        <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.Parent)
-        </dd>
-        <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.Levels)
-        </dt>
-        <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.Levels)
-        </dd>
-        <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.Slug)
-        </dt>
-        <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.Slug)
-        </dd>
-        <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.NameWithType)
-        </dt>
-        <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.NameWithType)
-        </dd>
-        <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.Type)
-        </dt>
-        <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.Type)
-        </dd>
-    </dl>
+<div class="page-header">
+    <div class="header-sub-title">
+        <nav class="breadcrumb breadcrumb-dash">
+            <a asp-area="Admin" asp-controller="AdminHome" asp-action="Index" class="breadcrumb-item"><i
+                    class="anticon anticon-home m-r-5"></i>Home</a>
+            <a class="breadcrumb-item" asp-area="Admin" asp-controller="AdminWards" asp-action="Index">Danh sách phường/xã</a>
+            <span class="breadcrumb-item active">Xóa thông tinphường/xã</span>
+        </nav>
+    </div>
 </div>
-<div>
-    <a asp-action="Edit" asp-route-id="@Model.LocationId">Edit</a> |
-    <a asp-action="Index">Back to List</a>
+<div class="card">
+    <div class="card-body">
+        <h4 class="card-title">Thông tin chi tiết quận/huyện</h4>
+        <div class="table-responsive">
+            <table class="product-info-table m-t-20">
+                <tbody>
+                    <tr>
+                        <td>ID:</td>
+                        <td class="text-dark font-weight-semibold">@Model.LocationId</td>
+                    </tr>
+                    <tr>
+                        <td>Tên quận/huyện:</td>
+                        <td>@Model.Name</td>
+                    </tr>
+                    <tr>
+                        <td>Nguồn gốc:</td>
+                          @foreach (var item in locations)
+                            {
+                                @if (Model.Parent == item.LocationId)
+                                {
+                                    <td> @item.Name </td>
+                                    break;
+                                }
+                            }
+                    </tr>
+                     <tr>
+                        <td>Sluq:</td>
+                        <td>@Model.Slug</td>
+                    </tr>
+                    <tr>
+                        <td>Cấp độ:</td>
+                        <td>@Model.Levels</td>
+                    </tr>
+                     <tr>
+                        <td>Tên thể loại:</td>
+                        <td>@Model.NameWithType</td>
+                    </tr>
+                      <tr>
+                        <td>Thể loại:</td>
+                        @if(Model.Type ==1)
+                        {
+                            <td>Phường</td>
+                        }
+                        else if (Model.Type == 2)
+                        {
+                             <td>Xã</td>
+                        }
+                        else
+                        {
+                             <td>Khác</td>
+                        }
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
 </div>

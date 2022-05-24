@@ -185,17 +185,13 @@ namespace MarketOnlineWebsite.Models
 
             modelBuilder.Entity<Location>(entity =>
             {
-                entity.Property(e => e.LocationId)
-                    .ValueGeneratedNever()
-                    .HasColumnName("LocationID");
+                entity.Property(e => e.LocationId).HasColumnName("LocationID");
 
                 entity.Property(e => e.Name).HasMaxLength(50);
 
                 entity.Property(e => e.NameWithType).HasMaxLength(100);
 
                 entity.Property(e => e.Slug).HasMaxLength(100);
-
-                entity.Property(e => e.Type).HasMaxLength(10);
             });
 
             modelBuilder.Entity<News>(entity =>
@@ -382,6 +378,10 @@ namespace MarketOnlineWebsite.Models
                 entity.Property(e => e.Companyname).HasMaxLength(255);
 
                 entity.Property(e => e.ContactTitle).HasMaxLength(255);
+
+                entity.Property(e => e.CreateDate)
+                    .HasColumnType("datetime")
+                    .HasDefaultValueSql("(getdate())");
 
                 entity.Property(e => e.CurrentOrder).HasMaxLength(50);
 

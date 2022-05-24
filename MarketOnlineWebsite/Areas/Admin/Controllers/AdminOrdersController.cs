@@ -59,8 +59,12 @@ namespace MarketOnlineWebsite.Areas.Admin.Controllers
                 .OrderBy(x => x.OrderDetailId)
                 .ToList();
             ViewBag.Detail=orderDetail;
+            string TinhThanh = GetNameLocation(order.LocationId.Value);
+            string QuanHuyen = GetNameLocation(order.District.Value);
+            string PhuongXa = GetNameLocation(order.Ward.Value);
+            string addressLoaction = $"{PhuongXa}, {QuanHuyen}, {TinhThanh}";
+            ViewBag.AddressLoaction = addressLoaction;
 
-         
             return View(order);
         }
 
@@ -176,7 +180,8 @@ namespace MarketOnlineWebsite.Areas.Admin.Controllers
         public async Task<IActionResult> DeleteConfirmed(int id)
         {
             var order = await _context.Orders.FindAsync(id);
-            _context.Orders.Remove(order);
+            order.Deleted = true;
+            _context.Orders.Update(order);
             await _context.SaveChangesAsync();
             return RedirectToAction(nameof(Index));
         }

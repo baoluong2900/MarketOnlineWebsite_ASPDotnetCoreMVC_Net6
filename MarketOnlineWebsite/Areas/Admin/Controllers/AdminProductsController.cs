@@ -39,7 +39,7 @@ namespace MarketOnlineWebsite.Areas.Admin.Controllers
             {
                 lsProducts = _context.Products
                                             .AsNoTracking()
-                                            .Where(x=>x.CatId == CatID)
+                                            .Where(x=>x.CatId == CatID && x.Active == true)
                                             .Include(x => x.Cat)
                                             .OrderByDescending(x => x.ProductId).ToList();
             }
@@ -48,6 +48,7 @@ namespace MarketOnlineWebsite.Areas.Admin.Controllers
                 lsProducts = _context.Products
                                           .AsNoTracking()
                                           .Include(x => x.Cat)
+                                          .Where(x => x.Active == true)
                                           .OrderByDescending(x => x.ProductId).ToList();
             }
             PagedList<Product> models = new PagedList<Product>(lsProducts.AsQueryable(), pageNumber, pageSize);
@@ -221,7 +222,8 @@ namespace MarketOnlineWebsite.Areas.Admin.Controllers
         public async Task<IActionResult> DeleteConfirmed(int id)
         {
             var product = await _context.Products.FindAsync(id);
-            _context.Products.Remove(product);
+            product.Active = false;
+            _context.Products.Update(product);
             await _context.SaveChangesAsync();
             _INotyfService.Success("Xóa thành công");
             return RedirectToAction(nameof(Index));

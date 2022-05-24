@@ -51,10 +51,10 @@ namespace MarketOnlineWebsite.Controllers
                
                 //ViewData["CurrentFilter"] = searchProductNamme;
                 ViewBag.CurrentFilter = searchProductNamme;
-                var lsProducts = _context.Products.AsNoTracking().OrderByDescending(x=>x.DateCreated);
+                var lsProducts = _context.Products.AsNoTracking().Where(x=> x.Active == true).OrderByDescending(x=>x.DateCreated);
                 if (!string.IsNullOrEmpty(searchProductNamme))
                 {
-                    lsProducts = (IOrderedQueryable<Product>)lsProducts.Where(x => x.ProductName.Contains(searchProductNamme));
+                    lsProducts = (IOrderedQueryable<Product>)lsProducts.Where(x => x.ProductName.Contains(searchProductNamme) && x.Active == true);
                   
                 }
                 var pageNumber = page == null || page < 0 ? 1 : page.Value;

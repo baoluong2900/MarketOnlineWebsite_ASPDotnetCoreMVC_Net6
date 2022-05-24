@@ -78,17 +78,20 @@
                                     </div>
                                 </div>
                                 <p class="short-desc mb-6">
-                                
+
                                     @Model.ShortDesc
                                 </p>
                                 <ul class="quantity-with-btn pb-7">
                                     <li class="quantity">
                                         <div class="cart-plus-minus">
-                                            <input id="txtsoLuong" name="txtsoLuong" class="cart-plus-minus-box" value="1" type="text">
+                                            <input id="txtsoLuong" name="txtsoLuong" class="cart-plus-minus-box"
+                                                value="1" type="text">
                                         </div>
                                     </li>
                                     <li class="add-to-cart">
-                                        <a class="btn btn-custom-size lg-size btn-primary btn-secondary-hover rounded-0"> Thêm vào giỏ hàng</a>
+                                        <a
+                                            class="btn btn-custom-size lg-size btn-primary btn-secondary-hover rounded-0">
+                                            Thêm vào giỏ hàng</a>
                                         <input hidden asp-for="ProductId" />
                                     </li>
                                 </ul>
@@ -108,16 +111,20 @@
                             <div class="swiper-container single-product-thumbs">
                                 <div class="swiper-wrapper">
                                     <a href="javascript:void(0)" class="swiper-slide">
-                                        <img class="img-full" src="~/images/products/@Model.Thumb" alt="Product Thumnail">
+                                        <img class="img-full" src="~/images/products/@Model.Thumb"
+                                            alt="Product Thumnail">
                                     </a>
                                     <a href="javascript:void(0)" class="swiper-slide">
-                                        <img class="img-full" src="~/images/products/@Model.Thumb" alt="Product Thumnail">
+                                        <img class="img-full" src="~/images/products/@Model.Thumb"
+                                            alt="Product Thumnail">
                                     </a>
                                     <a href="javascript:void(0)" class="swiper-slide">
-                                        <img class="img-full" src="~/images/products/@Model.Thumb" alt="Product Thumnail">
+                                        <img class="img-full" src="~/images/products/@Model.Thumb"
+                                            alt="Product Thumnail">
                                     </a>
                                     <a href="javascript:void(0)" class="swiper-slide">
-                                        <img class="img-full" src="~/images/products/@Model.Thumb" alt="Product Thumnail">
+                                        <img class="img-full" src="~/images/products/@Model.Thumb"
+                                            alt="Product Thumnail">
                                     </a>
                                 </div>
                             </div>
@@ -133,43 +140,48 @@
                 <div class="col-lg-12">
                     <ul class="nav product-tab-nav product-tab-style-2" role="tablist">
                         <li class="nav-item" role="presentation">
-                            <a class="active btn btn-custom-size" id="description-tab" data-bs-toggle="tab" href="#description" role="tab" aria-controls="description" aria-selected="true">
+                            <a class="active btn btn-custom-size" id="description-tab" data-bs-toggle="tab"
+                                href="#description" role="tab" aria-controls="description" aria-selected="true">
                                 Mô tả sản phẩm
                             </a>
                         </li>
                         <li class="nav-item" role="presentation">
-                            <a class="btn btn-custom-size" id="shipping-tab" data-bs-toggle="tab" href="#shipping" role="tab" aria-controls="shipping" aria-selected="false">
+                            <a class="btn btn-custom-size" id="shipping-tab" data-bs-toggle="tab" href="#shipping"
+                                role="tab" aria-controls="shipping" aria-selected="false">
                                 Thông tin giao hàng
                             </a>
                         </li>
                     </ul>
                     <div class="tab-content product-tab-content">
-                        <div class="tab-pane fade show active" id="description" role="tabpanel" aria-labelledby="description-tab">
+                        <div class="tab-pane fade show active" id="description" role="tabpanel"
+                            aria-labelledby="description-tab">
                             <div class="product-description-body">
                                 @Html.Raw(@Model.Description)
                             </div>
                         </div>
                         <div class="tab-pane fade" id="shipping" role="tabpanel" aria-labelledby="shipping-tab">
                             <div class="product-shipping-body">
-                                <h4 class="title">Shipping</h4>
+                                <h4 class="title">ĐANG CHUYỂN HÀNG</h4>
                                 <p class="short-desc mb-4">
-                                    The item will be shipped from China. So it need 15-20 days to
-                                    deliver. Our product is good with reasonable price and we believe you will worth it.
-                                    So please wait for it patiently! Thanks.Any question please kindly to contact us and
-                                    we promise to work hard to help you to solve the problem
+                                    Mặt hàng sẽ được chuyển từ trụ sở. Vì vậy, nó cần 1-2 ngày để cung cấp.
+                                    Sản phẩm của chúng tôi là tốt với giá cả hợp lý và chúng tôi tin rằng bạn sẽ xứng
+                                    đáng với nó.
+                                    Vì vậy, hãy kiên nhẫn chờ đợi nó! Cảm ơn. Bất kỳ câu hỏi nào xin vui lòng liên hệ
+                                    với chúng tôi
+                                    và chúng tôi hứa sẽ làm việc chăm chỉ để giúp bạn giải quyết vấn đề
                                 </p>
-                                <h4 class="title">About return request</h4>
+                                <h4 class="title">GIỚI THIỆU YÊU CẦU TRẢ LẠI</h4>
                                 <p class="short-desc mb-4">
-                                    If you don't need the item with worry, you can contact us
-                                    then we will help you to solve the problem, so please close the return request!
-                                    Thanks
+                                    Nếu bạn không cần mặt hàng với lo lắng, bạn có thể liên hệ với chúng tôi sau đó
+                                    chúng tôi sẽ giúp bạn giải quyết vấn đề,
+                                    vì vậy hãy đóng yêu cầu trả lại! Thanks
                                 </p>
-                                <h4 class="title">Guarantee</h4>
+                                <h4 class="title">BẢO HÀNH</h4>
                                 <p class="short-desc mb-0">
-                                    If it is the quality question, we will resend or refund to
-                                    you; If you receive damaged or wrong items, please contact us and attach some
-                                    pictures about product, we will exchange a new correct item to you after the
-                                    confirmation.
+                                    Nếu đó là câu hỏi về chất lượng, chúng tôi sẽ gửi lại hoặc hoàn lại tiền cho bạn;
+                                    Nếu bạn nhận được hàng bị hư hỏng hoặc sai,
+                                    vui lòng liên hệ với chúng tôi và đính kèm một số hình ảnh về sản phẩm, chúng tôi sẽ
+                                    đổi một mặt hàng đúng mới cho bạn sau khi xác nhận..
                                 </p>
                             </div>
                         </div>
@@ -198,7 +210,8 @@
                                             <div class="product-item">
                                                 <div class="product-img img-zoom-effect">
                                                     <a href="@url">
-                                                        <img class="img-full" src="~/images/products/@item.Thumb" alt="@item.Title">
+                                                        <img class="img-full" src="~/images/products/@item.Thumb"
+                                                    alt="@item.Title">
                                                     </a>
                                                     <div class="product-add-action">
                                                         <ul>
@@ -208,7 +221,7 @@
                                                                 </a>
                                                             </li>
                                                             <li>
-                                                                <a href="wishlist.html">
+                                                                <a href="#">
                                                                     <i class="pe-7s-like"></i>
                                                                 </a>
                                                             </li>
@@ -263,49 +276,48 @@
                         amount: amount
                     },
                     success: function (response) {
-                            loadHeaderCart();// Add Product success
-                            location.reload();
+                        loadHeaderCart();// Add Product success
+                        location.reload();
                     },
                     error: function (error) {
-                        alert("There was an error posting the data to the server: "+ error.responseText);
+                        alert("There was an error posting the data to the server: " + error.responseText);
                     }
                 });
             });
         });
-        function loadHeaderCart()
-        {
+        function loadHeaderCart() {
             $("#miniCart").load("/AjaxContent/HeaderCart");
             $("#numberCart").load("/AjaxContent/NumberCart");
         }
     });
 
 </script>
- <script>
-        $(function () {
-            function loadHeaderCart() {
-                $("#miniCart").load("/AjaxContent/HeaderCart");
-                $("#numbercard").load("/AjaxContent/NumberCart");
-            }
-            $(".removecart").click(function (){
-                 var productid = $(this).attr("data-mahh");
-                   $.ajax({
-                        url: "api/cart/remove",
-                        type: "POST",
-                        dataType: "JSON",
-                        data: {
-                            productID: productid
-                        },
-                        success: function (result) {
-                            if (result.success) {
-                                loadHeaderCart();
-                               window.location='';
-                            }
-                        },
-                        error: function (rs){
-                            alert("Remove Cart Error !");
-                        }
-                   });
+<script>
+    $(function () {
+        function loadHeaderCart() {
+            $("#miniCart").load("/AjaxContent/HeaderCart");
+            $("#numbercard").load("/AjaxContent/NumberCart");
+        }
+        $(".removecart").click(function () {
+            var productid = $(this).attr("data-mahh");
+            $.ajax({
+                url: "api/cart/remove",
+                type: "POST",
+                dataType: "JSON",
+                data: {
+                    productID: productid
+                },
+                success: function (result) {
+                    if (result.success) {
+                        loadHeaderCart();
+                        window.location = '';
+                    }
+                },
+                error: function (rs) {
+                    alert("Remove Cart Error !");
+                }
             });
-       });
- </script>
+        });
+    });
+</script>
 }

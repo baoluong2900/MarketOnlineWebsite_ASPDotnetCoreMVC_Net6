@@ -38,8 +38,8 @@
                         <th>ID</th>
                         <th>Tỉnh/thành</th>
                         <th>Cấp độ</th>
-                        <th>Mô tả</th>
-                        <th>Kiểu </th>
+                        <th>Tên thể loại</th>
+                        <th>Thể loại </th>
                         <th>#</th>
                     </tr>
                 </thead>
@@ -64,9 +64,18 @@
                                     @Item.NameWithType
                                    
                                 </td>
-                                <td>
-                                    @Item.Type
-                                </td>
+                                @if(Item.Type ==1)
+                                {
+                                    <td>Tỉnh</td>
+                                }
+                                else if (Item.Type == 2)
+                                {
+                                        <td>Thành</td>
+                                }
+                                else
+                                {
+                                        <td>Khác</td>
+                                }
                                 <td>
                            
                                      <a class="anticon anticon-bars btn btn-success btn-tone m-r-5" asp-action="Details" asp-route-id="@Item.LocationId"></a> 

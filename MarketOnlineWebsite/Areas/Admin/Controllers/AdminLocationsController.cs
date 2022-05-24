@@ -68,6 +68,7 @@ namespace MarketOnlineWebsite.Areas.Admin.Controllers
         {
             if (ModelState.IsValid)
             {
+                location.Levels = idLocations;
                 _context.Add(location);
                 await _context.SaveChangesAsync();
                 return RedirectToAction(nameof(Index));
@@ -107,6 +108,8 @@ namespace MarketOnlineWebsite.Areas.Admin.Controllers
             {
                 try
                 {
+                    location.Levels = idLocations;
+               
                     _context.Update(location);
                     await _context.SaveChangesAsync();
                 }

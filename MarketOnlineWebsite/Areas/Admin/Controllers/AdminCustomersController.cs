@@ -27,10 +27,10 @@ namespace MarketOnlineWebsite.Areas.Admin.Controllers
         // GET: Admin/AdminCustomers
         public async Task<IActionResult> Index(int? page)
         {
-            var pageNumber= page == null || page < 0 ? 1 : page.Value;
+            var pageNumber = page == null || page < 0 ? 1 : page.Value;
             var pageSize = 20;
-            var lsCustomers = _context.Customers.AsNoTracking().Include(x=>x.Location).OrderByDescending(x => x.CustomerId);
-            PagedList<Customer> models=new PagedList<Customer>(lsCustomers,pageNumber,pageSize);
+            var lsCustomers = _context.Customers.AsNoTracking().Include(x => x.Location).OrderByDescending(x => x.CustomerId);
+            PagedList<Customer> models = new PagedList<Customer>(lsCustomers, pageNumber, pageSize);
             ViewBag.CurrentPage = pageNumber;
 
             //var dbMarketsContext = _context.Customers.Include(c => c.Location);
@@ -167,7 +167,8 @@ namespace MarketOnlineWebsite.Areas.Admin.Controllers
         public async Task<IActionResult> DeleteConfirmed(int id)
         {
             var customer = await _context.Customers.FindAsync(id);
-            _context.Customers.Remove(customer);
+            customer.Active = false;
+            _context.Customers.Update(customer);
             await _context.SaveChangesAsync();
             return RedirectToAction(nameof(Index));
         }

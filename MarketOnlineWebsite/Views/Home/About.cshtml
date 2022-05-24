@@ -1,7 +1,8 @@
-﻿
+﻿@model MarketOnlineWebsite.Models.Supplier
 @{
     ViewData["Title"] = "Về chúng tôi";
     Layout = "~/Views/Shared/_Layout.cshtml";
+    List<Supplier> suppliers = ViewBag.LsSuppliers;
 }
 @*<img src= "~/Userassets/images/about/intro/icon/2-1.jpg" width= "970" height="224"/>*@
 <!-- Begin Main Content Area -->
@@ -40,11 +41,11 @@
                 <div class="col-xl-6 col-lg-7 align-self-center">
                     <div class="about-banner-content">
                         <div class="section-title">
-                            <span class="sub-title">Welcome To Harmic</span>
-                            <h2 class="title font-size-60 mb-6">Best Organic Shop</h2>
+                            <span class="sub-title">Chào mừng đến với Harmic</span>
+                            <h2 class="title font-size-60 mb-6">Best shop harmic </h2>
                             <p class="short-desc mb-0">Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmo tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minimd veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip commo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. </p>
                             <div class="button-wrap pt-8">
-                                <a class="btn btn-custom-size lg-size btn-primary btn-dark-hover rounded-0" href="shop.html">Shop Now</a>
+                                <a class="btn btn-custom-size lg-size btn-primary btn-dark-hover rounded-0" href="shop.html">Mua hàng ngay</a>
                             </div>
                         </div>
                     </div>
@@ -113,117 +114,47 @@
                 <div class="col-lg-12">
                     <div class="swiper-container team-member-slider">
                         <div class="swiper-wrapper">
-                            <div class="swiper-slide">
-                                <div class="team-member-item">
-                                    <div class="team-member-img img-zoom-effect with-overlay">
-                                        <a href="javascript:void(0)">
-                                            <img class="img-full" src="~/Userassets/images/about/team/1-1-370x350.jpg" alt="Team Member">
-                                        </a>
-                                    </div>
-                                    <div class="team-member-content text-black pt-5">
-                                        <h6 class="title mb-0">Nicole Williams</h6>
-                                        <span class="occupation">Director</span>
-                                        <div class="social-link with-border justify-content-center pt-2">
-                                            <ul>
-                                                <li>
-                                                    <a href="javascript:void(0)">
-                                                        <i class="fa fa-pinterest-p"></i>
-                                                    </a>
-                                                </li>
-                                                <li>
-                                                    <a href="javascript:void(0)">
-                                                        <i class="fa fa-twitter"></i>
-                                                    </a>
-                                                </li>
-                                                <li>
-                                                    <a href="javascript:void(0)">
-                                                        <i class="fa fa-tumblr"></i>
-                                                    </a>
-                                                </li>
-                                                <li>
-                                                    <a href="javascript:void(0)">
-                                                        <i class="fa fa-dribbble"></i>
-                                                    </a>
-                                                </li>
-                                            </ul>
+                            @foreach (var item in suppliers)
+                            {
+                                 <div class="swiper-slide">
+                                    <div class="team-member-item">
+                                        <div class="team-member-img img-zoom-effect with-overlay">
+                                            <a href="javascript:void(0)">
+                                                <img class="img-full" src="~/Userassets/images/about/team/1-1-370x350.jpg" alt="Team Member">
+                                            </a>
+                                        </div>
+                                        <div class="team-member-content text-black pt-5">
+                                            <h6 class="title mb-0">@item.Companyname</h6>
+                                            <span class="occupation">Nhà cung cấp</span>
+                                            <div class="social-link with-border justify-content-center pt-2">
+                                                <ul>
+                                                    <li>
+                                                        <a href="javascript:void(0)">
+                                                            <i class="fa fa-pinterest-p"></i>
+                                                        </a>
+                                                    </li>
+                                                    <li>
+                                                        <a href="javascript:void(0)">
+                                                            <i class="fa fa-twitter"></i>
+                                                        </a>
+                                                    </li>
+                                                    <li>
+                                                        <a href="javascript:void(0)">
+                                                            <i class="fa fa-tumblr"></i>
+                                                        </a>
+                                                    </li>
+                                                    <li>
+                                                        <a href="javascript:void(0)">
+                                                            <i class="fa fa-dribbble"></i>
+                                                        </a>
+                                                    </li>
+                                                </ul>
+                                            </div>
                                         </div>
                                     </div>
                                 </div>
-                            </div>
-                            <div class="swiper-slide">
-                                <div class="team-member-item">
-                                    <div class="team-member-img img-zoom-effect with-overlay">
-                                        <a href="javascript:void(0)">
-                                            <img class="img-full" src="~/Userassets/images/about/team/1-2-370x350.jpg" alt="Team Member">
-                                        </a>
-                                    </div>
-                                    <div class="team-member-content text-black pt-5">
-                                        <h6 class="title mb-0">Nicole Williams</h6>
-                                        <span class="occupation">Director</span>
-                                        <div class="social-link with-border justify-content-center pt-2">
-                                            <ul>
-                                                <li>
-                                                    <a href="javascript:void(0)">
-                                                        <i class="fa fa-pinterest-p"></i>
-                                                    </a>
-                                                </li>
-                                                <li>
-                                                    <a href="javascript:void(0)">
-                                                        <i class="fa fa-twitter"></i>
-                                                    </a>
-                                                </li>
-                                                <li>
-                                                    <a href="javascript:void(0)">
-                                                        <i class="fa fa-tumblr"></i>
-                                                    </a>
-                                                </li>
-                                                <li>
-                                                    <a href="javascript:void(0)">
-                                                        <i class="fa fa-dribbble"></i>
-                                                    </a>
-                                                </li>
-                                            </ul>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="swiper-slide">
-                                <div class="team-member-item">
-                                    <div class="team-member-img img-zoom-effect with-overlay">
-                                        <a href="javascript:void(0)">
-                                            <img class="img-full" src="~/Userassets/images/about/team/1-3-370x350.jpg" alt="Team Member">
-                                        </a>
-                                    </div>
-                                    <div class="team-member-content text-black pt-5">
-                                        <h6 class="title mb-0">Nicole Williams</h6>
-                                        <span class="occupation">Director</span>
-                                        <div class="social-link with-border justify-content-center pt-2">
-                                            <ul>
-                                                <li>
-                                                    <a href="javascript:void(0)">
-                                                        <i class="fa fa-pinterest-p"></i>
-                                                    </a>
-                                                </li>
-                                                <li>
-                                                    <a href="javascript:void(0)">
-                                                        <i class="fa fa-twitter"></i>
-                                                    </a>
-                                                </li>
-                                                <li>
-                                                    <a href="javascript:void(0)">
-                                                        <i class="fa fa-tumblr"></i>
-                                                    </a>
-                                                </li>
-                                                <li>
-                                                    <a href="javascript:void(0)">
-                                                        <i class="fa fa-dribbble"></i>
-                                                    </a>
-                                                </li>
-                                            </ul>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
+                            }
+
                         </div>
                     </div>
                 </div>

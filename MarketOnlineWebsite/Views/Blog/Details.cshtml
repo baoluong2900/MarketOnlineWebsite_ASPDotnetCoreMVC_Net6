@@ -1,0 +1,93 @@
+﻿@model MarketOnlineWebsite.Models.News
+
+@{
+    ViewData["Title"] = "Bài viết "+Model.Title;
+    Layout = "~/Views/Shared/_Layout.cshtml";
+    string url = $"/tin-tuc/{Model.Alias}-{Model.PostId}.html";
+}
+ <!-- Begin Main Content Area -->
+<main class="main-content">
+    <div class="breadcrumb-area breadcrumb-height" style="background-image:url('/images/imagesUserbg/1-1.jpg');">
+        <div class="container h-100">
+            <div class="row h-100">
+                <div class="col-lg-12">
+                    <div class="breadcrumb-item">
+                        <h2 class="breadcrumb-heading">Tin nổi bậc</h2>
+                        <ul>
+                            <li>
+                                <a href="/">Trang chủ <i class="pe-7s-angle-right"></i></a>
+                            </li>
+                            <li>Tin nổi bậc</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="blog-area section-space-y-axis-100">
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-12">
+                    <div class="blog-detail-item">
+                        <div class="blog-img">
+                            <img class="img-full" src="/images/news/@Model.Thumb"  alt="@Model.Title" >
+                        </div>
+                        <div class="blog-content text-start pb-0">
+                            <div class="blog-meta text-dim-gray pb-3">
+                                <ul>
+                                    <li class="date"><i class="fa fa-calendar-o me-2"></i>@Model.CreatedDate</li>
+                                    <li>
+                                     <span class="link-share">
+                                        <a href="javascript:void(0)">Chia sẻ</a>
+                                    </span>
+                                    </li>
+                                </ul>
+                            </div>
+                            <h5 class="title mb-4">
+                                <a href="@url">@Model.Title</a>
+                            </h5>
+                            <p class="short-desc mb-4 mb-7">@Model.Scontents</p>
+                            @Html.Raw(@Model.Contents)                           
+                            <div class="tag-wtih-social">
+                                <div class="tag">
+                                    <span class="title text-primary">Tags:</span>
+                                    <ul>
+
+                                        <li>
+                                            <a href="javascript:void(0)">ElonaMusk,</a>
+                                        </li>
+                                        <li>
+                                            <a href="javascript:void(0)">traicay,</a>
+                                        </li>
+                                        <li>
+                                            <a href="javascript:void(0)">quangcao</a>
+                                        </li>
+                                    </ul>
+                                </div>
+                                <div class="social-link">
+                                    <ul>
+                                        <li>
+                                            <a href="javascript:void(0)">
+                                                <i class="fa fa-facebook"></i>
+                                            </a>
+                                        </li>
+                                        <li>
+                                            <a href="javascript:void(0)">
+                                                <i class="fa fa-pinterest-p"></i>
+                                            </a>
+                                        </li>
+                                        <li>
+                                            <a href="javascript:void(0)">
+                                                <i class="fa fa-dribbble"></i>
+                                            </a>
+                                        </li>
+                                    </ul>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</main>

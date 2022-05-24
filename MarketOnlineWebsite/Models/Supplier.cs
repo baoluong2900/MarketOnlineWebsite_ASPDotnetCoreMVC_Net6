@@ -25,7 +25,9 @@ namespace MarketOnlineWebsite.Models
         public string? DiscountType { get; set; }
         public string? Notes { get; set; }
         public string? CurrentOrder { get; set; }
+        public DateTime? CreateDate { get; set; }
         public string? Logo { get; set; }
+        public bool? Active { get; set; }
 
         public virtual Account? Account { get; set; }
         public virtual Location? Location { get; set; }

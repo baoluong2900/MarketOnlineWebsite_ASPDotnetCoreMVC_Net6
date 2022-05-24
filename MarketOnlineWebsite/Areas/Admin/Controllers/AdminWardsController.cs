@@ -43,9 +43,14 @@ namespace MarketOnlineWebsite.Areas.Admin.Controllers
             return View(models);
         }
 
-        // GET: Admin/AdminWards/Details/5
+        // GET: Admin/AdminDistricts/Details/5
         public async Task<IActionResult> Details(int? id)
         {
+            var lsGetNameLocation = _context.Locations.AsNoTracking()
+                                    .Where(x => x.Levels == idDistricts)
+                                    .ToList();
+
+            ViewBag.LsLocation = lsGetNameLocation;
             if (id == null || _context.Locations == null)
             {
                 return NotFound();
@@ -61,13 +66,14 @@ namespace MarketOnlineWebsite.Areas.Admin.Controllers
             return View(location);
         }
 
-        // GET: Admin/AdminWards/Create
+        // GET: Admin/AdminDistricts/Create
         public IActionResult Create()
         {
+            ViewData["LsQuanHuyen"] = new SelectList(_context.Locations.Where(x => x.Levels == idDistricts), "LocationId", "Name");
             return View();
         }
 
-        // POST: Admin/AdminWards/Create
+        // POST: Admin/AdminDistricts/Create
         // To protect from overposting attacks, enable the specific properties you want to bind to.
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
@@ -76,16 +82,21 @@ namespace MarketOnlineWebsite.Areas.Admin.Controllers
         {
             if (ModelState.IsValid)
             {
+                location.Levels = idWards;
                 _context.Add(location);
                 await _context.SaveChangesAsync();
+                _INotyfService.Success("Thêm thành công");
                 return RedirectToAction(nameof(Index));
             }
+            ViewData["LsQuanHuyen"] = new SelectList(_context.Locations.Where(x => x.Levels == idDistricts), "LocationId", "Name");
             return View(location);
         }
 
-        // GET: Admin/AdminWards/Edit/5
+        // GET: Admin/AdminDistricts/Edit/5
         public async Task<IActionResult> Edit(int? id)
         {
+
+            ViewData["LsQuanHuyen"] = new SelectList(_context.Locations.Where(x => x.Levels == idDistricts), "LocationId", "Name");
             if (id == null || _context.Locations == null)
             {
                 return NotFound();
@@ -99,13 +110,14 @@ namespace MarketOnlineWebsite.Areas.Admin.Controllers
             return View(location);
         }
 
-        // POST: Admin/AdminWards/Edit/5
+        // POST: Admin/AdminDistricts/Edit/5
         // To protect from overposting attacks, enable the specific properties you want to bind to.
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Edit(int id, [Bind("LocationId,Name,Parent,Levels,Slug,NameWithType,Type")] Location location)
         {
+            ViewData["LsQuanHuyen"] = new SelectList(_context.Locations.Where(x => x.Levels == idDistricts), "LocationId", "Name");
             if (id != location.LocationId)
             {
                 return NotFound();
@@ -115,8 +127,10 @@ namespace MarketOnlineWebsite.Areas.Admin.Controllers
             {
                 try
                 {
+                    location.Levels = idWards;
                     _context.Update(location);
                     await _context.SaveChangesAsync();
+                    _INotyfService.Success("Chỉnh sửa thành công");
                 }
                 catch (DbUpdateConcurrencyException)
                 {
@@ -134,7 +148,7 @@ namespace MarketOnlineWebsite.Areas.Admin.Controllers
             return View(location);
         }
 
-        // GET: Admin/AdminWards/Delete/5
+        // GET: Admin/AdminDistricts/Delete/5
         public async Task<IActionResult> Delete(int? id)
         {
             if (id == null || _context.Locations == null)
@@ -144,6 +158,11 @@ namespace MarketOnlineWebsite.Areas.Admin.Controllers
 
             var location = await _context.Locations
                 .FirstOrDefaultAsync(m => m.LocationId == id);
+            var lsGetNameLocation = _context.Locations.AsNoTracking()
+                                   .Where(x => x.Levels == idDistricts)
+                                   .ToList();
+
+            ViewBag.LsLocation = lsGetNameLocation;
             if (location == null)
             {
                 return NotFound();
@@ -152,7 +171,7 @@ namespace MarketOnlineWebsite.Areas.Admin.Controllers
             return View(location);
         }
 
-        // POST: Admin/AdminWards/Delete/5
+        // POST: Admin/AdminDistricts/Delete/5
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> DeleteConfirmed(int id)
@@ -166,14 +185,15 @@ namespace MarketOnlineWebsite.Areas.Admin.Controllers
             {
                 _context.Locations.Remove(location);
             }
-            
+
             await _context.SaveChangesAsync();
+            _INotyfService.Success("Xóa thành công");
             return RedirectToAction(nameof(Index));
         }
 
         private bool LocationExists(int id)
         {
-          return (_context.Locations?.Any(e => e.LocationId == id)).GetValueOrDefault();
+            return (_context.Locations?.Any(e => e.LocationId == id)).GetValueOrDefault();
         }
     }
 }

@@ -1,57 +1,87 @@
 ﻿@model MarketOnlineWebsite.Models.Location
 
 @{
-    ViewData["Title"] = "Edit";
+    ViewData["Title"] = "Chỉnh sửa thông tin tỉnh thành";
     Layout = "~/Areas/Admin/Views/Shared/_AdminLayout.cshtml";
 }
-
-<h1>Edit</h1>
-
-<h4>Location</h4>
-<hr />
-<div class="row">
-    <div class="col-md-4">
-        <form asp-action="Edit">
-            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
-            <input type="hidden" asp-for="LocationId" />
-            <div class="form-group">
-                <label asp-for="Name" class="control-label"></label>
-                <input asp-for="Name" class="form-control" />
-                <span asp-validation-for="Name" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <label asp-for="Parent" class="control-label"></label>
-                <input asp-for="Parent" class="form-control" />
-                <span asp-validation-for="Parent" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <label asp-for="Levels" class="control-label"></label>
-                <input asp-for="Levels" class="form-control" />
-                <span asp-validation-for="Levels" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <label asp-for="Slug" class="control-label"></label>
-                <input asp-for="Slug" class="form-control" />
-                <span asp-validation-for="Slug" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <label asp-for="NameWithType" class="control-label"></label>
-                <input asp-for="NameWithType" class="form-control" />
-                <span asp-validation-for="NameWithType" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <label asp-for="Type" class="control-label"></label>
-                <input asp-for="Type" class="form-control" />
-                <span asp-validation-for="Type" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <input type="submit" value="Save" class="btn btn-primary" />
-            </div>
-        </form>
+<div class="page-header">
+    <div class="header-sub-title">
+        <nav class="breadcrumb breadcrumb-dash">
+            <a asp-area="Admin" asp-controller="AdminHome" asp-action="Index" class="breadcrumb-item"><i
+                    class="anticon anticon-home m-r-5"></i>Home</a>
+            <a asp-area="Admin" asp-controller="AdminLocations" asp-action="Index" class="breadcrumb-item"><i
+                    class="anticon anticon-home m-r-5"></i>Danh sách tỉnh/thành</a>
+            <span class="breadcrumb-item active">Chỉnh sửa tỉnh/thành</span>
+        </nav>
     </div>
 </div>
+<form asp-controller="AdminLocations" asp-action="Create" method="post" >
+      <input type="hidden" asp-for="LocationId" />
+    <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+    <div class="page-header no-gutters has-tab">
+        <div class="d-md-flex m-b-15 align-items-center justify-content-between">
+            <div class="media align-items-center m-b-15">
 
-<div>
-    <a asp-action="Index">Back to List</a>
-</div>
-
+            </div>
+            <div class="m-b-15">
+                <button class="btn btn-primary">
+                    <i class="anticon anticon-save"></i>
+                    <span>Lưu thông tin tỉnh/thành</span>
+                </button>
+            </div>
+        </div>
+        <ul class="nav nav-tabs">
+            <li class="nav-item">
+                <a class="nav-link active" data-toggle="tab" href="#product-edit-basic">Thông tin cơ bản</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" data-toggle="tab" href="#product-edit-option">Thông tin tùy chọn</a>
+            </li>
+        </ul>
+    </div>
+    <div class="tab-content m-t-15">
+        <div class="tab-pane fade show active" id="product-edit-basic">
+            <div class="card">
+                <div class="card-body">
+                      <div class="row">
+                        <div class="form-group col-md-12">
+                            <label class="font-weight-semibold" for="PageName">Tên tỉnh/thành</label>
+                            <input type="text" class="form-control" asp-for="Name">
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="tab-pane fade" id="product-edit-option">
+            <div class="card">
+                <div class="card-body">
+                    <div class="form-group">
+                        <label class="font-weight-semibold" for="title">Sluq</label>
+                        <input type="text" asp-for="Slug" class="form-control" />
+                    </div>
+                    <div class="form-group">
+                        <label class="font-weight-semibold" for="tags">Tên thể loại</label>
+                        <input type="text" asp-for="NameWithType" class="form-control" />
+                    </div>
+                     <div class="form-group">
+                        <label class="font-weight-semibold" for="tags">Thể loại</label>
+                           <select class="custom-select" style="min-width: 180px;" asp-for="Type">
+                                <option value="0" disabled selected> 
+                                    Chọn tỉnh/thành
+                                 </option>
+                                  <option value="1" > 
+                                      tỉnh
+                                 </option>
+                                  <option value="2" > 
+                                      thành
+                                 </option>
+                                 <option value="3" > 
+                                      Khác
+                                 </option>
+                            </select>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</form>

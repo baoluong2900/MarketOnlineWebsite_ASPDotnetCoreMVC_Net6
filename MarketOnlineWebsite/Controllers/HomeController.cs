@@ -48,18 +48,14 @@ namespace MarketOnlineWebsite.Controllers
                 lsProductViews.Add(productHomeVM);
             }
 
-            //var advertisement = _context.Advertisements.AsNoTracking()
-            //    .FirstOrDefault(x => x.Active == true);
-
-            //var news = _context.News.AsNoTracking()
-            //    .Where(x => x.Published == true && x.IsNewfeed == true)
-            //    .OrderByDescending(x => x.CreatedDate)
-            //    .Take(3)
-            //    .ToList();
-
+            var lsNews = _context.News.AsNoTracking()
+                .Where(x => x.Active == true && x.Published == true && x.IsNewfeed == true)
+                .OrderByDescending(x => x.CreatedDate)
+                .Take(3)
+                .ToList();
+            ViewBag.AllBlogs = lsNews;
             model.Products = lsProductViews;
-            //model.lsAdvertisement = advertisement;
-            //model.lsNews = news;
+            
             ViewBag.AllProducts = lsProducts;
             return View(model);
         }
@@ -69,6 +65,14 @@ namespace MarketOnlineWebsite.Controllers
         }
         public IActionResult About()
         {
+
+            var lsSuppliers = _context.Suppliers.AsNoTracking()
+                .Where(x => x.Active == true)
+                .OrderByDescending(x => x.CreateDate)
+                .Take(8)
+                .ToList();
+
+            ViewBag.LsSuppliers = lsSuppliers;
             return View();
         }
         public IActionResult Privacy()

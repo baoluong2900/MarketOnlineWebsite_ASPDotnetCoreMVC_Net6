@@ -167,7 +167,8 @@ namespace MarketOnlineWebsite.Areas.Admin.Controllers
         public async Task<IActionResult> DeleteConfirmed(int id)
         {
             var account = await _context.Accounts.FindAsync(id);
-            _context.Accounts.Remove(account);
+            account.Active = false;
+            _context.Accounts.Update(account);
             await _context.SaveChangesAsync();
             return RedirectToAction(nameof(Index));
         }
