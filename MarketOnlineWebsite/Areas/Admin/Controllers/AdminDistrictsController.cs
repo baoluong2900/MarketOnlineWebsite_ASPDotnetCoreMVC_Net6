@@ -182,6 +182,7 @@ namespace MarketOnlineWebsite.Areas.Admin.Controllers
             var location = await _context.Locations.FindAsync(id);
             if (location != null)
             {
+                
                 _context.Locations.Remove(location);
             }
             

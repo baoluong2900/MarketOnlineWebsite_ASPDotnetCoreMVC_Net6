@@ -53,22 +53,26 @@ namespace MarketOnlineWebsite.Controllers
             {
                 var customer = _context.Customers.AsNoTracking()
                     .SingleOrDefault(x => x.CustomerId == int.Parse(accountID));
-                int idTinhThanh = int.Parse(customer.LocationId.ToString());
-                int idQuanHuyen = int.Parse(customer.District.ToString());
-                int idPhuongXa = int.Parse(customer.Ward.ToString());
+                if (customer.LocationId != null && customer.District !=null && customer.Ward !=null )
+                {
+                    int idTinhThanh = int.Parse(customer.LocationId.ToString());
+                    int idQuanHuyen = int.Parse(customer.District.ToString());
+                    int idPhuongXa = int.Parse(customer.Ward.ToString());
+                    model.TinhThanh = idTinhThanh;
+                    model.QuanHuyen = idQuanHuyen;
+                    model.PhuongXa = idPhuongXa;
+   
+                    ViewData["lsLQuanHuyen"] = new SelectList(_context.Locations.Where(x => x.Levels == 2 && x.Parent == idTinhThanh).OrderByDescending(x => x.LocationId == idQuanHuyen).ThenBy(x => x.Name).ToList(), "LocationId", "Name");
+                    ViewData["LsPhuongXa"] = new SelectList(_context.Locations.Where(x => x.Levels == 3 && x.Parent == idQuanHuyen).OrderByDescending(x => x.LocationId == idPhuongXa).ThenBy(x => x.Name).ToList(), "LocationId", "Name");
+                }
                 model.CustomerId = customer.CustomerId;
                 model.FullName = customer.FullName;
                 model.Email = customer.Email;
                 model.Phone = customer.Phone;
                 model.Address = customer.Address;
-                model.TinhThanh = idTinhThanh;
-                model.QuanHuyen = idQuanHuyen;
-                model.PhuongXa = idPhuongXa;
-
                 ViewData["lsLTinhThanh"] = new SelectList(_context.Locations.Where(x => x.Levels == 1).OrderByDescending(x => x.Name).ToList(), "LocationId", "Name");
-                ViewData["lsLQuanHuyen"] = new SelectList(_context.Locations.Where(x => x.Levels == 2 && x.Parent == idTinhThanh).OrderByDescending(x => x.LocationId == idQuanHuyen).ThenBy(x => x.Name).ToList(), "LocationId", "Name");
-                ViewData["LsPhuongXa"] = new SelectList(_context.Locations.Where(x => x.Levels == 3 && x.Parent == idQuanHuyen).OrderByDescending(x => x.LocationId == idPhuongXa).ThenBy(x => x.Name).ToList(), "LocationId", "Name");
             }
+              
             else
             {
                 ViewData["lsLTinhThanh"] = new SelectList(_context.Locations.Where(x => x.Levels == 1).OrderBy(x => x.Type).ToList(), "LocationId", "Name");
