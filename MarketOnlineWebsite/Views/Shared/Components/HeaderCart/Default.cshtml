@@ -27,8 +27,37 @@
             </ul>
         </div>
         <div class="minicart-item_total">
-            <strong> <span>Tổng tiền:</span></strong>
-          <strong>   <span class="ammount">@Model.Sum(x=>x.TotalMoney).ToString("#,##0") VNĐ</span></strong>
+           <strong> <span>Thành tiền:</span></strong>
+          <strong> <span class="ammount">@Model.Sum(x=>x.TotalMoney).ToString("#,##0") VNĐ</span></strong>
+          <br>
+      
+        </div>
+              <div class="minicart-item_total">
+           <strong> <span>Thành tiền:</span></strong>
+          <strong> <span class="ammount">@Model.Sum(x=>x.TotalMoney).ToString("#,##0") VNĐ</span></strong>
+          <br>
+      
+        </div>
+              <div class="minicart-item_total">
+           <strong> <span>Thành tiền:</span></strong>
+          <strong> <span class="ammount">@Model.Sum(x=>x.TotalMoney).ToString("#,##0") VNĐ</span></strong>
+          <br>
+      
+        </div>
+        <div>
+                        <br>
+            @foreach (var item in Model)
+             {
+                @if(item.discount !=null)
+                {
+                 <strong> <span>Mã giảm:</span></strong>
+                 <strong>   <span class="discount">@item.discount</span></strong>
+                 <br>
+                 <strong> <span>Tổng tiền:</span></strong>
+                 <strong>   <span class="discount">@item.TotalMoneyDiscount.ToString("#,##0") VNĐ</span></strong>
+                }
+              
+             }
         </div>
         <div class="group-btn_wrap d-grid gap-2">
 

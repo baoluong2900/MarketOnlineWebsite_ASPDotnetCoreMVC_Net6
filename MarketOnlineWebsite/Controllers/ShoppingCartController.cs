@@ -10,6 +10,8 @@ namespace MarketOnlineWebsite.Controllers
     {
         private readonly dbMarketsContext _context;
         public INotyfService _INotyfService { get; }
+        private const string coupon_1 = "GIAM10%";
+        private const string coupon_2 = "UUDAI10%";
 
         public ShoppingCartController(dbMarketsContext context, INotyfService inotyfService)
         {
@@ -166,6 +168,70 @@ namespace MarketOnlineWebsite.Controllers
         }
 
         #endregion Hàm cập nhật lại số lượng sản phẩm trong giỏ hàng
+
+        #region Hàm cập nhật lại giảm giá
+
+        [HttpPost]
+        [Route("api/cart/discount")]
+        public IActionResult UpdateCartDiscount(string? discount)
+        {
+            // Lấy giỏ hàng ra để xử lý
+            var cart = HttpContext.Session.Get<List<CartItem>>("Cart");
+            try
+            {
+                double test=0;
+                // Nếu đã có thì cập nhật lại số lượng
+                if (cart != null)
+                {
+                    CartItem item = cart.SingleOrDefault();
+                    //item.TotalMoney = item.TotalMoney *((ushort)double.Parse(discount);
+
+                    if(item != null && checkDiscount(discount))
+                    {
+                        item.discount = discount;
+                        ViewBag.discount = discount;
+                        _INotyfService.Success("Áp dụng mã thành công");
+                    }
+                    else
+                    {
+
+                        ModelState.AddModelError("discount", "Email này đã tồn tại rồi");
+
+                    }
+
+                    // lưu lại session
+                    HttpContext.Session.Set<List<CartItem>>("Cart", cart);
+
+                }
+                _INotyfService.Success("Áp dụng mã thành công");
+                return Json(new { success = true });
+                
+            }
+            catch
+            {
+                _INotyfService.Warning("Mã không hợp lệ");
+                return Json(new { success = false });
+         
+            }
+        }
+
+        #endregion Hàm cập nhật lại số lượng sản phẩm trong giỏ hàng
+
+        public Boolean checkDiscount(string discount)
+        {
+            if(discount == coupon_1 && !string.IsNullOrEmpty(discount))
+            {
+                return true;
+            }
+            else if (discount == coupon_2 &&  !string.IsNullOrEmpty(discount))
+            {
+                return true;
+            }
+            else
+            {
+                return false;
+            }  
+        }
 
         [Route("cart.html", Name = "Cart")]
         public IActionResult Index()

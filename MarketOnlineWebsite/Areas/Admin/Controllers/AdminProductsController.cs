@@ -29,8 +29,6 @@ namespace MarketOnlineWebsite.Areas.Admin.Controllers
         // GET: Admin/AdminProducts
         public async Task<IActionResult> Index(int? page, int CatID=0)
         {
-
-
             var pageNumber = page == null || page < 0 ? 1 : page.Value;
             var pageSize = 20;
             //     var lsProducts = _context.Products.AsNoTracking().Include(x => x.Cat).OrderByDescending(x => x.ProductId);

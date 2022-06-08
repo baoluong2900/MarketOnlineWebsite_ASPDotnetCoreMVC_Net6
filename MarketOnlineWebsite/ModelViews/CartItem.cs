@@ -6,6 +6,9 @@ namespace MarketOnlineWebsite.ModelViews
     {
         public Product product { get; set; }
         public int amout { get; set; }
+        public string discount { get; set; }
         public double TotalMoney => amout * product.Price.Value;
+
+        public double TotalMoneyDiscount => TotalMoney * 0.9;
     }
 }

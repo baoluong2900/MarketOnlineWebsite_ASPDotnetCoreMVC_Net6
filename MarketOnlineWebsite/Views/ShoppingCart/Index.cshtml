@@ -1,6 +1,7 @@
 ﻿@model List<MarketOnlineWebsite.ModelViews.CartItem>
 @{
-    ViewData["Title"] = "Index";
+   
+    ViewData["Title"] = "Giỏ hàng của tôi";
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 <!-- Begin Main Content Area -->
@@ -79,13 +80,28 @@
                             <div class="row">
                                 <div class="col-12">
                                     <div class="coupon-all">
-@*                                        <div class="coupon">
-                                            <input id="coupon_code" class="input-text" name="coupon_code" value="" placeholder="Coupon code" type="text">
-                                            <input class="button mt-xxs-30" name="apply_coupon" value="Apply coupon" type="submit">
-                                        </div>*@
+                                        <div class="coupon"> 
+                                            @if(Model !=null)
+                                            {
+                                                foreach (var item in Model)
+                                                {
+                                                    <input id="keyword" style="color:red;" class="input-text" name="keyword" value="@item.discount" placeholder="" type="text">
+                                                    break;
+                                                }
+
+                                            }
+                                            else
+                                            {
+                                                <input id="keyword" class="input-text" name="keyword" value="" placeholder="" type="text">
+                                                 <span asp-Validation-Message="discount" class="text-danger"></span>
+                                            }
+
+                                            <input class="discountupdate button mt-xxs-30" name="apply_coupon" value="Áp dụng mã giảm" type="submit">
+                                        </div>
                                         <div class="coupon2">
                                            <input class="removecartall button"  name="update_cart" style="background-color:darkred" value="Xóa tất cả" type="submit"> 
                                         </div>
+                                 
                                     </div>
                                 </div>
                             </div>
@@ -96,6 +112,25 @@
                                         <ul>
                                             <li>Thành tiền <span>@Model.Sum(x=>x.TotalMoney).ToString("#,##0") VNĐ</span></li>
                                         </ul>
+                                        @if(Model !=null)
+                                        {
+                                           foreach (var item in Model)
+                                           {
+                                                if(item.discount != null)
+                                                { 
+        
+                                                     <ul>
+                                                         <li style=" font-size: 13px;  color: darkred; ">mã giảm: <span>@item.discount</span></li>                                                                                                                     
+                                                    </ul>
+                                                     <ul>
+                                                         <li style="font-size: 20px; ">Tổng tiền: <span>@item.TotalMoneyDiscount.ToString("#,##0") VNĐ</span></li>
+  
+
+                                                    </ul>
+                                                }
+                                            }
+                                        }
+                                      
                                         @if (User.Identity.IsAuthenticated)
                                         {
                                             <a href="/checkout.html" class="btn btn-secondary btn-primary-hover">Đặt hàng</a>
@@ -153,6 +188,21 @@
                        url: "api/cart/removeall",
                        type: "POST",
                        dataType: "JSON",
+                       success: function(result) {
+                            if (result.success) {
+                            loadHeaderCart();
+                            window.location='cart.html';
+                            }
+                        }
+                });
+            });
+            $(".discountupdate").click(function (){
+                var strkeyword = $('#keyword').val();
+                   $.ajax({
+                       url: "api/cart/discount",
+                       type: "POST",
+                       dataType: "JSON",
+                      data: { discount: strkeyword },
                        success: function(result) {
                             if (result.success) {
                             loadHeaderCart();
