@@ -1,10 +1,23 @@
 ﻿@model List<MarketOnlineWebsite.ModelViews.CartItem>
+<style>
+.tab-one {
+    padding-right: 140px;
+}
+.tab-two {
+    padding-right: 185px;
+}
+.tab-three {
+    padding-right: 155px;
+}
+
+
+</style>
 @if (Model !=null && Model.Count() > 0 )
 {
     <div class="harmic-offcanvas-body">
         <div class="minicart-content">
             <div class="minicart-heading">
-                <h4 class="mb-0">Shopping Cart</h4>
+                <h4 class="mb-0">Giỏ hàng của tôi</h4>
                 <a href="#" class="button-close"><i class="pe-7s-close"></i></a>
             </div>
             <ul class="minicart-list">
@@ -26,43 +39,48 @@
                 }
             </ul>
         </div>
-        <div class="minicart-item_total">
+@*        <div class="minicart-item_total">
            <strong> <span>Thành tiền:</span></strong>
-          <strong> <span class="ammount">@Model.Sum(x=>x.TotalMoney).ToString("#,##0") VNĐ</span></strong>
-          <br>
-      
+          <strong> <span class="ammount">@Model.Sum(x=>x.TotalMoney).ToString("#,##0") VNĐ</span></strong>      
         </div>
-              <div class="minicart-item_total">
+         <div class="minicart-item_total">
            <strong> <span>Thành tiền:</span></strong>
-          <strong> <span class="ammount">@Model.Sum(x=>x.TotalMoney).ToString("#,##0") VNĐ</span></strong>
-          <br>
-      
+          <strong> <span class="ammount">@Model.Sum(x=>x.TotalMoney).ToString("#,##0") VNĐ</span></strong>      
         </div>
-              <div class="minicart-item_total">
+         <div class="minicart-item_total">
            <strong> <span>Thành tiền:</span></strong>
-          <strong> <span class="ammount">@Model.Sum(x=>x.TotalMoney).ToString("#,##0") VNĐ</span></strong>
-          <br>
-      
-        </div>
-        <div>
-                        <br>
+          <strong> <span class="ammount">@Model.Sum(x=>x.TotalMoney).ToString("#,##0") VNĐ</span></strong>      
+        </div>*@
+        <div style=" margin-bottom: 40px;margin-top: 20px; line-height: 37px;">
+                <strong class="tab-one"> <span>Thành tiền: &emsp;</span></strong>
+                <strong> <span class="ammount">@Model.Sum(x=>x.TotalMoney).ToString("#,##0") VNĐ</span></strong> 
+                <br>
+            @{
+                var check ="";
+            }
             @foreach (var item in Model)
              {
                 @if(item.discount !=null)
                 {
-                 <strong> <span>Mã giảm:</span></strong>
-                 <strong>   <span class="discount">@item.discount</span></strong>
+                    check = item.discount.ToString();
+                    <strong class="tab-two"><span>Mã giảm:&emsp;</span></strong>
+                 <strong><span class="discount">@item.discount</span></strong>
                  <br>
-                 <strong> <span>Tổng tiền:</span></strong>
-                 <strong>   <span class="discount">@item.TotalMoneyDiscount.ToString("#,##0") VNĐ</span></strong>
-                }
-              
+                }             
              }
+             @{
+                 var test123 =Model.Sum(x=>x.TotalMoney)*0.9;
+                
+             }
+            @if(string.IsNullOrEmpty(check) && check.Count() >0)
+            {
+            <strong class="tab-three"><span>Tổng tiền:&emsp;</span></strong>
+            <strong><span class="discount">@test123.ToString("#,##0") VNĐ</span></strong>
+            }
         </div>
+           
         <div class="group-btn_wrap d-grid gap-2">
-
-            <a href="cart.html" class="btn btn-secondary btn-primary-hover">Xem giỏ hàng</a>
-            
+            <a href="cart.html" class="btn btn-secondary btn-primary-hover">Xem giỏ hàng</a>           
             @if (User.Identity.IsAuthenticated)
              {
                <a href="/checkout.html" class="btn btn-secondary btn-primary-hover">Thanh toán</a>

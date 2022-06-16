@@ -50,9 +50,11 @@ namespace MarketOnlineWebsite.Controllers
             try
             {
                 CartItem item = Cart.SingleOrDefault(p => p.product.ProductId == productID);
+           
+                var carts = HttpContext.Session.Get<List<CartItem>>("Cart");
                 if (item != null)
                 {
-                    var carts = HttpContext.Session.Get<List<CartItem>>("Cart");
+                
                     if (carts != null)
                     {
                         CartItem items = carts.SingleOrDefault(p => p.product.ProductId == productID);
@@ -60,19 +62,27 @@ namespace MarketOnlineWebsite.Controllers
                         {
                             items.amout += amount.Value;
                         }
-
+                        
                         // lưu lại session
                         HttpContext.Session.Set<List<CartItem>>("Cart", carts);
+                       
                     }
+                    
                 }
                 else
                 {
+                     
                     Product products = _context.Products.SingleOrDefault(p => p.ProductId == productID);
                     item = new CartItem
                     {
                         amout = amount.HasValue ? amount.Value : 1,
                         product = products,
+                                                              
                     };
+                    //if (itemCheck.discount.ToString() != null)
+                    //{
+                    //    item.discount = itemCheck.discount;
+                    //}
 
                     // Thêm vào giỏ hàng
                     cart.Add(item);
@@ -179,17 +189,16 @@ namespace MarketOnlineWebsite.Controllers
             var cart = HttpContext.Session.Get<List<CartItem>>("Cart");
             try
             {
-                double test=0;
+                double test = 0;
                 // Nếu đã có thì cập nhật lại số lượng
                 if (cart != null)
                 {
                     CartItem item = cart.SingleOrDefault();
                     //item.TotalMoney = item.TotalMoney *((ushort)double.Parse(discount);
 
-                    if(item != null && checkDiscount(discount))
+                    if (item != null && checkDiscount(discount))
                     {
                         item.discount = discount;
-                        ViewBag.discount = discount;
                         _INotyfService.Success("Áp dụng mã thành công");
                     }
                     else
@@ -205,13 +214,13 @@ namespace MarketOnlineWebsite.Controllers
                 }
                 _INotyfService.Success("Áp dụng mã thành công");
                 return Json(new { success = true });
-                
+
             }
             catch
             {
                 _INotyfService.Warning("Mã không hợp lệ");
                 return Json(new { success = false });
-         
+
             }
         }
 

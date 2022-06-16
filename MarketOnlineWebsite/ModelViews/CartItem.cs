@@ -9,6 +9,6 @@ namespace MarketOnlineWebsite.ModelViews
         public string discount { get; set; }
         public double TotalMoney => amout * product.Price.Value;
 
-        public double TotalMoneyDiscount => TotalMoney * 0.9;
+        public double TotalMoneyDiscount { get; set; }
     }
 }

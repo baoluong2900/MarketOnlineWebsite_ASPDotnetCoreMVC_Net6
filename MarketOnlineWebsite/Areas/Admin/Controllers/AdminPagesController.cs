@@ -33,7 +33,7 @@ namespace MarketOnlineWebsite.Areas.Admin.Controllers
             var lsPages = _context.Pages.AsNoTracking().OrderByDescending(x => x.PageId);
             PagedList<Page> models = new PagedList<Page>(lsPages, pageNumber, pageSize);
             ViewBag.CurrentPage = pageNumber;
-
+             
             //var dbMarketsContext = _context.Customers.Include(c => c.Location);
             //return View(await dbMarketsContext.ToListAsync());
             return View(models);
