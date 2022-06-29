@@ -34,33 +34,67 @@
                         var rowNumber = 1; 
                         foreach (var pagesItem in Model)
                         {
-                            <tr>
-                                <th scope="row">@rowNumber</th>
-                                <td>
-                                    @pagesItem.OrderId
-                                </td>
-                                <td>
-                                    @pagesItem.Customer.FullName
-                                </td>
-                                <td>
-                                    @pagesItem.OrderDate
-                                </td>
-                                <td>
-                                    @pagesItem.TotalMoney.ToString("#,###") VNĐ
+                            if (pagesItem.TransactStatusId != 14)
+                            {
+                                <tr>
+                                    <th scope="row">@rowNumber</th>
+                                    <td>
+                                        @pagesItem.OrderId
+                                    </td>
+                                    <td>
+                                        @pagesItem.Customer.FullName
+                                    </td>
+                                    <td>
+                                        @pagesItem.OrderDate
+                                    </td>
+                                    <td>
+                                        @pagesItem.TotalMoney.ToString("#,###") VNĐ
                                    
-                                </td>
-                                <td>
-                                    @pagesItem.TransactStatus.Status
-                                </td>
-                                <td>
+                                    </td>
+                                    <td>
+                                        @pagesItem.TransactStatus.Status
+                                    </td>
+                                    <td>
                            
-                                     <a class="anticon anticon-bars btn btn-success btn-tone m-r-5" asp-action="Details" asp-route-id="@pagesItem.OrderId"></a> 
-                                     <a class="anticon anticon-plus-square btn btn-secondary btn-tone m-r-5"  asp-action="ChangeStatus" asp-route-id="@pagesItem.OrderId"></a>
-                                     <a class="anticon anticon-edit btn btn-warning btn-tone m-r-5"  asp-action="Edit" asp-route-id="@pagesItem.OrderId"></a>
-                                     <a class="anticon anticon-delete btn btn-danger btn-tone m-r-5" asp-action="Delete" asp-route-id="@pagesItem.OrderId"></a> 
-                              </td>
-                                </tr>
-                                 rowNumber ++; 
+                                         <a class="anticon anticon-bars btn btn-success btn-tone m-r-5" asp-action="Details" asp-route-id="@pagesItem.OrderId"></a> 
+                                         <a class="anticon anticon-plus-square btn btn-secondary btn-tone m-r-5"  asp-action="ChangeStatus" asp-route-id="@pagesItem.OrderId"></a>
+                                         <a class="anticon anticon-edit btn btn-warning btn-tone m-r-5"  asp-action="Edit" asp-route-id="@pagesItem.OrderId"></a>
+                                         <a class="anticon anticon-delete btn btn-danger btn-tone m-r-5" asp-action="Delete" asp-route-id="@pagesItem.OrderId"></a> 
+                                    </td>
+                               </tr>
+                                rowNumber ++; 
+                            }
+                            else
+                            {
+                               <tr style="color:red;">
+                                    <th scope="row">@rowNumber</th>
+                                    <td>
+                                        @pagesItem.OrderId
+                                    </td>
+                                    <td>
+                                        @pagesItem.Customer.FullName
+                                    </td>
+                                    <td>
+                                        @pagesItem.OrderDate
+                                    </td>
+                                    <td>
+                                        @pagesItem.TotalMoney.ToString("#,###") VNĐ
+                                   
+                                    </td>
+                                    <td>
+                                        @pagesItem.TransactStatus.Status
+                                    </td>
+                                    <td>
+                           
+                                         <a class="anticon anticon-bars btn btn-success btn-tone m-r-5" asp-action="Details" asp-route-id="@pagesItem.OrderId"></a> 
+                                         <a class="anticon anticon-plus-square btn btn-secondary btn-tone m-r-5"  asp-action="ChangeStatus" asp-route-id="@pagesItem.OrderId"></a>
+                                         <a class="anticon anticon-edit btn btn-warning btn-tone m-r-5"  asp-action="Edit" asp-route-id="@pagesItem.OrderId"></a>
+                                         <a class="anticon anticon-delete btn btn-danger btn-tone m-r-5" asp-action="Delete" asp-route-id="@pagesItem.OrderId"></a> 
+                                    </td>
+                               </tr>
+                                rowNumber ++; 
+                            }
+
                         }
                     }
   

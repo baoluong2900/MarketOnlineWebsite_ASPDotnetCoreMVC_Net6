@@ -11,6 +11,7 @@
     int totalTevenueMonth = ViewBag.TotalTevenueMonth;
     int totalTevenueDay = ViewBag.TotalTevenueDay;
     int sumUsers = ViewBag.SumUsers;
+    int totalTevenueAll =  ViewBag.TotalTevenueAll;
 
 }
 <div class="row">
@@ -25,7 +26,7 @@
                                 <h2 class="m-b-0" style="margin-top: 13px;font-size: 17px;font-weight: 500;">@totalTevenueMonth.ToString("#,##0") VNĐ</h2>
                             </div>
                             <span class="badge badge-pill badge-cyan font-size-12">
-                                <i class="anticon anticon-arrow-up"></i>
+                                <i class="anticon anticon-arrow-up"></i>a
                                 <span class="font-weight-semibold m-l-5">6.71%</span>
                             </span>
                         </div>
@@ -197,14 +198,15 @@
                         <div class="pr-4 m-v-10 border-right border-hide-md">
                             <p class="m-b-0">Lợi nhuận</p>
                             <h3 class="m-b-0">
-                                <span>180.000.000 VNĐ</span>
+                                <span>100.000.000 VNĐ</span>
                                 <span class="text-success m-l-10 font-size-14">+6.71%</span>
                             </h3>
                         </div>
                         <div class="px-md-4 m-v-10 border-right border-hide-md">
                             <p class="m-b-0">Bán hàng</p>
                             <h3 class="m-b-0">
-                                <span>250.000.000 VNĐ</span>
+                               @* <span>@totalTevenueAll.ToString("#,##0") VNĐ</span>*@
+                                 <span>500.000.000 VNĐ</span>
                                 <span class="text-danger m-l-10 font-size-14">+1.82%</span>
                             </h3>
                         </div>

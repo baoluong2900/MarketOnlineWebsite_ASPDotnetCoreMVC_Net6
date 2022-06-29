@@ -10,6 +10,7 @@ using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using Newtonsoft.Json;
+using System.Net.WebSockets;
 using System.Security.Claims;
 
 
@@ -50,6 +51,8 @@ namespace MarketOnlineWebsite.Areas.Admin.Controllers
             var dayNow = DateTime.Now.Day;
             var totalTevenueDay = _context.Orders.AsNoTracking().Where(x => x.OrderDate.Value.Day == dayNow).Sum(x => x.TotalMoney);
 
+            var totalTevenueAll = _context.Orders.AsNoTracking().Sum(x => x.TotalMoney);
+
             var countOrders = _context.Orders.AsNoTracking().Count();
             var countSuppliers = _context.Suppliers.AsNoTracking().Count();
             var countCustomers= _context.Customers.AsNoTracking().Count();
@@ -63,6 +66,7 @@ namespace MarketOnlineWebsite.Areas.Admin.Controllers
             ViewBag.CountOrders = countOrders;
             ViewBag.TotalTevenueMonth = totalTevenueMonth;
             ViewBag.TotalTevenueDay = totalTevenueDay;
+            ViewBag.TotalTevenueAll = totalTevenueAll;
             ViewBag.ListOrder = lsOrders;
             ViewBag.ListProduct=lsProducts;
             ViewBag.SumUsers = sumUsers;

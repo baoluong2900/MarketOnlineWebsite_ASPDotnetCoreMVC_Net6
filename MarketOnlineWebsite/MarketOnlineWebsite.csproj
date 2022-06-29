@@ -25,6 +25,7 @@
     <Folder Include="wwwroot\images\categories\" />
     <Folder Include="wwwroot\images\users\" />
     <Folder Include="wwwroot\images\pages\" />
+    <Folder Include="wwwroot\Userassets\images\supplier\" />
   </ItemGroup>
 
   <ItemGroup>
