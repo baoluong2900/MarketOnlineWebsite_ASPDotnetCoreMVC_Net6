@@ -8,7 +8,8 @@ namespace MarketOnlineWebsite.Helpper
         private static readonly string Payment_Id_01 = "Thanh toán khi nhận hàng (COD)";
         private static readonly string Payment_Id_02 = "Chuyển khoản ngân hàng";
         private static readonly string Payment_Id_03 = "Thanh toán qua MOMO";
-        public static string GetPaymentName(int paymentId)
+		private static readonly string Payment_Id_04 = "Thanh toán paypal";
+		public static string GetPaymentName(int paymentId)
         {
             if (paymentId == 1)
             {
@@ -18,9 +19,16 @@ namespace MarketOnlineWebsite.Helpper
             {
                 return Payment_Id_02;
             }
-            return Payment_Id_03;
-        
-        }
+			else if (paymentId == 3)
+			{
+				return Payment_Id_03;
+			}
+			else if (paymentId == 4)
+			{
+				return Payment_Id_04;
+			}
+			return null;
+		}
 
         public static string StripHTML(string input)
         {

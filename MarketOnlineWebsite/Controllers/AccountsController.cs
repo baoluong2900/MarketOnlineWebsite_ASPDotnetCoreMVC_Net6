@@ -4,11 +4,15 @@ using MarketOnlineWebsite.Helpper;
 using MarketOnlineWebsite.Models;
 using MarketOnlineWebsite.ModelViews;
 using Microsoft.AspNetCore.Authentication;
+using Microsoft.AspNetCore.Authentication.Cookies;
+using Microsoft.AspNetCore.Authentication.Google;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.ModelBinding;
 using Microsoft.EntityFrameworkCore;
 using PagedList.Core;
+using PayPal.Api;
+using PayPal;
 using System.Security.Claims;
 
 namespace MarketOnlineWebsite.Controllers
@@ -217,7 +221,58 @@ namespace MarketOnlineWebsite.Controllers
 
         }
 
-        [HttpPost]
+		public async Task LoginGoogle()
+		{
+			await HttpContext.ChallengeAsync(GoogleDefaults.AuthenticationScheme, new AuthenticationProperties
+			{
+				RedirectUri = Url.Action("GoogleResponse")
+			});
+		}
+
+		[AllowAnonymous]
+		public async Task<IActionResult> GoogleResponse()
+		{
+			var result = await HttpContext.AuthenticateAsync(CookieAuthenticationDefaults.AuthenticationScheme);
+			var claim = result.Principal.Identities.FirstOrDefault().Claims.Select(x=> new { x.Value, x.Type, x.OriginalIssuer, x.Issuer } );
+
+			var userName = claim.LastOrDefault().Value;
+			var customer = _context.Customers
+			  .SingleOrDefault(x => x.Email.ToLower().Trim() == userName.ToLower().Trim());
+			if(customer == null)
+			{
+				Customer customerSave = new Customer
+				{
+					FullName =string.Empty,
+					Phone = string.Empty,
+					Email = userName,
+					Password = string.Empty,
+					Active = true,
+					Salt = string.Empty,
+				};
+				_context.Add(customerSave);
+				await _context.SaveChangesAsync();
+				customer = customerSave;
+			}
+
+			// Lưu session MaKH
+			HttpContext.Session.SetString("CustomerId", customer.CustomerId.ToString());
+			var customerID = HttpContext.Session.GetString("CustomerId");
+			// Indentity
+
+			var claims = new List<Claim>
+						{
+							new Claim(ClaimTypes.Name, customer.FullName),
+							new Claim("CustomerId", customer.CustomerId.ToString()),
+						};
+			ClaimsIdentity claimsIdentity = new ClaimsIdentity(claims, "login");
+			ClaimsPrincipal claimsPrincipal = new ClaimsPrincipal(claimsIdentity);
+			await HttpContext.SignInAsync(claimsPrincipal);
+			_INotyfService.Success("Đăng nhập thành công");
+			return RedirectToAction("Dashboard", "Accounts");
+		}
+
+
+		[HttpPost]
         [AllowAnonymous]
         [ValidateAntiForgeryToken]
         [Route("dang-nhap.html", Name = "DangNhap")]

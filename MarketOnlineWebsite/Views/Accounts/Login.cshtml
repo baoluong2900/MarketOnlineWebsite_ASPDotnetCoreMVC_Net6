@@ -25,10 +25,10 @@
         <div class="container">
             <div class="row">
                 <div class="col-lg-6 pt-10 pt-lg-0">
-                    
+                    <div class="login-form">
                     <form method="post"  asp-action="Login" asp-route-returnurl="@ViewData["ReturnUrl"]" >
                      <div asp-validation-summary="ModelOnly" class="text-danger"></div>
-                             <div class="login-form">
+                          
                             <h4 class="login-title">Đăng nhập tài khoản</h4>
                             <div class="row">
                                <div class="col-md-12">
@@ -41,15 +41,43 @@
                                     <input type="password" asp-for="Password" placeholder="Mật khẩu">
                                      <span asp-validation-for="Password" class="text-danger"></span>
                                 </div>
-                                <div class="col-12">
+                                <div class="col-6">
                                     <button class="btn btn-custom-size lg-size btn-secondary btn-primary-hover rounded-0">Đăng nhập</button>
                                 </div>
-                            </div>
-                        </div>
-                    </form> 
+                    
+                    </form>
+                    <div class="col-6">
+                        <form asp-action="LoginGoogle">
+                            <button type="submit" class="btn btn-custom-size lg-size btn-secondary btn-primary-hover rounded-0">Đăng nhập Gmail</button>
+                        </form>
+                    </div>
+                    </div>
+                    </div>
                 </div>
             </div>
         </div>
     </div>
 </main>
+@section Scripts {
+    <script>
+        $(document).ready(function () {
+            $("#btnGmail").on("click", function () {
+                loginGoogle();
+            });
+        });
+
+        async function loginGoogle() {
+            await $.ajax({
+                url: "/AccountsController/LoginGoogle", // Thay thế "ControllerName" bằng tên của controller chứa hàm LoginGoogle
+                method: "POST", // Hoặc "GET" tùy thuộc vào cách bạn đã cấu hình định tuyến
+                success: function () {
+                    // Xử lý thành công nếu cần thiết
+                },
+                error: function () {
+                    // Xử lý lỗi nếu cần thiết
+                }
+            });
+        }
+    </script>
+}
 

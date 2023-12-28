@@ -209,7 +209,7 @@
                                                 <option  value="1" data-display="Thanh toán khi nhận hàng (COD)">Thanh toán khi nhận hàng (COD)</option>
                                                 <option   value="2" data-display="Chuyển khoản ngân hàng">Chuyển khoản ngân hàng</option>
                                                 <option  value="3" data-display="Thanh toán qua MOMO">Thanh toán qua MOMO</option>
-                                                   
+                                               <option value="4" data-display="Thanh toán qua PayPal">Thanh toán qua PayPal</option>
                                             </select>
                                          <span asp-validation-for="PaymentID" class="text-danger"></span>
                                             @* <span asp-validation-for="PaymentID" class="text-danger"></span>*@
@@ -225,17 +225,17 @@
                                             <p id="text3" style="display:none" class="settingShow">
                                                 &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; THÔNG TIN TÀI KHOẢN MOMO <br />
                                             SỐ ĐIỆN THOẠI : 02102012010 <BR />
-                                            TÊN TÀI KHOẢN : Bảo Lương
+                                            TÊN TÀI KHOẢN : NHÓM 9
                                             </p>
                                             <p id="text2" style="display:none" class="settingShow">
                                                 &nbsp;  &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; THÔNG TIN CHUYỂN KHOẢN QUA NGÂN HÀNG <br />
                                             SỐ TÀI KHOẢN    : 1812010310311 <br /> 
-                                            CHỦ TÀI KHOẢN   : LUONG VIET BAO <br /> 
+                                            CHỦ TÀI KHOẢN   : NHÓM 9 <br /> 
                                             NGÂN HÀNG       : VietCombank
                                             </p>
                                     </div>
-
-                                    <input value="ĐẶT HÀNG" type="submit" id="add_to_Cart" >
+                                        <input value="ĐẶT HÀNG" type="submit" id="add_to_Cart">
+                                   
                                 </div>
                             </div>
                         </div>
@@ -307,6 +307,7 @@
                      });
             });
         });
+
         //if($("#TinhThanh").val() != 0) {
         //    var locationid = $('#TinhThanh').val();
         //    $.ajax({
@@ -343,18 +344,18 @@
                 $("#text1").show();
                 $("#text2").hide();
                 $("#text3").hide();
-            } else if  ($(this).val() == "2") {
+            } else if ($(this).val() == "2") {
                 $("#text2").show();
                 $("#text1").hide();
                 $("#text3").hide();
             }
-            else {
+            else if ($(this).val() == "3") {
+                $("#text3").show();
                 $("#text2").hide();
                 $("#text1").hide();
-                $("#text3").show();
+
             }
         });
     });
 </script>
-
 }

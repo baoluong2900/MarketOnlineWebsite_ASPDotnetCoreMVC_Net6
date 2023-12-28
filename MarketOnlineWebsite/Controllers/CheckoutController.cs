@@ -6,19 +6,35 @@ using MarketOnlineWebsite.ModelViews;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.EntityFrameworkCore.Metadata.Internal;
+using Newtonsoft.Json;
+using PayPal.Api;
+using System;
+using static Microsoft.EntityFrameworkCore.DbLoggerCategory;
 
 namespace MarketOnlineWebsite.Controllers
 {
     public class CheckoutController : Controller
     {
         private readonly dbMarketsContext _context;
-        public INotyfService _INotyfService { get; }
 
-        public CheckoutController(dbMarketsContext context, INotyfService inotyfService)
+		private List<OrderDetail> OrderDetailSave = new List<OrderDetail>();
+		private Models.Order OrderSave = new Models.Order();
+
+		public INotyfService _INotyfService { get; }
+
+		// Config paypal
+		private PayPal.Api.Payment payment;
+		private IHttpContextAccessor _contextAccessor;
+		IConfiguration _configuration;
+
+		public CheckoutController(dbMarketsContext context, INotyfService inotyfService, IHttpContextAccessor contextAccessor, IConfiguration configuration)
         {
             _context = context;
             _INotyfService = inotyfService;
-        }
+			_contextAccessor = contextAccessor;
+			_configuration = configuration;
+		}
 
         #region Hàm lấy giỏ hàng
 
@@ -120,7 +136,7 @@ namespace MarketOnlineWebsite.Controllers
             {
                 if (ModelState.IsValid)
                 {
-                    Order order = new Order();
+                    Models.Order order = new Models.Order();
                     order.CustomerId = model.CustomerId;
                     order.Address = purchaseVM.Address;
                     order.LocationId = purchaseVM.TinhThanh;
@@ -133,35 +149,51 @@ namespace MarketOnlineWebsite.Controllers
                     order.Paid = false; // thanh toán chưa
                     order.Note = Utilities.StripHTML(purchaseVM.Note);
                     order.TotalMoney = Convert.ToInt32(cart.Sum(x => x.TotalMoney));
-                    _context.Add(order);
-                    _context.SaveChanges();
+					if (order.PaymentId == 4)
+					{
+						// Lưu trữ dữ liệu vào TempData
+						string cartSaveJson = JsonConvert.SerializeObject(cart);
+						TempData["CartSave"] = cartSaveJson;
 
-                    var orderNumber = 0;
-                    foreach (var item in cart)
-                    {
-                        orderNumber++;
-                    }
-                    // Tạo danh sách đơn hàng
-                    foreach (var item in cart)
-                    {
-                        OrderDetail orderDetail = new OrderDetail();
-                        orderDetail.OrderId = order.OrderId;
-                        orderDetail.ProductId = item.product.ProductId;
-                        orderDetail.Amount = item.amout;
-                        orderDetail.Price = item.product.Price;
-                        orderDetail.TotalMoney = order.TotalMoney;
-                        orderDetail.OrderNumber = orderNumber;
-                        _context.Add(orderDetail);
-                    }
+						string orderSaveJson = JsonConvert.SerializeObject(order);
+						TempData["OrderSave"] = orderSaveJson;
 
-                    _context.SaveChanges();
+						return RedirectToAction("PaymentWithPaypal");
+					}
+					else
+					{
+						_context.Add(order);
+						_context.SaveChanges();
 
-                    HttpContext.Session.Remove("Cart");
 
-                    _INotyfService.Success("Đơn hàng đặt thành công");
+						var orderNumber = 0;
+						foreach (var item in cart)
+						{
+							orderNumber++;
+						}
+						// Tạo danh sách đơn hàng
+						foreach (var item in cart)
+						{
+							OrderDetail orderDetail = new OrderDetail();
+							orderDetail.OrderId = order.OrderId;
+							orderDetail.ProductId = item.product.ProductId;
+							orderDetail.Amount = item.amout;
+							orderDetail.Price = item.product.Price;
+							orderDetail.TotalMoney = order.TotalMoney;
+							orderDetail.OrderNumber = orderNumber;
+						}
 
-                    return RedirectToAction("Success");
-                }
+						_context.SaveChanges();
+
+						HttpContext.Session.Remove("Cart");
+
+						_INotyfService.Success("Đơn hàng đặt thành công");
+
+						return RedirectToAction("Success");
+					}
+
+					
+				}
                 else
                 {
                     //HttpCookie userIdCookie = new HttpCookie("UserID");
@@ -184,7 +216,161 @@ namespace MarketOnlineWebsite.Controllers
             return View(model);
         }
 
-        [Route("dat-hang-thanh-cong.html", Name = "Success")]
+		#region Setting Paypal
+
+		public  ActionResult PaymentWithPaypal(string cancel = null, string blogId = "", string PayerId = "", string guid = "")
+		{
+
+			var ClientID = _configuration.GetValue<string>("PayPal:Key");
+			var ClientSecret = _configuration.GetValue<string>("PayPal:Secret");
+			var mode = _configuration.GetValue<string>("PayPal:mode");
+			APIContext apiContext = PaypalExtension.GetAPIContext(ClientID, ClientSecret, mode);
+			try
+			{
+				string payerId = PayerId;
+				if (string.IsNullOrEmpty(payerId))
+				{
+					string baseURI = this.Request.Scheme + "://" + this.Request.Host + "/Checkout/PaymentWithPaypal?";
+					var guidd = Convert.ToString((new Random()).Next(100000));
+					guid = guidd;
+
+					var createdPayment = this.CreatePayment(apiContext, baseURI + "guid=" + guid, blogId);
+					var links = createdPayment.links.GetEnumerator();
+					string paypalRedirectUrl = null;
+					while (links.MoveNext())
+					{
+						Links links1 = links.Current;
+						if (links1.rel.ToLower().Trim().Equals("approval_url"))
+						{
+							paypalRedirectUrl = links1.href;
+						}
+					}
+
+					_contextAccessor.HttpContext.Session.SetString("payment", createdPayment.id);
+					return Redirect(paypalRedirectUrl);
+
+				}
+				else
+				{
+					var paymentId = _contextAccessor.HttpContext.Session.GetString("payment");
+					var executedPayment = ExecutedPayment(apiContext, payerId, paymentId as string);
+					if (executedPayment.state.ToLower() != "approved")
+					{
+						_INotyfService.Error("Đặt thất bại");
+						return View();
+					}
+					var blogIds = executedPayment.transactions[0].item_list.items[0].sku;
+					// Khôi phục dữ liệu từ TempData
+					string cartSaveJson = TempData["CartSave"] as string;
+					List<CartItem> cartSave = JsonConvert.DeserializeObject<List<CartItem>>(cartSaveJson);
+
+
+					// Khôi phục dữ liệu từ TempData
+					string orderSaveJson = TempData["OrderSave"] as string;
+					Models.Order orderSave = JsonConvert.DeserializeObject<Models.Order>(orderSaveJson);
+					orderSave.Paid = true;
+					orderSave.PaymentDate = DateTime.Now;
+					_context.Add(orderSave);
+					_context.SaveChanges();
+					var orderNumber = 0;
+					foreach (var item in cartSave)
+					{
+						orderNumber++;
+					}
+					// Tạo danh sách đơn hàng
+					foreach (var item in cartSave)
+					{
+						OrderDetail orderDetail = new OrderDetail();
+						orderDetail.OrderId = orderSave.OrderId;
+						orderDetail.ProductId = item.product.ProductId;
+						orderDetail.Amount = item.amout;
+						orderDetail.Price = item.product.Price;
+						orderDetail.TotalMoney = orderSave.TotalMoney;
+						orderDetail.OrderNumber = orderNumber;
+						_context.Add(orderDetail);
+					}
+
+					_context.SaveChanges();
+
+					HttpContext.Session.Remove("Cart");
+
+					_INotyfService.Success("Đơn hàng đặt thành công");
+
+					return RedirectToAction("Success");
+				
+				}
+			}
+			catch (Exception ex)
+			{
+				throw;
+			}
+		}
+
+		private Payment ExecutedPayment(APIContext aPIContext, string payerId, string paymentId)
+		{
+			var paymentExecuteion = new PaymentExecution()
+			{
+				payer_id = payerId,
+			};
+			this.payment = new Payment()
+			{
+				id = paymentId,
+			};
+			return this.payment.Execute(aPIContext, paymentExecuteion);
+		}
+		private Payment CreatePayment(APIContext apiContext, string redirectUrl, string blogId)
+		{
+			var itemList = new ItemList()
+			{
+				items = new List<Item>()
+			};
+
+			itemList.items.Add(new Item()
+			{
+				name = "item Detail",
+				currency = "USD",
+				price = "5.00",
+				quantity = "1",
+				sku = "asd",
+
+			});
+
+			var payer = new Payer()
+			{
+				payment_method = "paypal"
+			};
+
+			var redirUrls = new RedirectUrls()
+			{
+				cancel_url = redirectUrl + "&Cancel=true",
+				return_url = redirectUrl
+			};
+			var amount = new Amount()
+			{
+				currency = "USD",
+				total = "5.00",
+			};
+			var transactionList = new List<Transaction>();
+			transactionList.Add(new Transaction()
+			{
+				description = "Transaction description",
+				invoice_number = Guid.NewGuid().ToString(),
+				amount = amount,
+				item_list = itemList
+			});
+			this.payment = new Payment()
+			{
+				intent = "sale",
+				payer = payer,
+				transactions = transactionList,
+				redirect_urls = redirUrls
+			};
+			return this.payment.Create(apiContext);
+		}
+
+		#endregion
+
+		[Route("dat-hang-thanh-cong.html", Name = "Success")]
         public IActionResult Success()
         {
             try

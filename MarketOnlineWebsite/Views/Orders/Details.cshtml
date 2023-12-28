@@ -12,8 +12,20 @@
         <div class="col-4">  <p>Tỉnh/Thành: @Model.TinhThanh</p></div>
         <div class="col-7"> <p>Phương thức thanh toán: @Model.Payment</p></div>
        <div class="col-5"> <p>Trạng thái đơn hàng: @Model.TransactStatus</p></div>
-       <div class="col-6"><p>Ngày đặt hàng: @Model.Order.OrderDate.Value.ToString("dd/MM/yyyy HH:mm:ss")</p></div>
-        @if(@Model.Order.ShipDate !=null)
+       <div class="col-6"><p>Ngày đặt hàng: @Model?.Order?.OrderDate.Value.ToString("dd/MM/yyyy HH:mm:ss")</p></div>
+
+    @if (@Model.Order.Paid)
+    {
+        <div class="col-6"> <p>Tình trạng thanh toán: Đã thanh toán</p></div>
+        <div class="col-6"><p>Ngày thanh toán: @Model.Order?.PaymentDate.Value.ToString("dd/MM/yyyy HH:mm:ss")</p></div>
+    }
+    else
+    {
+        <div class="col-6"> <p>Tình trạng thanh toán: Chưa thanh toán</p></div>
+    }
+
+
+        @if(@Model?.Order?.ShipDate !=null)
         {
             <div class="col-6"><p>Ngày giao hàng: @Model.Order.ShipDate.Value.ToString("dd/MM/yyyy HH:mm:ss")</p></div>
         }
