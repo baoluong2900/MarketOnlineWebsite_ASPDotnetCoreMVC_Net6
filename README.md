@@ -1,10 +1,8 @@
-Topic: EXPLORING ASP.NET CORE MVC TO DEVELOP AN ONLINE SHOPPING APPLICATION
-
 Supervisor: NGUYỄN QUANG HƯNG
 Student: LƯƠNG VIẾT BẢO
 Student ID: 18T1021012
-Program: TINK42B – Undergraduate Program
-University: Hue University
+Class: TINK42B
+University: Hue University of Sciences
 Faculty: Information Technology
 Major: Software Engineering
 
