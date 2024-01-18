@@ -1,8 +1,11 @@
-Đề tài: TÌM HIỂU ASP.NET CORE MVC ĐỂ XÂY DỰNG ỨNG DỤNG ĐI CHỢ ONLINE <br>
-Giáo viên hướng dẫn : NGUYỄN QUANG HƯNG <br>
-Sinh viên thực hiện : LƯƠNG VIẾT BẢO <br>
-Mã sinh viên: 18T1021012 <br>
-Khóa : TINK42B – Hệ chính quy <br>
-Trường: Đại học Khoa Học Huế <br>
-Khoa: Công nghệ thông tin <br>
-Chuyên ngành: Công nghệ phần mềm <br>
+Topic: EXPLORING ASP.NET CORE MVC TO DEVELOP AN ONLINE SHOPPING APPLICATION
+
+Supervisor: NGUYỄN QUANG HƯNG
+Student: LƯƠNG VIẾT BẢO
+Student ID: 18T1021012
+Program: TINK42B – Undergraduate Program
+University: Hue University
+Faculty: Information Technology
+Major: Software Engineering
+
+The project serves as the graduation thesis and has received consolation prize at the Hue-ICT Challenge 2022 for college and university students.
